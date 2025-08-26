@@ -1,15 +1,8 @@
 @font-face {
   font-family: 'Tenacity';
-  src: url('./fonts/Tenacity.woff2') format('woff2'),
-       url('./fonts/Tenacity.ttf') format('truetype');
+  src: url('font/Tenacity.woff2') format('woff2'),
+       url('font/Tenacity.woff') format('woff'),
+       url('font/Tenacity.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
-}
-
-body {
-  font-family: 'Tenacity', sans-serif;
-  background: #f5f5f5;
-  color: #333;
-  padding: 40px;
 }
