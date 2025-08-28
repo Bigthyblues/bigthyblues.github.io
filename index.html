@@ -37,8 +37,6 @@
       const aboutBtn = document.getElementById('i0msd');
       const socialsBtn = document.getElementById('ipsh8');
       const charsBtn = document.getElementById('is0yf');
-      const Blues = document.getElementById('ihdpn');
-      const Fizz = document.getElementById('i3zej');
 
       if (aboutBtn) {
         aboutBtn.addEventListener('click', () => {
@@ -60,20 +58,23 @@
           // 以后改跳转：window.location.href = 'characters.html';
         });
       }
-      
-      if (Blues) {
-        charsBtn.addEventListener('click', () => {
-          alert('Woof!🐶');
-          // 汪彩蛋！;
-        });
-      }
-      
-      if (Fizz) {
-        charsBtn.addEventListener('click', () => {
-          alert('Meow!🐱');
-          // 喵彩蛋！;
-        });
-      }
     </script>
+
+    <script>
+  document.getElementById('ihdpn').addEventListener('click', () => {
+    alert('Woof!🐶');
+  });
+</script>
+    
+    <script>
+  const fizzImg = document.getElementById('i3zej');
+  if (fizzImg) {
+    fizzImg.addEventListener('click', () => {
+      alert('Meow!🐱');
+    });
+  }
+</script>
+
+
   </body>
 </html>
