@@ -1,8 +1,0 @@
-@font-face {
-  font-family: 'Tenacity';
-  src: url('font/Tenacity.woff2') format('woff2'),
-       url('font/Tenacity.woff') format('woff'),
-       url('font/Tenacity.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
