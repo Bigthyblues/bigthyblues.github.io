@@ -11,18 +11,16 @@
   <meta property="og:description" content="404 error"/>
   <meta property="og:image" content="img/bluesicon.png"/>
   <link rel="icon" href="img/bluesicon.png"/>
-  <!-- 恢复自定义字体（Tenacity） -->
-    <style>
-      @font-face {
-        font-family: 'Tenacity';
-        src: url('font/Tenacity.woff2') format('woff2'),
-             url('font/Tenacity.woff') format('woff'),
-             url('font/Tenacity.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      body { font-family: 'Tenacity', Arial, sans-serif; }
-    </style>
+    
+    /* 导入 Tenacity 字体 */
+  @font-face {
+  font-family: 'Tenacity';
+  src: url('./font/Tenacity.woff2') format('woff2'),
+       url('./font/Tenacity.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* 避免加载字体前页面空白 */
+}
 
     <!-- 你的样式文件（含布局与按钮 hover 效果） -->
     <link rel="stylesheet" href="./style.css">
