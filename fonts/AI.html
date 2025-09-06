@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Notice</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row justify-content-center p-1 m-1">
+    <div class="col-lg-4 col-sm-flex p-1 bg-faded"
+         style="border-radius:15px; border:6px solid rgba(250,0,0,1); position: relative;">
+      <div class="row justify-content-center no-gutters">
+        <div class="col-flex pt-2 pr-1" style="display:block;margin-left:auto;margin-right:auto;">
+          <a href="https://nightshade.cs.uchicago.edu/userguide.html"
+             title="User images may be protected using Nightshade & Glaze.">
+            <i class="far fa-ban-bug fa-4x p-1 pl-2" style="color:rgba(250,0,0,1)"></i>
+          </a>
+        </div>
+        <div class="col">
+          <p class="p-1" style="font-size:12px;">
+            <b>This user's characters, art, stories, and other original creations
+              <a href="https://nightshade.cs.uchicago.edu/whatis.html" data-toggle="tooltip"
+                 data-placement="bottom"
+                 title="Learn more about protecting your own images here.">may not be used to train any form of AI.</a>
+            </b>
+            <br>Any unauthorized use, reproduction, or redistribution
+            <br>will be met with appropriate legal action.
+          </p>
+          <a href="https://toyhou.se/suitcasedragon/characters/folder:1942861"
+             class="small text-right faded"
+             style="display:flex;position:absolute;right:2px;bottom:3px;color:gray;"
+             data-toggle="tooltip" data-placement="bottom"
+             title="coded by suitcasedragon"><i class="fas fa-code"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS + Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+</body>
+</html>
