@@ -3684,6 +3684,10 @@ body.has-character-modal {
   image-rendering: auto;
 }
 
+.character-modal-ref img.is-loading {
+  opacity: 0;
+}
+
 .character-modal-summary {
   flex: 0 0 auto;
   display: grid;

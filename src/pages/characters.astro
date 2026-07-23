@@ -329,6 +329,32 @@ const dataForModal = profiles.map((profile) => ({
     const quote = document.querySelector("[data-character-quote]");
     const profile = document.querySelector("[data-character-profile]");
     const modalPanel = document.querySelector(".character-modal-panel");
+    let refLoadToken = 0;
+
+    function loadCharacterRef(character: CharacterModalData) {
+      if (!(refImage instanceof HTMLImageElement)) return;
+
+      const token = ++refLoadToken;
+      refImage.classList.add("is-loading");
+      refImage.alt = "";
+      refImage.removeAttribute("src");
+
+      const nextImage = new Image();
+      nextImage.decoding = "async";
+      nextImage.onload = () => {
+        if (token !== refLoadToken) return;
+        refImage.src = character.ref;
+        refImage.alt = `${character.name} reference sheet`;
+        refImage.classList.remove("is-loading");
+      };
+      nextImage.onerror = () => {
+        if (token !== refLoadToken) return;
+        refImage.src = character.ref;
+        refImage.alt = `${character.name} reference sheet`;
+        refImage.classList.remove("is-loading");
+      };
+      nextImage.src = character.ref;
+    }
 
     function openCharacter(name: string | undefined) {
       const character = characters.find((item) => item.name === name);
@@ -336,13 +362,10 @@ const dataForModal = profiles.map((profile) => ({
 
       modal.style.setProperty("--character-color", character.color);
       modal.setAttribute("data-character-group", character.group);
-      if (refImage instanceof HTMLImageElement) {
-        refImage.src = character.ref;
-        refImage.alt = `${character.name} reference sheet`;
-      }
       if (title instanceof HTMLElement) title.textContent = character.name;
       if (quote instanceof HTMLElement) quote.textContent = character.quote;
       if (profile instanceof HTMLElement) profile.innerHTML = character.profileHtml;
+      loadCharacterRef(character);
 
       modal.hidden = false;
       if (modalPanel instanceof HTMLElement) modalPanel.scrollTop = 0;
