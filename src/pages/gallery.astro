@@ -176,9 +176,9 @@ const types = ["image", "video", "fanart"];
             <button class="is-active" data-filter="type" data-value="all"><span>All</span><span data-count></span></button>
             {types.map((type) => <button data-filter="type" data-value={type}><span>{type}</span><span data-count></span></button>)}
           </div>
-        </section>
-        <section class="fanart-toggle-section" aria-label="Include fanart filter">
-          <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+          <div class="fanart-toggle-section" aria-label="Include fanart filter">
+            <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+          </div>
         </section>
         <section>
           <h3>Year</h3>
@@ -212,9 +212,9 @@ const types = ["image", "video", "fanart"];
           <button class="is-active" data-filter="type" data-value="all"><span>All</span><span data-count></span></button>
           {types.map((type) => <button data-filter="type" data-value={type}><span>{type}</span><span data-count></span></button>)}
         </div>
-      </section>
-      <section class="fanart-toggle-section" aria-label="Include fanart filter">
-        <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+        <div class="fanart-toggle-section" aria-label="Include fanart filter">
+          <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+        </div>
       </section>
     </aside>
 

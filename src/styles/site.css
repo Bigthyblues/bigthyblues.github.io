@@ -732,6 +732,13 @@ body {
   text-align: left;
 }
 
+.filter-list button:focus-visible,
+.month-grid button:focus-visible,
+.fanart-toggle:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: -4px;
+}
+
 .filter-list button:hover,
 .filter-list button.is-active,
 .month-grid button:hover,
@@ -4288,20 +4295,22 @@ body:has(.posts-shell) .month-grid button[disabled] {
 
 .fanart-toggle-section {
   display: grid;
-  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 3px solid var(--line);
 }
 
 .fanart-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  min-height: 32px;
-  padding: 4px 8px;
+  min-height: 30px;
+  padding: 3px 8px;
   border: 2px solid var(--line);
   background: transparent;
   font: inherit;
-  font-size: clamp(0.8rem, 1.25vw, 1.05rem);
+  font-size: clamp(0.86rem, 1.2vw, 1.05rem);
   line-height: 1;
   text-align: left;
   white-space: nowrap;
@@ -4330,8 +4339,9 @@ body:has(.posts-shell) .month-grid button[disabled] {
   background: var(--page-accent);
 }
 
-body:has(.posts-shell) .mobile-filter-panel section.fanart-toggle-section {
-  gap: 8px;
+body:has(.posts-shell) .mobile-filter-panel .fanart-toggle-section {
+  margin-top: 8px;
+  padding-top: 7px;
 }
 
 
@@ -4415,6 +4425,10 @@ body:has(.posts-shell) .mobile-filter-panel section.fanart-toggle-section {
   .about-profile-row-compact dd:nth-of-type(1),
   .about-profile-row-compact dt:nth-of-type(2) {
     border-right: 0;
+  }
+
+  .about-profile-row-compact dt:nth-of-type(2) {
+    border-right: 3px solid var(--line);
   }
 
   .about-profile-row-compact dt:nth-of-type(2),
