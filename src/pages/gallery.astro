@@ -1,0 +1,772 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { galleryThumbnails } from "../generated/gallery-thumbnails";
+
+const normalizeCharacters = (character: string | string[]) =>
+  (Array.isArray(character) ? character : character.split(/[,????/|]+/))
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const normalizeImages = (image?: string, images?: string[]) =>
+  [...new Set([...(image ? [image] : []), ...(images ?? [])].map((item) => item.trim()).filter(Boolean))];
+
+const toKey = (value: string) => value.trim().toLowerCase();
+const padTime = (value: number) => String(value).padStart(2, "0");
+const formatGalleryDate = (date: Date) => `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}, ${padTime(date.getHours())}:${padTime(date.getMinutes())}`;
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const formatMonthName = (month: string) => monthNames[Number(month) - 1] ?? month;
+const isEmbeddableVideo = (value?: string) => Boolean(value?.includes("youtube.com/embed/") || value?.includes("player.vimeo.com/video/"));
+const thumbnailForGalleryAsset = (value?: string) => {
+  if (!value?.startsWith("/img/gallery/")) return value;
+
+  const thumbnail = `${value.replace("/img/gallery/", "/img/thumbs/gallery/")}.webp`;
+  return galleryThumbnails.has(thumbnail) ? thumbnail : value;
+};
+
+type GalleryMediaItem = {
+  title: string;
+  displayTitle: string;
+  characterList: string[];
+  characterKeys: string[];
+  characterLabel: string;
+  type: "image" | "video" | "fanart";
+  image?: string;
+  video?: string;
+  mediaSrc: string;
+  mediaThumb?: string;
+  mediaKind: "image" | "video";
+  fanartSourceUrl?: string;
+  fanartArtist?: string;
+  fanartArtistUrl?: string;
+  isVideoEmbed: boolean;
+  excerpt?: string;
+  body: string;
+  dateISO: string;
+  year: string;
+  month: string;
+  monthGroup: string;
+  dayGroup: string;
+  dateLabel: string;
+};
+
+const sourcePosts = (await getCollection("posts", (entry) => Boolean(entry.data?.date) && !entry.data?.draft && (entry.data?.image || entry.data?.images?.length || entry.data?.video)))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaItem[] => {
+  const date = post.data.date;
+  const characterList = normalizeCharacters(post.data.character);
+  const characterKeys = characterList.map(toKey);
+  const characterLabel = characterList.join(", ");
+  const imageList = normalizeImages(post.data.image, post.data.images);
+  const monthGroup = `${date.getFullYear()}.${date.getMonth() + 1}`;
+  const shared = {
+    title: post.data.title,
+    displayTitle: post.data.title,
+    characterList,
+    characterKeys,
+    characterLabel,
+    fanartSourceUrl: post.data.fanartSourceUrl,
+    fanartArtist: post.data.fanartArtist,
+    fanartArtistUrl: post.data.fanartArtistUrl,
+    excerpt: post.data.excerpt,
+    body: post.body,
+    dateISO: date.toISOString(),
+    year: String(date.getFullYear()),
+    month: String(date.getMonth() + 1),
+    monthGroup,
+    dayGroup: `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`,
+    dateLabel: formatGalleryDate(date)
+  };
+
+  if (post.data.video) {
+    return [{
+      ...shared,
+      type: "video",
+      image: imageList[0],
+      video: post.data.video,
+      mediaSrc: post.data.video,
+      mediaThumb: thumbnailForGalleryAsset(imageList[0]) ?? thumbnailForGalleryAsset(post.data.video),
+      mediaKind: "video",
+      isVideoEmbed: isEmbeddableVideo(post.data.video)
+    }];
+  }
+
+  const type = post.data.type === "fanart" ? "fanart" : "image";
+  return imageList.map((image) => ({
+    ...shared,
+    title: post.data.title,
+    displayTitle: post.data.title,
+    type,
+    image,
+    video: undefined,
+    mediaSrc: image,
+    mediaThumb: thumbnailForGalleryAsset(image),
+    mediaKind: "image",
+    isVideoEmbed: false
+  }));
+});
+
+const characterMap = new Map<string, string>();
+const characterCounts = new Map<string, number>();
+for (const post of mediaPosts) {
+  for (const character of post.characterList) {
+    const key = toKey(character);
+    if (!characterMap.has(key)) characterMap.set(key, character);
+    characterCounts.set(key, (characterCounts.get(key) ?? 0) + 1);
+  }
+}
+
+const characters = [...characterMap.entries()]
+  .map(([key, label]) => ({ key, label, count: characterCounts.get(key) ?? 0 }))
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+const years = [...new Set(mediaPosts.map((post) => post.year))].sort((a, b) => Number(b) - Number(a));
+const months = [...new Set(mediaPosts.map((post) => post.month))]
+  .sort((a, b) => Number(b) - Number(a))
+  .map((month) => ({ value: month, label: formatMonthName(month) }));
+const groups = [...new Set(mediaPosts.map((post) => post.monthGroup))].map((group) => ({ key: group, label: group }));
+const types = ["image", "video", "fanart"];
+---
+
+<BaseLayout title="Gallery | Blues' blocky site" description="Image and video gallery from Bigthyblues posts.">
+  <main class="posts-shell gallery-shell" data-gallery-page>
+    <header class="posts-topbar">
+      <a class="site-logo" href="/index.html" aria-label="Bigthyblues home">
+        <img src="/img/webicon.png" alt="" />
+      </a>
+      <h1 class="mobile-page-title">Gallery</h1>
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="top-nav" aria-label="Main navigation" data-mobile-menu>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About me</a>
+        <a aria-current="page" href="/gallery.html">Gallery</a>
+        <a href="/posts.html">Posts</a>
+        <a href="/characters.html">Characters</a>
+        <a href="/world.html">World</a>
+      </nav>
+      <button class="mobile-filter-toggle" type="button" data-mobile-filter-toggle aria-expanded="false" aria-label="Open filters">
+        <span class="mobile-filter-icon" aria-hidden="true"></span>
+      </button>
+      <label class="search-box">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input data-search type="search" placeholder="search" autocomplete="off" />
+        <button class="search-clear" type="button" data-search-clear aria-label="Clear search" hidden>X</button>
+      </label>
+    </header>
+
+    <div class="mobile-filter-modal" data-mobile-filter-modal hidden>
+      <div class="mobile-filter-panel" role="dialog" aria-modal="true" aria-label="Gallery filters">
+        <div class="mobile-filter-head">
+          <h2>Filter</h2>
+          <button class="mobile-filter-close" type="button" data-mobile-filter-close aria-label="Close filters">X</button>
+        </div>
+        <div class="mobile-filter-body">
+        <section>
+          <h3>Character</h3>
+          <div class="filter-list">
+            <button class="is-active" data-filter="character" data-value="all"><span>All</span><span data-count></span></button>
+            {characters.map((character) => <button data-filter="character" data-value={character.key}><span>{character.label}</span><span data-count></span></button>)}
+          </div>
+        </section>
+        <section>
+          <h3>Type</h3>
+          <div class="filter-list">
+            <button class="is-active" data-filter="type" data-value="all"><span>All</span><span data-count></span></button>
+            {types.map((type) => <button data-filter="type" data-value={type}><span>{type}</span><span data-count></span></button>)}
+          </div>
+        </section>
+        <section class="fanart-toggle-section" aria-label="Include fanart filter">
+          <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+        </section>
+        <section>
+          <h3>Year</h3>
+          <div class="filter-list">
+            <button class="is-active" data-filter="year" data-value="all"><span>All</span><span data-count></span></button>
+            {years.map((year) => <button data-filter="year" data-value={year}><span>{year}</span><span data-count></span></button>)}
+          </div>
+        </section>
+        <section>
+          <h3>Month</h3>
+          <div class="month-grid">
+            <button class="is-active" data-filter="month" data-value="all"><span>All</span><span data-count></span></button>
+            {months.map((month) => <button data-filter="month" data-value={month.value}><span>{month.label}</span><span data-count></span></button>)}
+          </div>
+        </section>
+              </div>
+      </div>
+    </div>
+
+    <aside class="posts-sidebar posts-sidebar-left" aria-label="Gallery filters">
+      <section class="character-filter-section">
+        <h2>Character</h2>
+        <div class="filter-list">
+          <button class="is-active" data-filter="character" data-value="all"><span>All</span><span data-count></span></button>
+          {characters.map((character) => <button data-filter="character" data-value={character.key}><span>{character.label}</span><span data-count></span></button>)}
+        </div>
+      </section>
+      <section class="type-filter-section">
+        <h2>Type</h2>
+        <div class="filter-list">
+          <button class="is-active" data-filter="type" data-value="all"><span>All</span><span data-count></span></button>
+          {types.map((type) => <button data-filter="type" data-value={type}><span>{type}</span><span data-count></span></button>)}
+        </div>
+      </section>
+      <section class="fanart-toggle-section" aria-label="Include fanart filter">
+        <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+      </section>
+    </aside>
+
+    <section class="gallery-feed" aria-label="Gallery media">
+      {groups.map((group) => (
+        <section class="gallery-month" data-gallery-group={group.key}>
+          <h2>{group.label}</h2>
+          <div class="gallery-grid">
+            {mediaPosts.filter((post) => post.monthGroup === group.key).map((post) => (
+              <article
+                class="gallery-item"
+                data-gallery-card
+                data-searchtext={`${post.displayTitle ?? post.title} ${post.excerpt ?? ""} ${post.body} ${post.characterLabel} ${post.fanartArtist ?? ""}`.toLowerCase()}
+                data-characters={post.characterKeys.join("|")}
+                data-type={post.type}
+                data-is-fanart={String(post.type === "fanart")}
+                data-year={post.year}
+                data-month={post.month}
+              >
+                <button
+                  class="gallery-thumb"
+                  type="button"
+                  data-open-media
+                  data-media-kind={post.mediaKind}
+                  data-media-src={post.mediaSrc}
+                  data-media-thumb={post.mediaThumb ?? post.mediaSrc}
+                  data-media-poster={post.mediaThumb ?? post.image ?? ""}
+                  data-media-embed={String(post.isVideoEmbed)}
+                  aria-label={`Open ${post.displayTitle ?? post.title}`}
+                >
+                  {post.mediaKind === "video" ? (
+                    post.mediaThumb ? (
+                      <img data-media-src={post.mediaThumb} alt="" loading="lazy" decoding="async" data-image-component="manual" />
+                    ) : (
+                      <span class="gallery-video-placeholder">video</span>
+                    )
+                  ) : (
+                    <img data-media-src={post.mediaThumb ?? post.image} alt="" loading="lazy" decoding="async" data-image-component="manual" />
+                  )}
+                  {post.mediaKind === "video" && <span class="gallery-badge gallery-badge-video">video</span>}
+                  {post.type === "fanart" && <span class="gallery-badge gallery-badge-fanart">fanart</span>}
+                </button>
+                <div class="gallery-caption">
+                  {post.type === "fanart" ? (
+                  <button
+                    class="gallery-title-link"
+                    type="button"
+                    data-open-fanart
+                    data-fanart-title={post.displayTitle ?? post.title}
+                    data-fanart-source={post.fanartSourceUrl ?? ""}
+                    data-fanart-artist={post.fanartArtist ?? "Unknown artist"}
+                    data-fanart-artist-url={post.fanartArtistUrl ?? ""}
+                  >
+                    {post.displayTitle ?? post.title}
+                  </button>
+                ) : (
+                  <h3>{post.displayTitle ?? post.title}</h3>
+                )}
+                  <time datetime={post.dateISO}>{post.dateLabel}</time>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p class="empty-posts" data-empty hidden>No block was found here.</p>
+      <button class="load-more-posts gallery-load-more" type="button" data-gallery-load-more hidden>Load more</button>
+      <div class="posts-load-sentinel" data-gallery-load-sentinel aria-hidden="true"></div>
+    </section>
+
+    <aside class="posts-sidebar posts-sidebar-right" aria-label="Archive filters">
+      <section>
+        <h2>Year</h2>
+        <div class="filter-list">
+          <button class="is-active" data-filter="year" data-value="all"><span>All</span><span data-count></span></button>
+          {years.map((year) => <button data-filter="year" data-value={year}><span>{year}</span><span data-count></span></button>)}
+        </div>
+      </section>
+      <section>
+        <h2>Month</h2>
+        <div class="month-grid">
+          <button class="is-active" data-filter="month" data-value="all"><span>All</span><span data-count></span></button>
+          {months.map((month) => <button data-filter="month" data-value={month.value}><span>{month.label}</span><span data-count></span></button>)}
+        </div>
+      </section>
+    </aside>
+
+    <footer class="site-copyright posts-copyright">
+      <span>&copy; 2026 Bigthyblues. </span>
+      <span>All rights reserved</span>
+    </footer>
+  </main>
+
+  <div class="fanart-info-modal" data-fanart-modal hidden>
+    <div class="fanart-info-panel">
+      <button class="fanart-info-close" type="button" data-fanart-close aria-label="Close fanart info">X</button>
+      <h2 data-fanart-modal-title></h2>
+      <p>Artwork: <a data-fanart-modal-source target="_blank" rel="noopener noreferrer"></a></p>
+      <p>Artist: <a data-fanart-modal-artist target="_blank" rel="noopener noreferrer"></a></p>
+    </div>
+  </div>
+
+  <div class="media-lightbox" data-media-lightbox hidden>
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close media">X</button>
+    <div class="media-lightbox-stage" data-media-stage></div>
+  </div>
+
+  <script>
+    const root = document.querySelector("[data-gallery-page]");
+    const search = root?.querySelector("[data-search]");
+    const searchClear = root?.querySelector("[data-search-clear]");
+    const mobileMenu = root?.querySelector("[data-mobile-menu]");
+    const mobileMenuToggle = root?.querySelector("[data-mobile-menu-toggle]");
+    const mobileFilterToggle = root?.querySelector("[data-mobile-filter-toggle]");
+    const mobileFilterModal = root?.querySelector("[data-mobile-filter-modal]");
+    const cards = [...(root?.querySelectorAll("[data-gallery-card]") ?? [])];
+    const groups = [...(root?.querySelectorAll("[data-gallery-group]") ?? [])];
+    const empty = root?.querySelector("[data-empty]");
+    const galleryCards = cards.filter((card) => card instanceof HTMLElement);
+    const emptyMessage = empty instanceof HTMLElement ? empty : null;
+    const loadMore = root?.querySelector("[data-gallery-load-more]");
+    const loadSentinel = root?.querySelector("[data-gallery-load-sentinel]");
+    const loadMoreButton = loadMore instanceof HTMLButtonElement ? loadMore : null;
+    const batchSize = 48;
+    let visibleLimit = batchSize;
+    const filters = {
+      character: "all",
+      type: "all",
+      year: "all",
+      month: "all",
+      query: "",
+      showFanart: true
+    };
+    const lightbox = document.querySelector("[data-media-lightbox]");
+    const mediaStage = document.querySelector("[data-media-stage]");
+    const fanartModal = document.querySelector("[data-fanart-modal]");
+    const fanartTitle = document.querySelector("[data-fanart-modal-title]");
+    const fanartSource = document.querySelector("[data-fanart-modal-source]");
+    const fanartArtist = document.querySelector("[data-fanart-modal-artist]");
+    type FilterGroup = "character" | "type" | "year" | "month";
+    const isFilterGroup = (value: string | undefined): value is FilterGroup =>
+      value === "character" || value === "type" || value === "year" || value === "month";
+    const filterGroups: FilterGroup[] = ["character", "type", "year", "month"];
+    const filterStateKey = "bigthyblues:gallery:filter-state";
+    const filterStateTtl = 30 * 60 * 1000;
+
+    function isValidFilterValue(group: FilterGroup, value: string) {
+      if (value === "all") return true;
+      return galleryCards.some((card) => valuesForGroup(card, group).includes(value));
+    }
+
+    function syncFilterButtons() {
+      for (const group of filterGroups) {
+        root?.querySelectorAll(`[data-filter="${group}"]`).forEach((item) => {
+          if (!(item instanceof HTMLElement)) return;
+          item.classList.toggle("is-active", item.dataset.value === filters[group]);
+        });
+      }
+    }
+
+    function saveFilterState() {
+      try {
+        window.sessionStorage.setItem(filterStateKey, JSON.stringify({ savedAt: Date.now(), filters }));
+      } catch {
+        // Ignore private browsing or disabled storage.
+      }
+    }
+
+    function restoreFilterState() {
+      try {
+        const rawState = window.sessionStorage.getItem(filterStateKey);
+        if (!rawState) return;
+
+        const state = JSON.parse(rawState);
+        if (!state || Date.now() - Number(state.savedAt) > filterStateTtl) {
+          window.sessionStorage.removeItem(filterStateKey);
+          return;
+        }
+
+        const savedFilters = state.filters;
+        if (!savedFilters || typeof savedFilters !== "object") return;
+
+        for (const group of filterGroups) {
+          const value = savedFilters[group];
+          if (typeof value === "string" && isValidFilterValue(group, value)) filters[group] = value;
+        }
+
+        if (typeof savedFilters.query === "string") filters.query = savedFilters.query;
+        if (typeof savedFilters.showFanart === "boolean") filters.showFanart = savedFilters.showFanart;
+        if (search instanceof HTMLInputElement) search.value = filters.query;
+        syncSearchClear();
+        syncFilterButtons();
+      } catch {
+        window.sessionStorage.removeItem(filterStateKey);
+      }
+    }
+
+    function syncSearchClear() {
+      if (!(searchClear instanceof HTMLButtonElement)) return;
+      searchClear.hidden = filters.query === "";
+    }
+
+    function closeMobileMenu() {
+      if (mobileMenu instanceof HTMLElement) mobileMenu.classList.remove("is-open");
+      if (mobileMenuToggle instanceof HTMLButtonElement) mobileMenuToggle.setAttribute("aria-expanded", "false");
+    }
+
+    function closeMobileFilters() {
+      if (mobileFilterModal instanceof HTMLElement) mobileFilterModal.hidden = true;
+      if (mobileFilterToggle instanceof HTMLButtonElement) mobileFilterToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("has-mobile-filter");
+    }
+
+    function openMobileFilters() {
+      closeMobileMenu();
+      if (mobileFilterModal instanceof HTMLElement) mobileFilterModal.hidden = false;
+      if (mobileFilterToggle instanceof HTMLButtonElement) mobileFilterToggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("has-mobile-filter");
+    }
+
+    function valuesForGroup(card: HTMLElement, group: FilterGroup) {
+      if (group === "character") return (card.dataset.characters ?? "").split("|").filter(Boolean);
+
+      const value = card.dataset[group];
+      return value ? [value] : [];
+    }
+
+    function loadMediaForCard(card: HTMLElement) {
+      card.querySelectorAll("[data-media-src]").forEach((media) => {
+        if (!(media instanceof HTMLImageElement || media instanceof HTMLVideoElement || media instanceof HTMLIFrameElement)) return;
+        const src = media.dataset.mediaSrc;
+        if (!src || media.getAttribute("src") === src) return;
+        media.setAttribute("src", src);
+      });
+    }
+
+    function matchesCard(card: HTMLElement, overrides: Partial<typeof filters> = {}) {
+      const active = { ...filters, ...overrides };
+      const characterKeys = (card.dataset.characters ?? "").split("|").filter(Boolean);
+      const searchText = card.dataset.searchtext ?? "";
+
+      const allowsFanart = active.type === "fanart" || active.showFanart;
+
+      return (
+        (allowsFanart || card.dataset.isFanart !== "true") &&
+        (active.character === "all" || characterKeys.includes(active.character)) &&
+        (active.type === "all" || card.dataset.type === active.type) &&
+        (active.year === "all" || card.dataset.year === active.year) &&
+        (active.month === "all" || card.dataset.month === active.month) &&
+        (active.query === "" || searchText.includes(active.query))
+      );
+    }
+
+    function syncFanartToggle() {
+      const forceFanart = filters.type === "fanart";
+      const isOn = forceFanart || filters.showFanart;
+
+      root?.querySelectorAll("[data-fanart-toggle]").forEach((item) => {
+        if (!(item instanceof HTMLButtonElement)) return;
+        item.classList.toggle("is-active", isOn);
+        item.disabled = forceFanart;
+        item.setAttribute("aria-pressed", String(isOn));
+        item.title = forceFanart ? "Fanart type is selected" : "";
+      });
+    }
+
+    function updateCounts() {
+      syncFanartToggle();
+      const counts = Object.fromEntries(filterGroups.map((group) => [group, new Map<string, number>()])) as Record<FilterGroup, Map<string, number>>;
+      const allCounts = Object.fromEntries(filterGroups.map((group) => [group, 0])) as Record<FilterGroup, number>;
+
+      for (const group of filterGroups) {
+        for (const card of galleryCards) {
+          const countOverrides = { [group]: "all" } as Partial<typeof filters>;
+          if (group === "type") countOverrides.showFanart = true;
+          if (!matchesCard(card, countOverrides)) continue;
+
+          allCounts[group] += 1;
+          for (const value of valuesForGroup(card, group)) {
+            counts[group].set(value, (counts[group].get(value) ?? 0) + 1);
+          }
+        }
+      }
+
+      root?.querySelectorAll("[data-filter]").forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+
+        const group = item.dataset.filter;
+        if (!isFilterGroup(group)) return;
+
+        const value = item.dataset.value ?? "all";
+        const count = value === "all" ? allCounts[group] : counts[group].get(value) ?? 0;
+        const countTarget = item.querySelector("[data-count]");
+        if (countTarget instanceof HTMLElement) countTarget.textContent = `(${count})`;
+        item.toggleAttribute("disabled", value !== "all" && count === 0 && !item.classList.contains("is-active"));
+      });
+    }
+
+    function getMatchedCards() {
+      return galleryCards.filter((card) => matchesCard(card));
+    }
+
+    function updateGallery(options: { refreshCounts?: boolean } = {}) {
+      const { refreshCounts = true } = options;
+      const matchedCards = getMatchedCards();
+      const visibleCards = new Set(matchedCards.slice(0, visibleLimit));
+
+      for (const card of galleryCards) {
+        const shouldShow = visibleCards.has(card);
+        card.hidden = !shouldShow;
+        if (shouldShow) loadMediaForCard(card);
+      }
+
+      for (const group of groups) {
+        if (!(group instanceof HTMLElement)) continue;
+        const hasVisibleCard = Boolean(group.querySelector("[data-gallery-card]:not([hidden])"));
+        group.hidden = !hasVisibleCard;
+      }
+
+      if (emptyMessage) emptyMessage.hidden = matchedCards.length !== 0;
+      if (loadMoreButton) {
+        const remaining = Math.max(matchedCards.length - visibleLimit, 0);
+        loadMoreButton.hidden = remaining === 0;
+        loadMoreButton.textContent = `Load more (${remaining})`;
+      }
+      if (refreshCounts) updateCounts();
+    }
+
+    function revealMoreGallery() {
+      visibleLimit += batchSize;
+      updateGallery({ refreshCounts: false });
+    }
+
+    function resetVisibleGallery() {
+      visibleLimit = batchSize;
+    }
+
+    function closeFanartInfo() {
+      if (fanartModal instanceof HTMLElement) fanartModal.hidden = true;
+    }
+
+    function openFanartInfo(button: HTMLElement) {
+      if (!(fanartModal instanceof HTMLElement)) return;
+      const sourceUrl = button.dataset.fanartSource ?? "";
+      const artistUrl = button.dataset.fanartArtistUrl ?? "";
+      const artistName = button.dataset.fanartArtist ?? "Unknown artist";
+
+      if (fanartTitle instanceof HTMLElement) fanartTitle.textContent = button.dataset.fanartTitle ?? "Fanart";
+      if (fanartSource instanceof HTMLAnchorElement) {
+        fanartSource.textContent = sourceUrl || "No source link provided";
+        fanartSource.href = sourceUrl || "#";
+        fanartSource.toggleAttribute("aria-disabled", sourceUrl === "");
+      }
+      if (fanartArtist instanceof HTMLAnchorElement) {
+        fanartArtist.textContent = artistName;
+        fanartArtist.href = artistUrl || "#";
+        fanartArtist.toggleAttribute("aria-disabled", artistUrl === "");
+      }
+
+      fanartModal.hidden = false;
+    }
+
+    function closeLightbox() {
+      if (lightbox instanceof HTMLElement) {
+        lightbox.hidden = true;
+        delete lightbox.dataset.mediaKind;
+      }
+      if (mediaStage instanceof HTMLElement) mediaStage.replaceChildren();
+      document.body.classList.remove("has-lightbox");
+    }
+
+    function openMedia(button: HTMLElement) {
+      if (!(lightbox instanceof HTMLElement) || !(mediaStage instanceof HTMLElement)) return;
+
+      const src = button.dataset.mediaSrc;
+      if (!src) return;
+
+      const kind = button.dataset.mediaKind;
+      const poster = button.dataset.mediaPoster;
+      const isEmbed = button.dataset.mediaEmbed === "true";
+      let media: HTMLImageElement | HTMLVideoElement | HTMLIFrameElement;
+
+      if (kind === "video") {
+        if (isEmbed) {
+          const iframe = document.createElement("iframe");
+          iframe.src = src;
+          iframe.title = button.getAttribute("aria-label") ?? "Video";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.allowFullscreen = true;
+          media = iframe;
+        } else {
+          const video = document.createElement("video");
+          video.src = src;
+          if (poster) video.poster = poster;
+          video.controls = true;
+          video.muted = true;
+          video.playsInline = true;
+          video.autoplay = true;
+          media = video;
+        }
+      } else {
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = button.getAttribute("aria-label") ?? "";
+        image.dataset.imageComponent = "manual";
+        media = image;
+      }
+
+      mediaStage.replaceChildren(media);
+      lightbox.dataset.mediaKind = kind === "video" ? "video" : "image";
+      lightbox.hidden = false;
+      document.body.classList.add("has-lightbox");
+    }
+
+    root?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      if (target.closest("[data-mobile-menu-toggle]")) {
+        const isOpen = mobileMenu instanceof HTMLElement && mobileMenu.classList.toggle("is-open");
+        if (mobileMenuToggle instanceof HTMLButtonElement) mobileMenuToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+        return;
+      }
+
+      if (target.closest("[data-mobile-filter-toggle]")) {
+        openMobileFilters();
+        return;
+      }
+
+      if (target.closest("[data-mobile-filter-close]") || target === mobileFilterModal) {
+        closeMobileFilters();
+        return;
+      }
+
+      if (target.closest("[data-search-clear]")) {
+        if (!(search instanceof HTMLInputElement)) return;
+        search.value = "";
+        filters.query = "";
+        syncSearchClear();
+        resetVisibleGallery();
+        updateGallery();
+        saveFilterState();
+        search.focus();
+        return;
+      }
+
+      const fanartButton = target.closest("[data-open-fanart]");
+      if (fanartButton instanceof HTMLElement) {
+        openFanartInfo(fanartButton);
+        return;
+      }
+
+      const mediaButton = target.closest("[data-open-media]");
+      if (mediaButton instanceof HTMLElement) {
+        openMedia(mediaButton);
+        return;
+      }
+
+      const fanartToggle = target.closest("[data-fanart-toggle]");
+      if (fanartToggle instanceof HTMLButtonElement && filters.type !== "fanart") {
+        filters.showFanart = !filters.showFanart;
+        closeMobileMenu();
+        resetVisibleGallery();
+        updateGallery();
+        saveFilterState();
+        return;
+      }
+
+      const button = target.closest("[data-filter]");
+      if (!(button instanceof HTMLElement)) return;
+
+      const group = button.dataset.filter;
+      if (!isFilterGroup(group)) return;
+
+      filters[group] = button.dataset.value ?? "all";
+      closeMobileMenu();
+      resetVisibleGallery();
+      root.querySelectorAll(`[data-filter="${group}"]`).forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        item.classList.toggle("is-active", item.dataset.value === filters[group]);
+      });
+      updateGallery();
+      saveFilterState();
+    });
+
+    search?.addEventListener("input", () => {
+      if (!(search instanceof HTMLInputElement)) return;
+      filters.query = search.value.trim().toLowerCase();
+      syncSearchClear();
+      resetVisibleGallery();
+      updateGallery();
+      saveFilterState();
+    });
+
+    loadMoreButton?.addEventListener("click", () => {
+      revealMoreGallery();
+    });
+
+    if (loadSentinel instanceof Element && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        if (loadMoreButton?.hidden) return;
+        revealMoreGallery();
+      }, { rootMargin: "600px 0px" });
+      observer.observe(loadSentinel);
+    }
+
+    fanartModal?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target === fanartModal || (target instanceof Element && target.closest("[data-fanart-close]"))) closeFanartInfo();
+    });
+
+    lightbox?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("[data-lightbox-close]")) {
+        closeLightbox();
+        return;
+      }
+      if (target === lightbox) closeLightbox();
+    });
+
+    mediaStage?.addEventListener("click", (event) => {
+      if (!(lightbox instanceof HTMLElement)) return;
+
+      if (event.target === mediaStage || lightbox.dataset.mediaKind === "image") {
+        closeLightbox();
+      }
+      event.stopPropagation();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      closeMobileMenu();
+      closeMobileFilters();
+      closeLightbox();
+    });
+
+    restoreFilterState();
+    updateGallery();
+  </script>
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

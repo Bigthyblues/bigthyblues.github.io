@@ -1,0 +1,246 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import aboutRaw from "../content/about/about.md?raw";
+import bluesAvatar from "../content/about/image/blues ava.png";
+
+type Section = {
+  title: string;
+  blocks: string[];
+};
+
+const assetSrc = (asset: string | { src: string }) => typeof asset === "string" ? asset : asset.src;
+
+const cleanText = (value: string) =>
+  value
+    .replaceAll("馃惗", "dog")
+    .replaceAll("馃挋", "blue heart")
+    .replaceAll("馃寵", "moon")
+    .replaceAll("鈥攅", "—e")
+    .replaceAll("鈥攖", "—t")
+    .replaceAll("鈥檚", "'s")
+    .replaceAll("鈥檓", "'m")
+    .replaceAll("鈥檝", "'v")
+    .replaceAll("鈥檙", "'r")
+    .replaceAll("鈥檛", "'t")
+    .replaceAll("鈥?", "'");
+
+const escapeHtml = (value: string) =>
+  cleanText(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
+const renderInline = (value: string) => {
+  let html = escapeHtml(value);
+  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\[hex=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/hex\]/g, '<span class="md-hex" style="color: $1;">$2</span>');
+  html = html.replace(/\[bg=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg-custom" style="background-color: $1;">$2</span>');
+  html = html.replace(/\[bg=([a-z0-9-]+)\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg md-bg-$1">$2</span>');
+  html = html.replace(/\[color=([a-z0-9-]+)\]([\s\S]*?)\[\/color\]/g, '<span class="md-color md-color-$1">$2</span>');
+  html = html.replace(/\[size=(small|large|xl)\]([\s\S]*?)\[\/size\]/g, '<span class="md-size-$1">$2</span>');
+  html = html.replace(/\[center\]([\s\S]*?)\[\/center\]/g, '<span class="md-center">$1</span>');
+  html = html.replace(/\[mark\]([\s\S]*?)\[\/mark\]/g, '<span class="md-mark">$1</span>');
+  html = html.replace(/\[del\]([\s\S]*?)\[\/del\]/g, "<del>$1</del>");
+  html = html.replace(/\[box\]([\s\S]*?)\[\/box\]/g, '<span class="md-box">$1</span>');
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+  return html;
+};
+
+const plainTitle = (value: string) =>
+  cleanText(value)
+    .replace(/\[(?:color|bg|hex|size)=[^\]]+\]|\[\/(?:color|bg|hex|size)\]/g, "")
+    .replace(/\[(?:center|mark|del|box)\]|\[\/(?:center|mark|del|box)\]/g, "")
+    .replace(/\*\*/g, "");
+
+const titleId = (prefix: string, value: string) =>
+  `${prefix}-${plainTitle(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section"}`;
+
+const renderBlock = (block: string) => {
+  const lines = block.trim().split("\n").filter(Boolean);
+  if (!lines.length) return "";
+
+  if (lines.every((line) => line.trim().startsWith("- "))) {
+    return `<ul>${lines.map((line) => `<li>${renderInline(line.trim().slice(2))}</li>`).join("")}</ul>`;
+  }
+
+  if (lines.length === 1) {
+    const imageMatch = lines[0].match(/^!\[(.*?)\]\((.*?)\)$/);
+    if (imageMatch) {
+      return `<figure class="about-image-frame"><img src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}" loading="lazy" decoding="async" /></figure>`;
+    }
+  }
+
+  return `<p>${renderInline(lines.join(" "))}</p>`;
+};
+
+const markdownBody = aboutRaw.replace(/^---[\s\S]*?---\s*/, "").trim();
+const markdownLines = markdownBody.split("\n");
+const heroTitleIndex = markdownLines.findIndex((line) => line.startsWith("# ") && line.replace(/^#\s*/, "").trim());
+const heroTitle = cleanText(
+  heroTitleIndex === -1
+    ? "Woof! I'm Blues!"
+    : markdownLines[heroTitleIndex].replace(/^#\s+/, "")
+);
+const firstSectionIndex = markdownLines.findIndex((line) => line.startsWith("## "));
+const introStartIndex = heroTitleIndex === -1 ? 0 : heroTitleIndex + 1;
+const introEndIndex = firstSectionIndex === -1 ? undefined : firstSectionIndex;
+const heroLeadBlocks = markdownLines
+  .slice(0, heroTitleIndex === -1 ? 0 : heroTitleIndex)
+  .join("\n")
+  .split(/\n{2,}/)
+  .map((block) => block.trim())
+  .filter((block) => block && !block.match(/^#\s*$/));
+const introBlocks = markdownLines
+  .slice(introStartIndex, introEndIndex)
+  .join("\n")
+  .split(/\n{2,}/)
+  .map((block) => block.trim())
+  .filter(Boolean);
+
+const sectionMap = new Map<string, string[]>();
+let activeTitle = "";
+let activeLines: string[] = [];
+
+for (const line of markdownLines.slice(firstSectionIndex)) {
+  if (line.startsWith("## ")) {
+    if (activeTitle) sectionMap.set(activeTitle, activeLines);
+    activeTitle = cleanText(line.replace(/^##\s+/, ""));
+    activeLines = [];
+  } else {
+    activeLines.push(line);
+  }
+}
+if (activeTitle) sectionMap.set(activeTitle, activeLines);
+
+const quickProfileLines = sectionMap.get("Quick profile") ?? [];
+const profileRows = quickProfileLines
+  .filter((line) => line.trim().startsWith("|") && !line.includes("---"))
+  .slice(1)
+  .map((line) => line.split("|").map((cell) => cleanText(cell.trim()).replace(/^\*\*|\*\*$/g, "")))
+  .filter((cells) => cells.length >= 4)
+  .map((cells) => ({ label: cells[1], value: cells[2] }));
+
+const quickNotes = quickProfileLines
+  .map((line) => line.trim())
+  .filter((line) => line && !line.startsWith("|"));
+
+const quickNoteRows = quickNotes.map((line) => {
+  const match = cleanText(line).match(/^\*\*(.*?):\*\*\s*(.*)$/);
+  return match ? { label: match[1], value: match[2] } : { label: "Note", value: cleanText(line) };
+});
+
+const profileItems = [...profileRows, ...quickNoteRows];
+const compactLabels = new Set(["Name", "Species", "Universe", "Role", "Languages", "Birthday", "Gender", "Software"]);
+const compactProfileItems = profileItems.filter((row) => compactLabels.has(row.label));
+const wideProfileRows = profileItems.filter((row) => !compactLabels.has(row.label));
+const compactProfileRows: { left: { label: string; value: string }; right?: { label: string; value: string } }[] = [];
+for (let index = 0; index < compactProfileItems.length; index += 2) {
+  compactProfileRows.push({ left: compactProfileItems[index], right: compactProfileItems[index + 1] });
+}
+
+const sections: Section[] = [...sectionMap.entries()]
+  .filter(([title]) => title !== "Quick profile")
+  .map(([title, lines]) => ({
+    title,
+    blocks: lines.join("\n").split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+  }));
+
+const featuredSections = sections.slice(0, 2);
+const remainingSections = sections.slice(2);
+---
+
+<BaseLayout
+  title="About me | Blues' blocky site"
+  description="Meet Blues, the hobbyist artist behind Voxel World, Blocky Tales, and this little blocky website."
+>
+  <main class="about-shell">
+    <header class="posts-topbar about-topbar">
+      <a class="site-logo" href="/index.html" aria-label="Bigthyblues home">
+        <img src="/img/webicon.png" alt="" />
+      </a>
+      <h1 class="mobile-page-title">About me</h1>
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="top-nav" aria-label="Main navigation" data-mobile-menu>
+        <a href="/index.html">Home</a>
+        <a aria-current="page" href="/about.html">About me</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/posts.html">Posts</a>
+        <a href="/characters.html">Characters</a>
+        <a href="/world.html">World</a>
+      </nav>
+    </header>
+
+    <section class="about-card about-intro-card" aria-labelledby="about-title">
+      <div class="about-intro">
+        {heroLeadBlocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+        <h1 id="about-title" set:html={renderInline(heroTitle)} />
+        {introBlocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+      </div>
+    </section>
+
+    <section class="about-card about-profile-card" aria-labelledby="profile-title">
+      <header class="about-section-header">
+        <h2 id="profile-title">Quick profile</h2>
+      </header>
+      <div class="about-profile-layout">
+        <img class="about-avatar" src={assetSrc(bluesAvatar)} alt="Blues avatar" />
+        <dl class="about-profile-list about-profile-table">
+          {compactProfileRows.map((row) => (
+            <div class="about-profile-row about-profile-row-compact">
+              <dt>{row.left.label}</dt>
+              <dd set:html={renderInline(row.left.value)} />
+              {row.right && <dt>{row.right.label}</dt>}
+              {row.right && <dd set:html={renderInline(row.right.value)} />}
+            </div>
+          ))}
+          {wideProfileRows.map((row) => (
+            <div class="about-profile-row about-profile-row-wide">
+              <dt>{row.label}</dt>
+              <dd set:html={renderInline(row.value)} />
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <div class="about-feature-grid">
+      {featuredSections.map((section) => (
+        <section class="about-card about-text-card" aria-labelledby={titleId("about", section.title)}>
+          <header class="about-section-header">
+            <h2 id={titleId("about", section.title)} set:html={renderInline(section.title)} />
+          </header>
+          <div class="about-copy">
+            {section.blocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    {remainingSections.map((section) => (
+      <section class="about-card about-text-card" aria-labelledby={titleId("about", section.title)}>
+        <header class="about-section-header">
+          <h2 id={titleId("about", section.title)} set:html={renderInline(section.title)} />
+        </header>
+        <div class="about-copy">
+          {section.blocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+        </div>
+      </section>
+    ))}
+
+    <footer class="site-copyright about-copyright">&copy; 2026 Bigthyblues. All rights reserved</footer>
+  </main>
+
+  <script>
+    const menu = document.querySelector("[data-mobile-menu]");
+    const toggle = document.querySelector("[data-mobile-menu-toggle]");
+
+    toggle?.addEventListener("click", () => {
+      const isOpen = menu?.classList.toggle("is-open") ?? false;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+  </script>
+</BaseLayout>

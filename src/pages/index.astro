@@ -1,0 +1,82 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Welcome to Blues' blocky site!"
+  description="Bigthyblues' blocky home page for posts, gallery, characters, world notes, and social links."
+  bodyId="i8u5"
+>
+  <main class="home-page">
+    <section class="home-hero" aria-label="Bigthyblues home">
+      <div class="home-stage-inner">
+        <img class="home-banner" src="/img/banner.png" alt="Bigthyblues blocky site banner" />
+        <button class="home-character home-character-blues" type="button" data-home-blues aria-label="Blues says woof">
+          <img src="/img/Blues.png" alt="Blues" />
+        </button>
+        <button class="home-character home-character-fizz" type="button" data-home-fizz aria-label="Fizz says meow">
+          <img src="/img/Fizz.png" alt="Fizz" />
+        </button>
+      </div>
+    </section>
+
+    <nav class="home-nav-buttons" aria-label="Site navigation">
+      <a href="/about.html" class="home-nav-button home-nav-about">
+        <img src="/img/home-buttons/about-me.png" alt="About me" />
+      </a>
+      <a href="/posts.html" class="home-nav-button home-nav-posts">
+        <img src="/img/home-buttons/posts.png" alt="Posts" />
+      </a>
+      <a href="/characters.html" class="home-nav-button home-nav-characters">
+        <img src="/img/home-buttons/characters.png" alt="Characters" />
+      </a>
+      <a href="/gallery.html" class="home-nav-button home-nav-gallery">
+        <img src="/img/home-buttons/gallery.png" alt="Gallery" />
+      </a>
+      <a href="/world.html" class="home-nav-button home-nav-world">
+        <img src="/img/home-buttons/world.png" alt="World" />
+      </a>
+    </nav>
+
+    <footer class="home-footer">
+      <div class="copyright-line">
+        <span>&copy; 2026 Bigthyblues. </span>
+        <span>All rights reserved</span>
+      </div>
+      <nav class="home-socials" aria-label="Social media links">
+        <a href="https://bsky.app/profile/bigthyblues.xyz" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><img src="/img/social/BS.png" alt="Bluesky" /></a>
+        <a href="https://twitter.com/bigthyblues" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><img src="/img/social/TT.png" alt="Twitter" /></a>
+        <a href="https://www.deviantart.com/bightlyblues" target="_blank" rel="noopener noreferrer" aria-label="DeviantArt"><img src="/img/social/DA.png" alt="DeviantArt" /></a>
+        <a href="https://toyhou.se/Bigthyblues" target="_blank" rel="noopener noreferrer" aria-label="Toyhouse"><img src="/img/social/TH.png" alt="Toyhouse" /></a>
+        <a href="https://www.youtube.com/@bigthybluesYT" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/img/social/YT.png" alt="YouTube" /></a>
+      </nav>
+    </footer>
+  </main>
+
+  <script>
+    const homePage = document.querySelector(".home-page");
+    const homeHero = document.querySelector(".home-hero");
+
+    function updateHomeStage() {
+      if (!(homePage instanceof HTMLElement) || !(homeHero instanceof HTMLElement)) return;
+      const styles = getComputedStyle(homePage);
+      const stageWidth = parseFloat(styles.getPropertyValue("--stage-width"));
+      const stageHeight = parseFloat(styles.getPropertyValue("--stage-height"));
+      if (!stageWidth || !stageHeight) return;
+      const scale = Math.min(1, homeHero.clientWidth / stageWidth);
+      homePage.style.setProperty("--stage-scale", String(scale));
+      homeHero.style.height = `${stageHeight * scale}px`;
+    }
+
+    updateHomeStage();
+    window.addEventListener("resize", updateHomeStage);
+
+    document.querySelector("[data-home-blues]")?.addEventListener("click", () => {
+      alert("Woof!🐶");
+    });
+
+    document.querySelector("[data-home-fizz]")?.addEventListener("click", () => {
+      alert("Meow!🐱");
+    });
+  </script>
+</BaseLayout>

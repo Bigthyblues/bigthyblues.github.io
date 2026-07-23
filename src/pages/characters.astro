@@ -1,0 +1,371 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import charactersOverviewRaw from "../content/characters/overview.md?raw";
+import blockyGroupIcon from "../content/characters/icon/Blocky icon.png";
+import cartoonGroupIcon from "../content/characters/icon/Cartoon icon.png";
+
+const assetSrc = (asset: string | { src: string }) => typeof asset === "string" ? asset : asset.src;
+
+const iconModules = import.meta.glob("../content/characters/icon/**/*.png", { eager: true, import: "default" });
+const refModules = import.meta.glob("../content/characters/ref sheet/**/*.png", { eager: true, import: "default" });
+const profileModules = import.meta.glob("../content/characters/profiles/**/*.md", { eager: true, query: "?raw", import: "default" });
+const introductionCodeModules = import.meta.glob("../content/characters/Introductions code/*", { eager: true, query: "?raw", import: "default" });
+
+type CharacterGroup = "blocky" | "cartoon";
+type CharacterProfile = {
+  name: string;
+  group: CharacterGroup;
+  quote: string;
+  color: string;
+  icon: string;
+  ref: string;
+  profileHtml: string;
+};
+
+const groupText: Record<CharacterGroup, { title: string; intro: string[]; order: string[]; icon: string; paper: string; inner: string; accent: string }> = {
+  blocky: {
+    title: "Blockimals",
+    icon: assetSrc(blockyGroupIcon),
+    paper: "rgba(190, 232, 255, 0.92)",
+    inner: "rgba(235, 250, 255, 0.96)",
+    accent: "#1889c7",
+    intro: [
+      "Blockimals are the native residents of Voxel World.",
+      "They usually have square or rectangular bodies, with designs inspired by simple blocky shapes. Despite their geometric appearance, they can still move, stretch, and react with the lively energy of classic cartoons.",
+      "Through Voxel World's creation system, they may also update or redesign their appearance while keeping their identity. Meet the Blockimals who live, work, explore, and create new stories across Voxel World!"
+    ],
+    order: ["Blues", "Fizz", "Lockby", "Carl", "Punk", "Zippy", "Minty", "Rowdy", "Fazer", "Glup"]
+  },
+  cartoon: {
+    title: "Cartoons",
+    icon: assetSrc(cartoonGroupIcon),
+    paper: "rgba(255, 218, 176, 0.92)",
+    inner: "rgba(255, 244, 230, 0.96)",
+    accent: "#d66b12",
+    intro: [
+      "Cartoons are characters who have moved to Voxel World from other dimensions.",
+      "Each of them brings a different art style, personality, culture, and way of life into the community.",
+      "Although they are not as deeply connected to Voxel World's system as Blockimals, their creativity and enthusiasm make the world warmer, livelier, and full of unexpected moments. Meet the Cartoon residents who have chosen Voxel World as their new home!"
+    ],
+    order: ["Mish", "Rushy", "Zesty", "Verde", "Wisky", "Kyle", "Mopple", "Riff"]
+  }
+};
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
+const renderInline = (value: string) => {
+  let html = escapeHtml(value);
+  html = html.replace(/\[color:(#[0-9a-fA-F]{3,8}|[a-zA-Z]+)\]\{(.*?)\}/g, '<span style="color:$1">$2</span>');
+  html = html.replace(/\[hex=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/hex\]/g, '<span class="md-hex" style="color: $1;">$2</span>');
+  html = html.replace(/\[bg=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg-custom" style="background-color: $1;">$2</span>');
+  html = html.replace(/\[bg=([a-z0-9-]+)\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg md-bg-$1">$2</span>');
+  html = html.replace(/\[color=([a-z0-9-]+)\]([\s\S]*?)\[\/color\]/g, '<span class="md-color md-color-$1">$2</span>');
+  html = html.replace(/\[size=(small|large|xl)\]([\s\S]*?)\[\/size\]/g, '<span class="md-size-$1">$2</span>');
+  html = html.replace(/\[center\]([\s\S]*?)\[\/center\]/g, '<span class="md-center">$1</span>');
+  html = html.replace(/\[mark\]([\s\S]*?)\[\/mark\]/g, '<span class="md-mark">$1</span>');
+  html = html.replace(/\[del\]([\s\S]*?)\[\/del\]/g, "<del>$1</del>");
+  html = html.replace(/\[box\]([\s\S]*?)\[\/box\]/g, '<span class="md-box">$1</span>');
+  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/~~(.*?)~~/g, "<del>$1</del>");
+  html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  html = html.replace(/`(.*?)`/g, "<code>$1</code>");
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+  return html;
+};
+
+const renderMarkdown = (markdown: string) =>
+  markdown
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => {
+      if (block.startsWith("### ")) return `<h4>${renderInline(block.slice(4))}</h4>`;
+      if (block.startsWith("## ")) return `<h3>${renderInline(block.slice(3))}</h3>`;
+      if (block.startsWith("# ")) return "";
+      if (block.startsWith("> ")) return `<blockquote>${renderInline(block.replace(/^>\s*/, ""))}</blockquote>`;
+      const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+      if (lines.every((line) => line.startsWith("- "))) {
+        return `<ul>${lines.map((line) => `<li>${renderInline(line.slice(2))}</li>`).join("")}</ul>`;
+      }
+      return `<p>${renderInline(lines.join(" "))}</p>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+const parseFrontmatter = (raw: string) => {
+  const match = raw.match(/^---\s*([\s\S]*?)\s*---\s*/);
+  const frontmatter = match?.[1] ?? "";
+  const body = raw.replace(/^---[\s\S]*?---\s*/, "").trim();
+  const data = Object.fromEntries(
+    frontmatter
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const index = line.indexOf(":");
+        return [line.slice(0, index).trim(), line.slice(index + 1).trim().replace(/^"|"$/g, "")];
+      })
+  );
+  return { data, body };
+};
+
+const plainTitle = (value: string) =>
+  value
+    .replace(/\[(?:color|bg|hex|size)=[^\]]+\]|\[\/(?:color|bg|hex|size)\]/g, "")
+    .replace(/\[(?:center|mark|del|box)\]|\[\/(?:center|mark|del|box)\]/g, "")
+    .replace(/\*\*/g, "")
+    .trim();
+
+const parseOverviewMarkdown = (rawBody: string) => {
+  const lines = rawBody.split("\n");
+  const titleIndex = lines.findIndex((line) => line.startsWith("# "));
+  const firstSectionIndex = lines.findIndex((line) => line.startsWith("## "));
+  const title = titleIndex === -1 ? "Character profiles" : lines[titleIndex].replace(/^#\s+/, "");
+  const introStart = titleIndex === -1 ? 0 : titleIndex + 1;
+  const introEnd = firstSectionIndex === -1 ? undefined : firstSectionIndex;
+  const intro = lines
+    .slice(introStart, introEnd)
+    .join("\n")
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+  const sections = new Map<string, { title: string; blocks: string[] }>();
+  let activeTitle = "";
+  let activeLines: string[] = [];
+
+  for (const line of lines.slice(firstSectionIndex === -1 ? lines.length : firstSectionIndex)) {
+    if (line.startsWith("## ")) {
+      if (activeTitle) {
+        sections.set(plainTitle(activeTitle).toLowerCase(), {
+          title: activeTitle,
+          blocks: activeLines.join("\n").split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+        });
+      }
+      activeTitle = line.replace(/^##\s+/, "");
+      activeLines = [];
+    } else {
+      activeLines.push(line);
+    }
+  }
+
+  if (activeTitle) {
+    sections.set(plainTitle(activeTitle).toLowerCase(), {
+      title: activeTitle,
+      blocks: activeLines.join("\n").split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+    });
+  }
+
+  return { title, intro, sections };
+};
+
+const findModule = (modules: Record<string, unknown>, ending: string) => {
+  const normalizedEnding = ending.replaceAll("\\", "/");
+  const entry = Object.entries(modules).find(([path]) => path.replaceAll("\\", "/").endsWith(normalizedEnding));
+  return entry?.[1];
+};
+
+const cleanImportedHtml = (value: string) =>
+  value
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/\s+id=""/g, "")
+    .replace(/<a\b(?![^>]*\btarget=)/gi, '<a target="_blank"')
+    .replace(/<a\b(?![^>]*\brel=)/gi, '<a rel="noopener noreferrer"');
+
+const profileBody = (body: string) => {
+  const profileIndex = body.indexOf("## Profile");
+  return profileIndex === -1 ? body : body.slice(profileIndex + "## Profile".length).trim();
+};
+
+const { data: overviewMeta, body: overviewBody } = parseFrontmatter(charactersOverviewRaw);
+const overviewContent = parseOverviewMarkdown(overviewBody);
+const blockyOverview = overviewContent.sections.get("blockimals");
+const cartoonOverview = overviewContent.sections.get("cartoons");
+
+if (blockyOverview) {
+  groupText.blocky.title = blockyOverview.title;
+  groupText.blocky.intro = blockyOverview.blocks;
+}
+
+if (cartoonOverview) {
+  groupText.cartoon.title = cartoonOverview.title;
+  groupText.cartoon.intro = cartoonOverview.blocks;
+}
+
+const profiles = Object.values(profileModules).map((raw) => {
+  const { data, body } = parseFrontmatter(String(raw));
+  const name = data.title || "Unknown";
+  const group = (data.group || "blocky") as CharacterGroup;
+  const icon = findModule(iconModules, `icon/${group}/${name}.png`);
+  const ref = findModule(refModules, `ref sheet/${group}/${name}.png`);
+  const introductionCode = findModule(introductionCodeModules, `Introductions code/${name}`);
+
+  return {
+    name,
+    group,
+    quote: data.quote || "",
+    color: data.color || "#2464d8",
+    icon: assetSrc(icon as string | { src: string }),
+    ref: assetSrc(ref as string | { src: string }),
+    profileHtml: introductionCode ? cleanImportedHtml(String(introductionCode).trim()) : renderMarkdown(profileBody(body))
+  } satisfies CharacterProfile;
+});
+
+const profilesByGroup = (group: CharacterGroup) =>
+  profiles
+    .filter((profile) => profile.group === group)
+    .sort((a, b) => groupText[group].order.indexOf(a.name) - groupText[group].order.indexOf(b.name));
+
+const characterGroups = (["blocky", "cartoon"] as CharacterGroup[]).map((group) => ({
+  ...groupText[group],
+  group,
+  characters: profilesByGroup(group)
+}));
+
+const dataForModal = profiles.map((profile) => ({
+  name: profile.name,
+  group: profile.group,
+  color: profile.color,
+  quote: profile.quote,
+  ref: profile.ref,
+  profileHtml: profile.profileHtml
+}));
+---
+
+<BaseLayout title="Characters | Blues' blocky site" description={overviewMeta.description || "Character introductions for Voxel World residents."}>
+  <main class="about-shell characters-shell" data-characters-page>
+    <header class="posts-topbar about-topbar">
+      <a class="site-logo" href="/index.html" aria-label="Bigthyblues home">
+        <img src="/img/webicon.png" alt="" />
+      </a>
+      <h1 class="mobile-page-title">Characters</h1>
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="top-nav" aria-label="Main navigation" data-mobile-menu>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About me</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/posts.html">Posts</a>
+        <a aria-current="page" href="/characters.html">Characters</a>
+        <a href="/world.html">World</a>
+      </nav>
+    </header>
+
+    <section class="about-card characters-intro-card" aria-labelledby="characters-title">
+      <header class="about-section-header">
+        <h1 id="characters-title" set:html={renderInline(overviewContent.title)} />
+      </header>
+      <div class="about-copy characters-intro-copy">
+        {overviewContent.intro.map((block) => <Fragment set:html={renderMarkdown(block)} />)}
+      </div>
+    </section>
+
+    {characterGroups.map((group) => (
+      <section class="about-card characters-group-card" data-character-group-card={group.group} aria-labelledby={`characters-${group.group}`} style={`--group-paper: ${group.paper}; --group-inner: ${group.inner}; --group-accent: ${group.accent};`}>
+        <header class="about-section-header">
+          <h2 id={`characters-${group.group}`} class="characters-group-title">
+            <img src={group.icon} alt="" loading="lazy" decoding="async" />
+            <span set:html={renderInline(group.title)} />
+          </h2>
+        </header>
+        <div class="about-copy characters-group-copy" set:html={renderMarkdown(group.intro.join("\n\n"))} />
+        <div class="characters-grid">
+          {group.characters.map((character) => (
+            <button class="character-tile" type="button" data-character-open data-character-name={character.name} data-character-group={character.group} style={`--character-color: ${character.color}`}>
+              <span class="character-icon-frame">
+                <img src={character.icon} alt={`${character.name} icon`} loading="lazy" decoding="async" />
+              </span>
+              <span class="character-tile-name">{character.name}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <footer class="site-copyright about-copyright">&copy; 2026 Bigthyblues. All rights reserved</footer>
+  </main>
+
+  <div class="character-modal" data-character-modal hidden>
+    <div class="character-modal-panel" role="dialog" aria-modal="true" aria-labelledby="character-modal-title">
+      <header class="character-modal-head">
+        <h2 id="character-modal-title" data-character-title></h2>
+        <button class="character-modal-close" type="button" data-character-close aria-label="Close character details">X</button>
+      </header>
+      <figure class="character-modal-ref">
+        <img data-character-ref alt="" loading="lazy" decoding="async" />
+      </figure>
+      <section class="character-modal-summary">
+        <p data-character-quote></p>
+      </section>
+      <section class="character-modal-profile" aria-label="Character profile" data-character-profile></section>
+    </div>
+  </div>
+
+  <script is:inline type="application/json" id="characters-data" set:html={JSON.stringify(dataForModal)} />
+
+  <script>
+    const root = document.querySelector("[data-characters-page]");
+    const menu = root?.querySelector("[data-mobile-menu]");
+    const toggle = root?.querySelector("[data-mobile-menu-toggle]");
+
+    toggle?.addEventListener("click", () => {
+      const isOpen = menu?.classList.toggle("is-open") ?? false;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+
+    const dataNode = document.getElementById("characters-data");
+    type CharacterModalData = { name: string; group: string; color: string; quote: string; ref: string; profileHtml: string };
+    const characters = JSON.parse(dataNode?.textContent || "[]") as CharacterModalData[];
+    const modal = document.querySelector("[data-character-modal]");
+    const close = document.querySelector("[data-character-close]");
+    const refImage = document.querySelector("[data-character-ref]");
+    const title = document.querySelector("[data-character-title]");
+    const quote = document.querySelector("[data-character-quote]");
+    const profile = document.querySelector("[data-character-profile]");
+    const modalPanel = document.querySelector(".character-modal-panel");
+
+    function openCharacter(name: string | undefined) {
+      const character = characters.find((item) => item.name === name);
+      if (!character || !(modal instanceof HTMLElement)) return;
+
+      modal.style.setProperty("--character-color", character.color);
+      modal.setAttribute("data-character-group", character.group);
+      if (refImage instanceof HTMLImageElement) {
+        refImage.src = character.ref;
+        refImage.alt = `${character.name} reference sheet`;
+      }
+      if (title instanceof HTMLElement) title.textContent = character.name;
+      if (quote instanceof HTMLElement) quote.textContent = character.quote;
+      if (profile instanceof HTMLElement) profile.innerHTML = character.profileHtml;
+
+      modal.hidden = false;
+      if (modalPanel instanceof HTMLElement) modalPanel.scrollTop = 0;
+      document.body.classList.add("has-character-modal");
+    }
+
+    function closeCharacter() {
+      if (modal instanceof HTMLElement) modal.hidden = true;
+      document.body.classList.remove("has-character-modal");
+    }
+
+    document.querySelectorAll("[data-character-open]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button instanceof HTMLElement) openCharacter(button.dataset.characterName);
+      });
+    });
+
+    close?.addEventListener("click", closeCharacter);
+    modal?.addEventListener("click", (event) => {
+      if (event.target === modal) closeCharacter();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeCharacter();
+    });
+  </script>
+</BaseLayout>

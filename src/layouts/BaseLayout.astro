@@ -1,0 +1,35 @@
+---
+import "../styles/site.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  bodyId?: string;
+}
+
+const {
+  title,
+  description = "Woof! Welcome to Blues' blocky site!",
+  bodyId
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Bigthyblues, blues, bluesarts" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/img/webicon.png" />
+    <link rel="icon" href="/img/webicon.png" />
+    <title>{title}</title>
+  </head>
+  <body id={bodyId}>
+    <slot />
+  </body>
+</html>
+

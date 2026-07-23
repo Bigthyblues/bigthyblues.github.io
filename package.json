@@ -1,0 +1,27 @@
+{
+  "name": "bigthyblues-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "import:tweets": "node tools/import-twitter-posts.mjs",
+    "review:tweets": "node tools/review-server.mjs",
+    "review:extras": "node tools/twitter-extra-review.mjs",
+    "import:extras": "node tools/import-twitter-extra-drafts.mjs",
+    "import:fanart": "node tools/import-fanart-doc.mjs",
+    "thumbs:gallery": "node tools/generate-gallery-thumbnails.mjs",
+    "predev": "node tools/generate-gallery-thumbnails.mjs",
+    "prebuild": "node tools/generate-gallery-thumbnails.mjs",
+    "prepreview": "node tools/generate-gallery-thumbnails.mjs",
+    "manage:posts": "node tools/post-manager.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.0.0",
+    "typescript": "^5.5.0"
+  },
+  "devDependencies": {}
+}

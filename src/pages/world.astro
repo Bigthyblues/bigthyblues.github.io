@@ -1,0 +1,172 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import worldRaw from "../content/world/overview.md?raw";
+
+type Section = {
+  title: string;
+  blocks: string[];
+};
+
+const frontmatterMatch = worldRaw.match(/^---\s*([\s\S]*?)\s*---\s*/);
+const frontmatter = frontmatterMatch?.[1] ?? "";
+const markdownBody = worldRaw.replace(/^---[\s\S]*?---\s*/, "").trim();
+
+const meta = Object.fromEntries(
+  frontmatter
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const index = line.indexOf(":");
+      if (index === -1) return [line, ""];
+      return [line.slice(0, index).trim(), line.slice(index + 1).trim().replace(/^"|"$/g, "")];
+    })
+);
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
+const renderInline = (value: string) => {
+  let html = escapeHtml(value);
+  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\[hex=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/hex\]/g, '<span class="md-hex" style="color: $1;">$2</span>');
+  html = html.replace(/\[bg=(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg-custom" style="background-color: $1;">$2</span>');
+  html = html.replace(/\[bg=([a-z0-9-]+)\]([\s\S]*?)\[\/bg\]/g, '<span class="md-bg md-bg-$1">$2</span>');
+  html = html.replace(/\[color=([a-z0-9-]+)\]([\s\S]*?)\[\/color\]/g, '<span class="md-color md-color-$1">$2</span>');
+  html = html.replace(/\[size=(small|large|xl)\]([\s\S]*?)\[\/size\]/g, '<span class="md-size-$1">$2</span>');
+  html = html.replace(/\[center\]([\s\S]*?)\[\/center\]/g, '<span class="md-center">$1</span>');
+  html = html.replace(/\[mark\]([\s\S]*?)\[\/mark\]/g, '<span class="md-mark">$1</span>');
+  html = html.replace(/\[del\]([\s\S]*?)\[\/del\]/g, "<del>$1</del>");
+  html = html.replace(/\[box\]([\s\S]*?)\[\/box\]/g, '<span class="md-box">$1</span>');
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+  return html;
+};
+
+const plainTitle = (value: string) =>
+  value
+    .replace(/\[(?:color|bg|hex|size)=[^\]]+\]|\[\/(?:color|bg|hex|size)\]/g, "")
+    .replace(/\[(?:center|mark|del|box)\]|\[\/(?:center|mark|del|box)\]/g, "")
+    .replace(/\*\*/g, "");
+
+const titleId = (prefix: string, value: string) =>
+  `${prefix}-${plainTitle(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section"}`;
+
+const renderBlock = (block: string) => {
+  const trimmed = block.trim();
+  if (!trimmed || trimmed.startsWith("<!--")) return "";
+
+  const lines = trimmed.split("\n").filter(Boolean).filter((line) => !line.trim().startsWith("<!--"));
+  if (!lines.length) return "";
+
+  if (lines.length === 1 && lines[0].startsWith("### ")) {
+    return `<h3>${renderInline(lines[0].replace(/^###\s+/, ""))}</h3>`;
+  }
+
+  if (lines.every((line) => line.trim().startsWith("- "))) {
+    return `<ul>${lines.map((line) => `<li>${renderInline(line.trim().slice(2))}</li>`).join("")}</ul>`;
+  }
+
+  if (lines.length === 1) {
+    const imageMatch = lines[0].match(/^!\[(.*?)\]\((.*?)\)$/);
+    if (imageMatch) {
+      return `<figure class="world-image-frame"><img src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}" loading="lazy" decoding="async" /></figure>`;
+    }
+  }
+
+  return `<p>${renderInline(lines.join(" "))}</p>`;
+};
+
+const markdownLines = markdownBody.split("\n");
+const pageTitle = markdownLines.find((line) => line.startsWith("# "))?.replace(/^#\s+/, "") ?? meta.title ?? "World";
+const firstSectionIndex = markdownLines.findIndex((line) => line.startsWith("## "));
+const introBlocks = markdownLines
+  .slice(1, firstSectionIndex === -1 ? undefined : firstSectionIndex)
+  .join("\n")
+  .split(/\n{2,}/)
+  .map((block) => block.trim())
+  .filter(Boolean);
+
+const sections: Section[] = [];
+let activeTitle = "";
+let activeLines: string[] = [];
+
+for (const line of markdownLines.slice(firstSectionIndex)) {
+  if (line.startsWith("## ")) {
+    if (activeTitle) {
+      sections.push({
+        title: activeTitle,
+        blocks: activeLines.join("\n").split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+      });
+    }
+    activeTitle = line.replace(/^##\s+/, "");
+    activeLines = [];
+  } else {
+    activeLines.push(line);
+  }
+}
+if (activeTitle) {
+  sections.push({
+    title: activeTitle,
+    blocks: activeLines.join("\n").split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+  });
+}
+---
+
+<BaseLayout title="World | Blues' blocky site" description={meta.description || "Voxel World overview from Bigthyblues."}>
+  <main class="about-shell world-shell">
+    <header class="posts-topbar about-topbar">
+      <a class="site-logo" href="/index.html" aria-label="Bigthyblues home">
+        <img src="/img/webicon.png" alt="" />
+      </a>
+      <h1 class="mobile-page-title">World</h1>
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="top-nav" aria-label="Main navigation" data-mobile-menu>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About me</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/posts.html">Posts</a>
+        <a href="/characters.html">Characters</a>
+        <a aria-current="page" href="/world.html">World</a>
+      </nav>
+    </header>
+
+    <section class="about-card world-hero" aria-labelledby="world-title">
+      <header class="about-section-header">
+        <h1 id="world-title" set:html={renderInline(pageTitle)} />
+      </header>
+      <div class="about-copy world-hero-copy">
+        {introBlocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+      </div>
+    </section>
+
+    {sections.map((section) => (
+      <section class="about-card about-text-card world-text-card" aria-labelledby={titleId("world", section.title)}>
+        <header class="about-section-header">
+          <h2 id={titleId("world", section.title)} set:html={renderInline(section.title)} />
+        </header>
+        <div class="about-copy">
+          {section.blocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+        </div>
+      </section>
+    ))}
+
+    <footer class="site-copyright about-copyright">&copy; 2026 Bigthyblues. All rights reserved</footer>
+  </main>
+
+  <script>
+    const menu = document.querySelector("[data-mobile-menu]");
+    const toggle = document.querySelector("[data-mobile-menu-toggle]");
+
+    toggle?.addEventListener("click", () => {
+      const isOpen = menu?.classList.toggle("is-open") ?? false;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+  </script>
+</BaseLayout>

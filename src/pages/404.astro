@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Where's my glasses?!" description="404 error" bodyId="ij9su">
+  <main class="not-found-shell">
+    <header class="not-found-copy" aria-labelledby="not-found-title">
+      <h1 id="not-found-title">Rushy tried his best!</h1>
+      <p>But he still didn't find anything...</p>
+    </header>
+
+    <section class="not-found-stage" aria-label="404 scene">
+      <img class="not-found-rushy" src="/img/Rushy-without-glasses.png" alt="Rushy cannot find anything without his glasses" />
+      <button class="not-found-glasses" type="button" data-found-glasses aria-label="Give Rushy his glasses">
+        <img src="/img/glasses.png" alt="" />
+      </button>
+    </section>
+
+    <a class="not-found-back" href="/index.html" aria-label="Back to home">
+      <img src="/img/Back.png" alt="Back" />
+    </a>
+
+    <footer class="not-found-footer">
+      &copy; 2026 Bigthyblues. All rights reserved
+    </footer>
+  </main>
+
+  <script>
+    document.querySelector("[data-found-glasses]")?.addEventListener("click", () => {
+      alert("Yay! You found them! Thank you very much!");
+      window.location.href = "/index.html";
+    });
+  </script>
+</BaseLayout>

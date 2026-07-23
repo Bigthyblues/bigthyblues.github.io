@@ -1,0 +1,22 @@
+﻿node_modules/
+dist/
+.astro/
+.tmp/
+astro-preview.log
+src/pages/editor.astro
+
+# Local source exports and review-only material
+*.lnk
+tools/reports/
+
+# Draft posts are local review material until published
+src/content/posts/imported-drafts/
+
+# Local-only editor page
+
+# Local archived assets
+local-only/
+
+数据/
+
+dev.bat
