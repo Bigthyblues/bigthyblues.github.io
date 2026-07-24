@@ -56,16 +56,26 @@ const sourcePosts = (await getCollection("posts", (entry) => Boolean(entry.data?
 const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaItem[] => {
   const date = post.data.date;
   const characterList = normalizeCharacters(post.data.character);
-  const characterKeys = characterList.map(toKey);
-  const characterLabel = characterList.join(", ");
   const imageList = normalizeImages(post.data.image, post.data.images);
   const monthGroup = `${date.getFullYear()}.${date.getMonth() + 1}`;
+  const charactersForMedia = (index: number) => {
+    if (imageList.length > 1 && characterList.length > 1 && characterList[index]) {
+      return [characterList[index]];
+    }
+
+    return characterList;
+  };
+  const characterMetaForMedia = (index: number) => {
+    const mediaCharacters = charactersForMedia(index);
+    return {
+      characterList: mediaCharacters,
+      characterKeys: mediaCharacters.map(toKey),
+      characterLabel: mediaCharacters.join(", ")
+    };
+  };
   const shared = {
     title: post.data.title,
     displayTitle: post.data.title,
-    characterList,
-    characterKeys,
-    characterLabel,
     fanartSourceUrl: post.data.fanartSourceUrl,
     fanartArtist: post.data.fanartArtist,
     fanartArtistUrl: post.data.fanartArtistUrl,
@@ -82,6 +92,7 @@ const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaI
   if (post.data.video) {
     return [{
       ...shared,
+      ...characterMetaForMedia(0),
       type: "video",
       image: imageList[0],
       video: post.data.video,
@@ -93,8 +104,9 @@ const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaI
   }
 
   const type = post.data.type === "fanart" ? "fanart" : "image";
-  return imageList.map((image) => ({
+  return imageList.map((image, index) => ({
     ...shared,
+    ...characterMetaForMedia(index),
     title: post.data.title,
     displayTitle: post.data.title,
     type,
