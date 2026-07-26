@@ -7,6 +7,7 @@ date: 2025-04-30T01:21:00+08:00
 image: "/img/gallery/fanart/fanart-2025-04-30-superwolko2004-make-your-ocs-in-wolf-version.jpg"
 excerpt: "Fanart by @SUPERWOLKO2004."
 fanartSourceUrl: "https://twitter.com/SUPERWOLKO2004/status/1917267905110065549"
+fanartSourceStatus: "Sometimes unavailable"
 fanartArtist: "@SUPERWOLKO2004"
 fanartArtistUrl: "https://twitter.com/SUPERWOLKO2004"
 draft: false

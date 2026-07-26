@@ -1,11 +1,3 @@
----
-title: "About me"
-author: "blues"
-character: "Blues"
-type: "text"
-date: 2026-07-02T10:56:00+08:00
-draft: false
----
 ![Blues waving](/img/image-about/about_me_banner.png)
 
 

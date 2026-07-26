@@ -10,11 +10,14 @@ const posts = defineCollection({
     date: z.date(),
     image: z.string().optional(),
     images: z.array(z.string()).optional(),
+    imageCharacters: z.array(z.string()).optional(),
     video: z.string().optional(),
     excerpt: z.string().optional(),
     fanartSourceUrl: z.string().optional(),
+    fanartSourceStatus: z.string().optional(),
     fanartArtist: z.string().optional(),
     fanartArtistUrl: z.string().optional(),
+    fanartArtistStatus: z.string().optional(),
     draft: z.boolean().default(false)
   })
 });

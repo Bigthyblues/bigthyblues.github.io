@@ -7,8 +7,10 @@ date: 2025-04-16T17:55:00+08:00
 image: "/img/gallery/fanart/fanart-2025-04-16-realjessevezoy-i-rsquo-ll-draw-them-as-a-yipee-creature.jpg"
 excerpt: "Fanart by @realjessevezoy."
 fanartSourceUrl: "https://twitter.com/realjessevezoy/status/1912440415543832825"
+fanartSourceStatus: "Deleted"
 fanartArtist: "@realjessevezoy"
 fanartArtistUrl: "https://twitter.com/realjessevezoy"
+fanartArtistStatus: "Suspended"
 draft: false
 ---
 

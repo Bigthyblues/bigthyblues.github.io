@@ -8,7 +8,9 @@ image: "/img/gallery/fanart/fanart-2025-09-26-realjessevezoy-doodle-your-ocs-on-
 excerpt: "Fanart by @realjessevezoy."
 fanartSourceUrl: "https://twitter.com/evezoey09/status/1971482728018358660"
 fanartArtist: "@realjessevezoy"
+fanartSourceStatus: "Deleted"
 fanartArtistUrl: "https://twitter.com/realjessevezoy"
+fanartArtistStatus: "Suspended"
 draft: false
 ---
 

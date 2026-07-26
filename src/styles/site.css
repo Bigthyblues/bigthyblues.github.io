@@ -1570,6 +1570,16 @@ body {
   gap: 8px;
 }
 
+.fanart-link-label {
+  color: #a71975;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.fanart-link-note {
+  color: #74707b;
+}
+
 /* Keep editor typography consistent with the rest of the site. */
 .editor-shell,
 .editor-fields input,
@@ -4295,8 +4305,8 @@ body:has(.posts-shell) .month-grid button[disabled] {
 
 .fanart-toggle-section {
   display: grid;
-  margin-top: 10px;
-  padding-top: 8px;
+  margin-top: 6px;
+  padding-top: 6px;
   border-top: 3px solid var(--line);
 }
 
@@ -4305,16 +4315,24 @@ body:has(.posts-shell) .month-grid button[disabled] {
   align-items: center;
   gap: 6px;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 30px;
   padding: 3px 8px;
   border: 2px solid var(--line);
   background: transparent;
   font: inherit;
-  font-size: clamp(0.86rem, 1.2vw, 1.05rem);
-  line-height: 1;
+  font-size: clamp(0.98rem, 1.28vw, 1.08rem);
+  line-height: 1.08;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
+  box-sizing: border-box;
   cursor: pointer;
+}
+
+.fanart-toggle > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .fanart-toggle[disabled] {
@@ -4340,8 +4358,21 @@ body:has(.posts-shell) .month-grid button[disabled] {
 }
 
 body:has(.posts-shell) .mobile-filter-panel .fanart-toggle-section {
-  margin-top: 8px;
-  padding-top: 7px;
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+body:has(.posts-shell) .mobile-filter-panel .fanart-toggle,
+body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
+  font-size: 1rem;
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .posts-sidebar-left .fanart-toggle {
+    gap: 4px;
+    padding-inline: 5px;
+    font-size: clamp(0.82rem, 1.25vw, 0.95rem);
+  }
 }
 
 
@@ -4414,7 +4445,7 @@ body:has(.posts-shell) .mobile-filter-panel .fanart-toggle-section {
 
 @media (max-width: 980px) {
   .about-profile-table {
-    --about-label-col: 160px;
+    --about-label-col: 176px;
   }
 
   .about-profile-row-compact,
@@ -4440,7 +4471,7 @@ body:has(.posts-shell) .mobile-filter-panel .fanart-toggle-section {
 @media (max-width: 760px) {
   .about-profile-row-compact,
   .about-profile-row-wide {
-    grid-template-columns: minmax(136px, 0.46fr) minmax(0, 1fr);
+    grid-template-columns: minmax(142px, 0.42fr) minmax(0, 1fr);
   }
 
   .about-profile-row-compact dt,
@@ -4475,12 +4506,12 @@ body:has(.posts-shell) .mobile-filter-panel .fanart-toggle-section {
 
 @media (max-width: 430px) {
   .about-profile-table {
-    font-size: clamp(0.86rem, 5vw, 1rem);
+    font-size: clamp(0.78rem, 4.7vw, 0.95rem);
   }
 
   .about-profile-row-compact,
   .about-profile-row-wide {
-    grid-template-columns: minmax(126px, 0.46fr) minmax(0, 1fr);
+    grid-template-columns: minmax(134px, 0.42fr) minmax(0, 1fr);
   }
 
   .about-profile-table dt,

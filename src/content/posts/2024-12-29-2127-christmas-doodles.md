@@ -7,6 +7,7 @@ date: 2024-12-29T21:27:00+08:00
 image: "/img/gallery/fanart/fanart-2024-12-29-soliasroscura-christmas-doodles.jpg"
 excerpt: "Fanart by @soliasroscura."
 fanartSourceUrl: "https://bsky.app/profile/sohailroscura.bsky.social/post/3leh2amnjsc2m"
+fanartSourceStatus: "Deleted"
 fanartArtist: "@soliasroscura"
 fanartArtistUrl: "https://bsky.app/profile/soliasroscura.bsky.social"
 draft: false

@@ -25,7 +25,10 @@ const renderInlineMarkdown = (value: string) => {
   html = html.replace(/\[del\]([\s\S]*?)\[\/del\]/g, "<del>$1</del>");
   html = html.replace(/\[box\]([\s\S]*?)\[\/box\]/g, '<span class="md-box">$1</span>');
   html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" loading="lazy" decoding="async" data-image-component="manual" />');
-  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, (_match, label: string, url: string) => {
+    const safeUrl = safeMarkdownUrl(url);
+    return safeUrl ? `<a href="${escapeHtml(safeUrl)}">${label}</a>` : `<span class="fanart-link-label">${label}</span>: <span class="fanart-link-note">${escapeHtml(url)}</span>`;
+  });
   return html;
 };
 
@@ -43,23 +46,71 @@ const renderPostBody = (markdown: string) =>
     })
     .join("");
 
+const stripFanartCreditLines = (markdown: string) =>
+  markdown
+    .split("\n")
+    .filter((line) => !/^\s*\[(Original source|Artist profile)\]\([^)]+\)\s*$/i.test(line))
+    .join("\n");
+
 const safeExternalUrl = (value?: string) => {
   const trimmed = value?.trim() ?? "";
   return /^https?:\/\//i.test(trimmed) ? trimmed : "";
 };
 
-const renderFanartCreditLinks = (post: { type: string; body: string; fanartSourceUrl?: string; fanartArtistUrl?: string }) => {
+const safeMarkdownUrl = (value: string) => {
+  const trimmed = value.trim();
+  return /^(https?:\/\/|mailto:|\/|#)/i.test(trimmed) ? trimmed : "";
+};
+
+const describeFanartSource = (value?: string, status?: string) => {
+  const source = value?.trim() ?? "";
+  const note = status?.trim() ?? "";
+  const key = `${source} ${note}`.toLowerCase();
+
+  if (note.toLowerCase() === "deleted") return "Deleted";
+  if (note.toLowerCase() === "sometimes unavailable" || key.includes("sometimes unavailable")) return "Sometimes unavailable";
+  if (/^(dm|discord dm|private|private message|direct message)$/.test(source.toLowerCase()) || key.includes("dm")) return "Private message";
+  if (key.includes("lock")) return "May be temporarily locked";
+  if (key.includes("delete") || key.includes("remove")) return "Original post may be deleted";
+  if (key.includes("freeze") || key.includes("suspend") || key.includes("ban")) return "Account may be unavailable";
+  if (key.includes("missing") || key.includes("unavailable") || key.includes("dead")) return "Source unavailable";
+  return note || source || "No source link provided";
+};
+
+const renderFanartCreditItem = (label: string, value?: string, status?: string) => {
+  const url = safeExternalUrl(value);
+  const note = status?.trim() ?? "";
+
+  if (url) {
+    const statusText = note ? ` <span class="fanart-link-note">(${escapeHtml(describeFanartSource(value, note))})</span>` : "";
+    return `<p><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>${statusText}</p>`;
+  }
+
+  const description = describeFanartSource(value, status);
+  return `<p><span class="fanart-link-label">${label}</span>: <span class="fanart-link-note">${escapeHtml(description)}</span></p>`;
+};
+
+const renderFanartCreditLinks = (post: {
+  type: string;
+  fanartSourceUrl?: string;
+  fanartSourceStatus?: string;
+  fanartArtistUrl?: string;
+  fanartArtistStatus?: string;
+}) => {
   if (post.type !== "fanart") return "";
 
   const links = [
-    { label: "Original source", url: safeExternalUrl(post.fanartSourceUrl) },
-    { label: "Artist profile", url: safeExternalUrl(post.fanartArtistUrl) }
-  ].filter((link) => link.url && !post.body.includes(link.url));
+    { label: "Original source", value: post.fanartSourceUrl, status: post.fanartSourceStatus },
+    { label: "Artist profile", value: post.fanartArtistUrl, status: post.fanartArtistStatus }
+  ].filter((link) => {
+    const rawValue = link.value?.trim() ?? "";
+    return rawValue || link.status?.trim();
+  });
 
   if (!links.length) return "";
 
   return `<div class="post-fanart-links">${links
-    .map((link) => `<p><a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${link.label}</a></p>`)
+    .map((link) => renderFanartCreditItem(link.label, link.value, link.status))
     .join("")}</div>`;
 };
 
@@ -93,11 +144,13 @@ const posts = (await getCollection("posts", (entry) => Boolean(entry.data?.date)
     const characterKeys = characterList.map(toKey);
     const imageList = normalizeImages(post.data.image, post.data.images);
     const postType = post.data.type;
-    const bodyHtml = `${renderPostBody(post.body)}${renderFanartCreditLinks({
+    const bodyMarkdown = postType === "fanart" ? stripFanartCreditLines(post.body) : post.body;
+    const bodyHtml = `${renderPostBody(bodyMarkdown)}${renderFanartCreditLinks({
       type: postType,
-      body: post.body,
       fanartSourceUrl: post.data.fanartSourceUrl,
-      fanartArtistUrl: post.data.fanartArtistUrl
+      fanartSourceStatus: post.data.fanartSourceStatus,
+      fanartArtistUrl: post.data.fanartArtistUrl,
+      fanartArtistStatus: post.data.fanartArtistStatus
     })}`;
 
     return {
@@ -113,8 +166,10 @@ const posts = (await getCollection("posts", (entry) => Boolean(entry.data?.date)
       isVideoEmbed: isEmbeddableVideo(post.data.video),
       excerpt: post.data.excerpt,
       fanartSourceUrl: post.data.fanartSourceUrl,
+      fanartSourceStatus: post.data.fanartSourceStatus,
       fanartArtist: post.data.fanartArtist,
       fanartArtistUrl: post.data.fanartArtistUrl,
+      fanartArtistStatus: post.data.fanartArtistStatus,
       body: post.body,
       bodyHtml,
       dateISO: date.toISOString(),

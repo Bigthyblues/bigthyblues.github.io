@@ -5,6 +5,7 @@ character: "Blues"
 type: "fanart"
 date: 2025-12-31T14:54:00+08:00
 images: ["/img/gallery/fanart/fanart-2025-12-31-eonstro-pixel-tinies-of-some-fine-people.jpg", "/img/gallery/fanart/fanart-2025-12-31-eonstro-pixel-tinies-of-some-fine-people-2.png"]
+imageCharacters: ["*", "*"]
 excerpt: "Fanart by @eonstro."
 fanartSourceUrl: "https://bsky.app/profile/eonstro.bsky.social/post/3mbdscmic5k2z"
 fanartArtist: "@eonstro"

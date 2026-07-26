@@ -37,8 +37,10 @@ type GalleryMediaItem = {
   mediaThumb?: string;
   mediaKind: "image" | "video";
   fanartSourceUrl?: string;
+  fanartSourceStatus?: string;
   fanartArtist?: string;
   fanartArtistUrl?: string;
+  fanartArtistStatus?: string;
   isVideoEmbed: boolean;
   excerpt?: string;
   body: string;
@@ -57,11 +59,11 @@ const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaI
   const date = post.data.date;
   const characterList = normalizeCharacters(post.data.character);
   const imageList = normalizeImages(post.data.image, post.data.images);
+  const imageCharacters = post.data.imageCharacters ?? [];
   const monthGroup = `${date.getFullYear()}.${date.getMonth() + 1}`;
   const charactersForMedia = (index: number) => {
-    if (imageList.length > 1 && characterList.length > 1 && characterList[index]) {
-      return [characterList[index]];
-    }
+    const imageCharacterValue = imageCharacters[index]?.trim();
+    if (imageCharacterValue && imageCharacterValue !== "*") return normalizeCharacters(imageCharacterValue);
 
     return characterList;
   };
@@ -77,8 +79,10 @@ const mediaPosts: GalleryMediaItem[] = sourcePosts.flatMap((post): GalleryMediaI
     title: post.data.title,
     displayTitle: post.data.title,
     fanartSourceUrl: post.data.fanartSourceUrl,
+    fanartSourceStatus: post.data.fanartSourceStatus,
     fanartArtist: post.data.fanartArtist,
     fanartArtistUrl: post.data.fanartArtistUrl,
+    fanartArtistStatus: post.data.fanartArtistStatus,
     excerpt: post.data.excerpt,
     body: post.body,
     dateISO: date.toISOString(),
@@ -277,8 +281,10 @@ const types = ["image", "video", "fanart"];
                     data-open-fanart
                     data-fanart-title={post.displayTitle ?? post.title}
                     data-fanart-source={post.fanartSourceUrl ?? ""}
+                    data-fanart-source-status={post.fanartSourceStatus ?? ""}
                     data-fanart-artist={post.fanartArtist ?? "Unknown artist"}
                     data-fanart-artist-url={post.fanartArtistUrl ?? ""}
+                    data-fanart-artist-status={post.fanartArtistStatus ?? ""}
                   >
                     {post.displayTitle ?? post.title}
                   </button>
@@ -568,22 +574,68 @@ const types = ["image", "video", "fanart"];
       if (fanartModal instanceof HTMLElement) fanartModal.hidden = true;
     }
 
+    function isExternalUrl(value: string) {
+      return /^https?:\/\//i.test(value.trim());
+    }
+
+    function describeFanartSource(value: string, status = "") {
+      const source = value.trim();
+      const note = status.trim();
+      const key = `${source} ${note}`.toLowerCase();
+
+      if (note.toLowerCase() === "deleted") return "Deleted";
+      if (note.toLowerCase() === "sometimes unavailable" || key.includes("sometimes unavailable")) return "Sometimes unavailable";
+      if (/^(dm|discord dm|private|private message|direct message)$/.test(source.toLowerCase()) || key.includes("dm")) return "Private message";
+      if (key.includes("lock")) return "May be temporarily locked";
+      if (key.includes("delete") || key.includes("remove")) return "Original post may be deleted";
+      if (key.includes("freeze") || key.includes("suspend") || key.includes("ban")) return "Account may be unavailable";
+      if (key.includes("missing") || key.includes("unavailable") || key.includes("dead")) return "Source unavailable";
+      return note || source || "No source link provided";
+    }
+
+    function updateFanartLink(link: Element | null, label: string, value: string, status = "") {
+      if (!(link instanceof HTMLAnchorElement)) return;
+
+      if (isExternalUrl(value)) {
+        link.textContent = status ? `${label} (${describeFanartSource(value, status)})` : label;
+        link.href = value;
+        link.removeAttribute("aria-disabled");
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+        return;
+      }
+
+      link.textContent = `${label}: ${describeFanartSource(value, status)}`;
+      link.removeAttribute("href");
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
+      link.setAttribute("aria-disabled", "true");
+    }
+
     function openFanartInfo(button: HTMLElement) {
       if (!(fanartModal instanceof HTMLElement)) return;
       const sourceUrl = button.dataset.fanartSource ?? "";
+      const sourceStatus = button.dataset.fanartSourceStatus ?? "";
       const artistUrl = button.dataset.fanartArtistUrl ?? "";
+      const artistStatus = button.dataset.fanartArtistStatus ?? "";
       const artistName = button.dataset.fanartArtist ?? "Unknown artist";
 
       if (fanartTitle instanceof HTMLElement) fanartTitle.textContent = button.dataset.fanartTitle ?? "Fanart";
-      if (fanartSource instanceof HTMLAnchorElement) {
-        fanartSource.textContent = sourceUrl || "No source link provided";
-        fanartSource.href = sourceUrl || "#";
-        fanartSource.toggleAttribute("aria-disabled", sourceUrl === "");
-      }
+      updateFanartLink(fanartSource, "Original source", sourceUrl, sourceStatus);
       if (fanartArtist instanceof HTMLAnchorElement) {
-        fanartArtist.textContent = artistName;
-        fanartArtist.href = artistUrl || "#";
-        fanartArtist.toggleAttribute("aria-disabled", artistUrl === "");
+        if (isExternalUrl(artistUrl)) {
+          fanartArtist.textContent = artistStatus ? `${artistName} (${describeFanartSource(artistUrl, artistStatus)})` : artistName;
+          fanartArtist.href = artistUrl;
+          fanartArtist.removeAttribute("aria-disabled");
+          fanartArtist.setAttribute("target", "_blank");
+          fanartArtist.setAttribute("rel", "noopener noreferrer");
+        } else {
+          fanartArtist.textContent = `${artistName}${artistUrl || artistStatus ? ` (${describeFanartSource(artistUrl, artistStatus)})` : ""}`;
+          fanartArtist.removeAttribute("href");
+          fanartArtist.removeAttribute("target");
+          fanartArtist.removeAttribute("rel");
+          fanartArtist.setAttribute("aria-disabled", "true");
+        }
       }
 
       fanartModal.hidden = false;

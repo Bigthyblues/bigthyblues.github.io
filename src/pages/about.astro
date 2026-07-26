@@ -192,8 +192,8 @@ const remainingSections = sections.slice(2);
             <div class="about-profile-row about-profile-row-compact">
               <dt>{row.left.label}</dt>
               <dd set:html={renderInline(row.left.value)} />
-              {row.right && <dt>{row.right.label}</dt>}
-              {row.right && <dd set:html={renderInline(row.right.value)} />}
+              <dt class:list={{ "is-empty-cell": !row.right }}>{row.right?.label ?? ""}</dt>
+              <dd class:list={{ "is-empty-cell": !row.right }} set:html={row.right ? renderInline(row.right.value) : ""} />
             </div>
           ))}
           {wideProfileRows.map((row) => (

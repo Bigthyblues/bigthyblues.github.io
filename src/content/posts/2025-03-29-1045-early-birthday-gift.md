@@ -5,6 +5,7 @@ character: ["Mish", "Rushy"]
 type: "fanart"
 date: 2025-03-29T10:45:00+08:00
 images: ["/img/gallery/fanart/fanart-2025-03-29-steffdetekenaar-early-birthday-gift.jpg", "/img/gallery/fanart/fanart-2025-03-29-steffdetekenaar-early-birthday-gift-2.jpg"]
+imageCharacters: ["Mish", "Rushy"]
 excerpt: "Fanart by @steffdetekenaar."
 fanartSourceUrl: "https://twitter.com/tekenaar_de/status/1905994631973663146"
 fanartArtist: "@steffdetekenaar"

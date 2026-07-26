@@ -4,6 +4,7 @@ dist/
 .tmp/
 astro-preview.log
 src/pages/editor.astro
+src/pages/manager.astro
 
 # Local source exports and review-only material
 *.lnk
