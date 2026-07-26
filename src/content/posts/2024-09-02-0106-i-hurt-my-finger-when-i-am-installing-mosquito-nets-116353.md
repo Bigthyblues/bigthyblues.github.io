@@ -6,7 +6,7 @@ type: "image"
 date: 2024-09-02T01:06:00+08:00
 image: "/img/gallery/imported/2024-09-02-0106-i-hurt-my-finger-when-i-am-installing-mosquito-nets-116353.jpg"
 excerpt: "\"I hurt my finger when I am installing mosquito nets..."
-draft: false
+draft: true
 ---
 
 I hurt my finger when I am installing mosquito nets...
