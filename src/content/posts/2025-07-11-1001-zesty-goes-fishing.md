@@ -9,7 +9,7 @@ excerpt: "Zesty goes fishing!"
 fanartSourceUrl: "https://bsky.app/profile/commonpolarity.bsky.social/post/3ltp7qqe72c2x"
 fanartArtist: "@commonpolarity"
 fanartArtistUrl: "https://bsky.app/profile/commonpolarity.bsky.social"
-draft: false
+draft: true
 ---
 
 Fanart by @commonpolarity.
