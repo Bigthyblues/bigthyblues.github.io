@@ -13,7 +13,66 @@
   font-display: swap;
 }
 
+/*
+ * Fusion Pixel Font 2026.07.20, 12px proportional
+ * https://github.com/TakWolf/fusion-pixel-font
+ * Licensed under the SIL Open Font License 1.1.
+ *
+ * The unicode range keeps the site's Latin text in Tenacity/Arial while
+ * translated Chinese text automatically picks up the matching pixel glyphs.
+ */
+@font-face {
+  font-family: "Fusion Pixel 12px SC";
+  src: url("/fonts/fusion-pixel-12px-proportional-zh_hans.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+2E80-2EFF,
+    U+2F00-2FDF,
+    U+2FF0-2FFF,
+    U+3000-303F,
+    U+3100-312F,
+    U+31A0-31BF,
+    U+31C0-31EF,
+    U+3200-33FF,
+    U+3400-4DBF,
+    U+4E00-9FFF,
+    U+F900-FAFF,
+    U+FE10-FE1F,
+    U+FE30-FE4F,
+    U+FF00-FFEF,
+    U+20000-2FA1F;
+}
+
+@font-face {
+  font-family: "Fusion Pixel 12px TC";
+  src: url("/fonts/fusion-pixel-12px-proportional-zh_hant.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+2E80-2EFF,
+    U+2F00-2FDF,
+    U+2FF0-2FFF,
+    U+3000-303F,
+    U+3100-312F,
+    U+31A0-31BF,
+    U+31C0-31EF,
+    U+3200-33FF,
+    U+3400-4DBF,
+    U+4E00-9FFF,
+    U+F900-FAFF,
+    U+FE10-FE1F,
+    U+FE30-FE4F,
+    U+FF00-FFEF,
+    U+20000-2FA1F;
+}
+
 :root {
+  --font-pixel-cjk: "Fusion Pixel 12px SC";
+  --font-site: "Tenacity", var(--font-pixel-cjk), Arial, sans-serif;
+  --font-sans: var(--font-pixel-cjk), Arial, Helvetica, sans-serif;
   --gjs-t-color-primary: #cf549e;
   --gjs-t-color-secondary: #b9227d;
   --gjs-t-color-accent: #ffb347;
@@ -26,12 +85,18 @@
   --mint: #dff8ef;
 }
 
+:lang(zh-Hant),
+:lang(zh-TW),
+:lang(zh-HK) {
+  --font-pixel-cjk: "Fusion Pixel 12px TC";
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   margin: 0;
 }
 
@@ -40,7 +105,7 @@ body {
   color: inherit;
   font-size: 1rem;
   line-height: 1.75rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 .gjs-t-h1 {
@@ -823,7 +888,8 @@ body {
 
 @media (min-width: 769px) {
   #i8u5 {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 
@@ -1399,7 +1465,7 @@ body {
   border: 3px solid var(--line);
   background: #fff;
   overflow: auto;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.45;
 }
 
@@ -1409,7 +1475,7 @@ body {
 
 .editor-preview h2 {
   margin: 0 0 12px;
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   font-weight: 400;
 }
 
@@ -1589,7 +1655,7 @@ body {
 .editor-actions button,
 .editor-preview,
 .editor-output {
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
 }
 
 @media (max-width: 480px) {
@@ -2040,7 +2106,7 @@ body:has(.posts-shell) {
 .lightbox-close {
   display: grid;
   place-items: center;
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   text-transform: uppercase;
 }
 
@@ -2054,7 +2120,7 @@ body:has(.posts-shell) {
   border: 3px solid var(--line);
   background: var(--mint);
   color: var(--ink);
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   font-size: 1.25rem;
   cursor: pointer;
   box-shadow: 5px 5px 0 rgba(62, 42, 59, 0.2);
@@ -2259,7 +2325,7 @@ body:has(.gallery-shell) {
   border: 0;
   background: transparent;
   color: #5b1265;
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   font-size: clamp(1rem, 1.9vw, 1.35rem);
   font-weight: 400;
   line-height: 1.1;
@@ -2342,7 +2408,7 @@ body:has(.gallery-shell) {
   border: 0;
   background: var(--line);
   color: #fff;
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   font-size: 1.15rem;
   cursor: pointer;
 }
@@ -2398,7 +2464,7 @@ body:has(.gallery-shell) {
   padding: 4px 8px;
   border: 2px solid var(--line);
   color: var(--ink);
-  font-family: "Tenacity", Arial, sans-serif;
+  font-family: var(--font-site);
   font-size: 0.9rem;
   line-height: 1;
   text-transform: lowercase;
@@ -4517,5 +4583,237 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   .about-profile-table dt,
   .about-profile-table dd {
     padding: 7px 9px;
+  }
+}
+
+/*
+ * Compact desktop layout
+ *
+ * Small notebooks are usually wide enough to miss the tablet breakpoints, but
+ * their limited height makes the desktop-sized controls and artwork feel
+ * oversized. Keep the desktop information architecture while tightening its
+ * visual rhythm whenever the available height is notebook-sized.
+ */
+@media (min-width: 901px) and (max-height: 900px) {
+  .posts-shell,
+  .gallery-shell {
+    grid-template-columns: 180px minmax(0, 720px) 190px;
+    gap: 12px;
+    width: min(100%, 1140px);
+    padding: 12px;
+  }
+
+  .posts-topbar {
+    min-height: 54px;
+    gap: 8px;
+    padding: 6px 10px;
+  }
+
+  .site-logo img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .top-nav {
+    font-size: 1.08rem;
+  }
+
+  .top-nav a {
+    padding-inline: 6px;
+  }
+
+  .search-box {
+    width: min(100%, 240px);
+    height: 42px;
+    min-height: 42px;
+  }
+
+  .search-box .search-icon {
+    flex-basis: 42px;
+    width: 42px;
+  }
+
+  .search-box input {
+    padding-inline: 8px;
+    font-size: 1.08rem;
+  }
+
+  .posts-sidebar {
+    padding: 9px;
+  }
+
+  .posts-sidebar h2 {
+    margin-bottom: 6px;
+    font-size: 1.12rem;
+  }
+
+  .posts-sidebar section + section {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .filter-list button,
+  .month-grid button,
+  .fanart-toggle {
+    min-height: 26px;
+    font-size: 0.9rem;
+  }
+
+  .posts-sidebar-left .character-filter-section .filter-list {
+    max-height: clamp(310px, 48vh, 430px);
+  }
+
+  .post-card {
+    padding: 13px;
+  }
+
+  .post-card-header {
+    margin-bottom: 10px;
+  }
+
+  .post-card-header h1 {
+    font-size: 1.65rem;
+  }
+
+  .post-card-header time,
+  .post-copy p,
+  .empty-posts {
+    font-size: 1rem;
+  }
+
+  .gallery-grid {
+    gap: 16px 12px;
+  }
+
+  .gallery-caption {
+    min-height: 72px;
+  }
+
+  .about-shell,
+  .characters-shell {
+    width: min(1060px, calc(100vw - 24px));
+    gap: 12px;
+    padding-top: 12px;
+  }
+
+  .world-shell {
+    width: min(980px, calc(100vw - 24px));
+  }
+
+  .about-section-header {
+    padding: 10px 14px;
+  }
+
+  .about-intro h1,
+  .world-hero .about-section-header h1,
+  .characters-intro-card .about-section-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .about-section-header h2,
+  .characters-group-title .about-section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-intro p,
+  .about-copy p,
+  .about-copy li,
+  .about-note-grid p,
+  .about-profile-list,
+  .character-modal-profile p,
+  .character-modal-profile li,
+  .character-modal-profile blockquote {
+    font-size: 1rem;
+  }
+
+  .about-hero,
+  .about-profile-layout,
+  .characters-intro-copy,
+  .characters-group-copy {
+    padding: 14px;
+  }
+
+  .about-hello,
+  .about-wave {
+    min-height: 210px;
+  }
+
+  .characters-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px 16px;
+    padding: 16px;
+  }
+
+  .character-tile-name {
+    font-size: 1.7rem;
+  }
+
+  .character-modal-panel {
+    width: min(860px, calc(100vw - 28px));
+    max-height: calc(100dvh - 28px);
+  }
+
+  .character-modal-head {
+    min-height: 64px;
+  }
+
+  .character-modal-head h2 {
+    font-size: 2.4rem;
+  }
+
+  .character-modal-ref {
+    min-height: 240px;
+    padding: 12px;
+  }
+
+  .not-found-shell {
+    --not-found-stage-width: 720px;
+    --not-found-back-width: 180px;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .not-found-copy h1,
+  .not-found-copy p {
+    font-size: 2rem;
+  }
+
+  .home-page {
+    --stage-width: 980px;
+    --stage-height: 400px;
+    --banner-left: 160px;
+    --banner-top: -15px;
+    --banner-width: 700px;
+    --blues-left: -40px;
+    --blues-top: 38px;
+    --blues-width: 390px;
+    --fizz-left: 680px;
+    --fizz-top: -58px;
+    --fizz-width: 320px;
+    --buttons-width: min(860px, 90vw);
+    --buttons-columns: repeat(6, minmax(0, 132px));
+    --buttons-gap: 12px;
+    --buttons-margin-top: -34px;
+    align-content: safe center;
+    gap: 6px;
+    padding: 14px 12px 18px;
+  }
+
+  .home-footer {
+    gap: 7px;
+    padding-top: 0;
+  }
+
+  .home-footer .copyright-line {
+    font-size: 1rem;
+  }
+
+  .home-socials {
+    gap: 14px;
+  }
+
+  .home-socials a {
+    width: 48px;
+    height: 48px;
   }
 }
