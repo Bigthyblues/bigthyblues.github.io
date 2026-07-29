@@ -647,5 +647,6 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/review-2026-05-03-0334-fiz-and-i-are-having-a-great-time-along-the-lake-cabin-in-the-sp-635816.jpg.webp",
   "/img/thumbs/gallery/imported/review-2026-05-18-0309-here-s-the-badger-who-just-moved-to-voxel-world-704803.png.webp",
   "/img/thumbs/gallery/imported/review-2026-05-22-1220-feeling-tried-doing-my-paper-research-recently-852644-video.mp4.webp",
-  "/img/thumbs/gallery/imported/review-2026-06-13-0256-trying-to-draw-my-ocs-in-2channel-s-aa-cats-art-style-417440.png.webp"
+  "/img/thumbs/gallery/imported/review-2026-06-13-0256-trying-to-draw-my-ocs-in-2channel-s-aa-cats-art-style-417440.png.webp",
+  "/img/thumbs/gallery/site poster.png.webp"
 ]);
