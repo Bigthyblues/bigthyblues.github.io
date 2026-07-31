@@ -4,7 +4,7 @@ author: "blues"
 character: "Mish"
 type: "image"
 date: 2025-04-23T14:40:00+08:00
-image: "/img/gallery/imported/2025-04-23-1440-mish-is-pretending-he-is-an-office-guy-again-600673.jpg"
+image: "/img/gallery/imported/2025-04-23-1440-mish-is-pretending-he-is-an-office-guy-again-600673.png"
 excerpt: "\"Mish is pretending he is an office guy, again..."
 draft: false
 ---

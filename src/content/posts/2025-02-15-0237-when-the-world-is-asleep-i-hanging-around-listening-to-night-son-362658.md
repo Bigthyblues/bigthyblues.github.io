@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2025-02-15T02:37:00+08:00
-image: "/img/gallery/imported/2025-02-15-0237-when-the-world-is-asleep-i-hanging-around-listening-to-night-son-362658.jpg"
+image: "/img/gallery/imported/2025-02-15-0237-when-the-world-is-asleep-i-hanging-around-listening-to-night-son-362658.png"
 excerpt: "\"When the world is asleep, I hanging around, listening to night songs, enjoying the scene of starry night..."
 draft: false
 ---

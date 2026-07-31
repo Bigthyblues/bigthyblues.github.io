@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Fizz"
 type: "image"
 date: 2025-04-02T00:24:00+08:00
-image: "/img/gallery/imported/2025-04-02-0024-well-april-is-coming-and-we-are-hanging-out-in-the-spring-park-659584.jpg"
+image: "/img/gallery/imported/2025-04-02-0024-well-april-is-coming-and-we-are-hanging-out-in-the-spring-park-659584.png"
 excerpt: "\"Well, April is coming and we are hanging out in the spring park!"
 draft: false
 ---

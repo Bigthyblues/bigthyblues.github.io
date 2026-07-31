@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2024-10-13T03:03:00+08:00
-image: "/img/gallery/imported/2024-10-13-0303-blues-the-dog-meets-big-bone-680245.jpg"
+image: "/img/gallery/imported/2024-10-13-0303-blues-the-dog-meets-big-bone-680245.png"
 excerpt: "\"Blues the dog meets Big bone!"
 draft: false
 ---

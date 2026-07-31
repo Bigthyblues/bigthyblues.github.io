@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Fizz"
 type: "image"
 date: 2025-01-03T03:26:00+08:00
-image: "/img/gallery/imported/2025-01-03-0326-wanna-join-our-tea-party-on-the-sky-824440.jpg"
+image: "/img/gallery/imported/2025-01-03-0326-wanna-join-our-tea-party-on-the-sky-824440.png"
 excerpt: "Wanna join our tea party on the sky?🐶🐱☁️"
 draft: false
 ---

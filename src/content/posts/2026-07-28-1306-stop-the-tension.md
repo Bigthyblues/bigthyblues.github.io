@@ -4,6 +4,7 @@ author: "blues"
 character: "Blues"
 type: "text"
 date: 2026-07-28T13:06:00+08:00
+excerpt: "A post complaining about dramas and blocking can be seen everywhere on social media"
 draft: false
 ---
 

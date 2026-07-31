@@ -4,7 +4,7 @@ author: "blues"
 character: "Verde"
 type: "image"
 date: 2026-06-26T00:53:00+08:00
-image: "/img/gallery/imported/2026-06-26-0053-okay-so-i-ve-made-4-ref-sheets-recently-not-only-to-bring-back-c-155289.jpg"
+image: "/img/gallery/imported/2026-06-26-0053-okay-so-i-ve-made-4-ref-sheets-recently-not-only-to-bring-back-c-155289.png"
 excerpt: "Okay, so I've made 4 ref sheets recently, not only to bring back classic characters, but also add some new characters I made a few weeks ago"
 draft: false
 ---

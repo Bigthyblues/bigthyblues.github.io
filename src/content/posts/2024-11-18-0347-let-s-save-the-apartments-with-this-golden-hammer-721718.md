@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2024-11-18T03:47:00+08:00
-image: "/img/gallery/imported/2024-11-18-0347-let-s-save-the-apartments-with-this-golden-hammer-721718.jpg"
+image: "/img/gallery/imported/2024-11-18-0347-let-s-save-the-apartments-with-this-golden-hammer-721718.png"
 excerpt: "Let's save the apartments with this golden hammer!🐶😎"
 draft: false
 ---

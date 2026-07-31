@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2025-05-02T03:00:00+08:00
-image: "/img/gallery/imported/2025-05-02-0300-a-cozy-room-requires-labor-to-create-471796.jpg"
+image: "/img/gallery/imported/2025-05-02-0300-a-cozy-room-requires-labor-to-create-471796.png"
 excerpt: "\"A cozy room requires labor to create!"
 draft: false
 ---

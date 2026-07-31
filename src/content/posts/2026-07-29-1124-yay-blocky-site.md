@@ -5,6 +5,7 @@ character: "Blues"
 type: "image"
 date: 2026-07-29T11:24:00+08:00
 image: "/img/gallery/site poster.png"
+excerpt: "A post about another introduce of my blocky site!"
 draft: false
 ---
 

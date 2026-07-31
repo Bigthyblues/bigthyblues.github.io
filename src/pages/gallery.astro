@@ -650,6 +650,19 @@ const types = ["image", "video", "fanart"];
       document.body.classList.remove("has-lightbox");
     }
 
+    const shortAnimationMaxDuration = 2;
+
+    function configureVideoPlayback(video: HTMLVideoElement) {
+      const applyPlaybackMode = () => {
+        const isShortAnimation = Number.isFinite(video.duration) && video.duration <= shortAnimationMaxDuration;
+        video.loop = isShortAnimation;
+        if (isShortAnimation) void video.play().catch(() => {});
+      };
+
+      video.addEventListener("loadedmetadata", applyPlaybackMode, { once: true });
+      if (video.readyState >= HTMLMediaElement.HAVE_METADATA) applyPlaybackMode();
+    }
+
     function openMedia(button: HTMLElement) {
       if (!(lightbox instanceof HTMLElement) || !(mediaStage instanceof HTMLElement)) return;
 
@@ -677,6 +690,7 @@ const types = ["image", "video", "fanart"];
           video.muted = true;
           video.playsInline = true;
           video.autoplay = true;
+          configureVideoPlayback(video);
           media = video;
         }
       } else {

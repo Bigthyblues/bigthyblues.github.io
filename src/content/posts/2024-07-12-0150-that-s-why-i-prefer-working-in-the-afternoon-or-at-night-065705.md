@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2024-07-12T01:50:00+08:00
-image: "/img/gallery/imported/2024-07-12-0150-that-s-why-i-prefer-working-in-the-afternoon-or-at-night-065705.jpg"
+image: "/img/gallery/imported/2024-07-12-0150-that-s-why-i-prefer-working-in-the-afternoon-or-at-night-065705.png"
 excerpt: "That's why I prefer working in the afternoon or at night🐶💤"
 draft: false
 ---

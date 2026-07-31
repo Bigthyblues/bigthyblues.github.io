@@ -4,7 +4,7 @@ author: "blues"
 character: "Fizz"
 type: "image"
 date: 2025-08-02T03:12:00+08:00
-image: "/img/gallery/imported/2025-08-02-0312-when-fizz-s-propeller-becomes-a-video-pixel-destroyer-474570.jpg"
+image: "/img/gallery/imported/2025-08-02-0312-when-fizz-s-propeller-becomes-a-video-pixel-destroyer-474570.png"
 excerpt: "\"When Fizz's propeller becomes a video pixel destroyer!"
 draft: false
 ---

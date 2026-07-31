@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Fizz,Mopple"
 type: "image"
 date: 2025-12-10T00:27:00+08:00
-image: "/img/gallery/imported/2025-12-10-0027-mopple-just-got-a-cookie-tree-in-the-yard-560188.jpg"
+image: "/img/gallery/imported/2025-12-10-0027-mopple-just-got-a-cookie-tree-in-the-yard-560188.png"
 excerpt: "\"Mopple just got a cookie tree in the yard!"
 draft: false
 ---

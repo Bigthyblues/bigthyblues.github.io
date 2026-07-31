@@ -375,6 +375,7 @@ const types = ["image", "video", "text", "fanart"];
     const emptyMessage = empty instanceof HTMLElement ? empty : null;
     const loadMoreButton = loadMore instanceof HTMLButtonElement ? loadMore : null;
     const batchSize = 8;
+    const shortAnimationMaxDuration = 2;
     let visibleLimit = batchSize;
     const filters = {
       character: "all",
@@ -499,6 +500,17 @@ const types = ["image", "video", "text", "fanart"];
         if (shouldSetSrc && src) media.setAttribute("src", src);
         if (media instanceof HTMLVideoElement) {
           if (media.dataset.mediaPoster) media.setAttribute("poster", media.dataset.mediaPoster);
+          if (media.dataset.shortAnimationReady !== "true") {
+            media.dataset.shortAnimationReady = "true";
+            const configurePlayback = () => {
+              const isShortAnimation = Number.isFinite(media.duration) && media.duration <= shortAnimationMaxDuration;
+              media.loop = isShortAnimation;
+              media.autoplay = isShortAnimation;
+              if (isShortAnimation) void media.play().catch(() => {});
+            };
+            media.addEventListener("loadedmetadata", configurePlayback);
+            if (media.readyState >= HTMLMediaElement.HAVE_METADATA) configurePlayback();
+          }
           if (shouldSetSrc) media.load();
         }
       });

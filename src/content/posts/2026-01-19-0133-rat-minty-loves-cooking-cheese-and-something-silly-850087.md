@@ -4,7 +4,7 @@ author: "blues"
 character: "Minty"
 type: "image"
 date: 2026-01-19T01:33:00+08:00
-image: "/img/gallery/imported/2026-01-19-0133-rat-minty-loves-cooking-cheese-and-something-silly-850087.jpg"
+image: "/img/gallery/imported/2026-01-19-0133-rat-minty-loves-cooking-cheese-and-something-silly-850087.png"
 excerpt: "\"Rat Minty, loves cooking, cheese and something silly!"
 draft: false
 ---

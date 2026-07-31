@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2025-06-10T01:17:00+08:00
-image: "/img/gallery/imported/2025-06-10-0117-i-received-my-tie-after-being-accepted-by-the-company-where-i-in-268721.jpg"
+image: "/img/gallery/imported/2025-06-10-0117-i-received-my-tie-after-being-accepted-by-the-company-where-i-in-268721.png"
 excerpt: "\"I received my tie after being accepted by the company where I interviewed today!"
 draft: false
 ---

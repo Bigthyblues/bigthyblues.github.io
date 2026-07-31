@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "text"
 date: 2026-07-23T15:36:00+08:00
-excerpt: "Welcome!"
+excerpt: "A post about introduce of my blocky site!"
 draft: false
 ---
 

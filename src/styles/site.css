@@ -1238,7 +1238,7 @@ body {
 .editor-topbar {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 18px;
   min-height: 68px;
@@ -1260,6 +1260,28 @@ body {
   align-content: start;
   gap: 16px;
   padding: 18px;
+}
+
+.editor-language-switch {
+  display: inline-flex;
+  gap: 6px;
+  justify-self: end;
+}
+
+.editor-language-switch button {
+  min-width: 52px;
+  min-height: 38px;
+  padding: 4px 9px;
+  border: 3px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.editor-language-switch button.is-active {
+  background: var(--mint);
+  box-shadow: 3px 3px 0 rgba(62, 42, 59, 0.22);
 }
 
 .editor-mode-panel {
@@ -1960,8 +1982,8 @@ body:has(.posts-shell) {
 
 /* Video posts */
 .post-video {
-  aspect-ratio: 1 / 1;
-  background: #111;
+  aspect-ratio: auto;
+  background: transparent;
   contain: none;
 }
 
@@ -1975,7 +1997,13 @@ body:has(.posts-shell) {
 }
 
 .post-video video {
-  object-fit: contain;
+  height: auto;
+  object-fit: initial;
+  background: transparent;
+}
+
+.post-video:has(iframe) {
+  aspect-ratio: 16 / 9;
   background: #111;
 }
 
@@ -1995,7 +2023,7 @@ body:has(.posts-shell) {
 }
 
 .editor-topbar {
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
 }
 
 .site-logo {
@@ -2267,11 +2295,17 @@ body:has(.posts-shell) {
   object-fit: contain;
 }
 
-.media-lightbox-stage video,
 .media-lightbox-stage iframe {
   width: min(92vw, 980px);
   aspect-ratio: 1 / 1;
   background: #111;
+}
+
+.media-lightbox-stage video {
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+  background: transparent;
 }
 
 @media (max-width: 1200px) {
@@ -2347,9 +2381,15 @@ body:has(.gallery-shell) {
   object-fit: contain;
 }
 
-.media-lightbox-stage video,
 .media-lightbox-stage iframe {
   width: min(96vw, 1200px);
+  max-height: 92vh;
+}
+
+.media-lightbox-stage video {
+  width: auto;
+  height: auto;
+  max-width: 96vw;
   max-height: 92vh;
 }
 

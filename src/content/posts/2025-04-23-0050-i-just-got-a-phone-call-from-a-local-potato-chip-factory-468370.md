@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Fizz"
 type: "image"
 date: 2025-04-23T00:50:00+08:00
-image: "/img/gallery/imported/2025-04-23-0050-i-just-got-a-phone-call-from-a-local-potato-chip-factory-468370.jpg"
+image: "/img/gallery/imported/2025-04-23-0050-i-just-got-a-phone-call-from-a-local-potato-chip-factory-468370.png"
 excerpt: "\"I just got a phone call from a local potato chip factory."
 draft: false
 ---

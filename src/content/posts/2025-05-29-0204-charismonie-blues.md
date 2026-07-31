@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2025-05-29T02:04:00+08:00
-image: "/img/gallery/imported/review-2025-05-29-0204-music-is-so-magical-399874.jpg"
+image: "/img/gallery/imported/review-2025-05-29-0204-music-is-so-magical-399874.png"
 excerpt: "\"Music is so magical!"
 draft: false
 ---

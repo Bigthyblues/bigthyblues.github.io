@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Carl"
 type: "image"
 date: 2024-07-07T02:01:00+08:00
-image: "/img/gallery/imported/2024-07-07-0201-me-let-me-introduce-my-new-blocky-friend-carl-196880.jpg"
+image: "/img/gallery/imported/2024-07-07-0201-me-let-me-introduce-my-new-blocky-friend-carl-196880.png"
 excerpt: "Me:Let me introduce my new blocky friend: Carl"
 draft: false
 ---

@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues"
 type: "image"
 date: 2025-04-01T23:19:00+08:00
-image: "/img/gallery/imported/2025-04-01-2319-and-now-my-birthday-party-s-over-803077.jpg"
+image: "/img/gallery/imported/2025-04-01-2319-and-now-my-birthday-party-s-over-803077.png"
 excerpt: "\"And now, my birthday party's over."
 draft: false
 ---

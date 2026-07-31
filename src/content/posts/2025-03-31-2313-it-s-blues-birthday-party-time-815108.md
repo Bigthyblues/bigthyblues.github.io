@@ -4,7 +4,7 @@ author: "blues"
 character: "Blues,Fizz,Lockby,Fazer,Zippy"
 type: "image"
 date: 2025-03-31T23:13:00+08:00
-image: "/img/gallery/imported/2025-03-31-2313-it-s-blues-birthday-party-time-815108.jpg"
+image: "/img/gallery/imported/2025-03-31-2313-it-s-blues-birthday-party-time-815108.png"
 excerpt: "\"It's....Blues' birthday party time!"
 draft: false
 ---
