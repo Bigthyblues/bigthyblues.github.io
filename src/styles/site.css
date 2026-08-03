@@ -18,8 +18,8 @@
  * https://github.com/TakWolf/fusion-pixel-font
  * Licensed under the SIL Open Font License 1.1.
  *
- * The unicode range keeps the site's Latin text in Tenacity/Arial while
- * translated Chinese text automatically picks up the matching pixel glyphs.
+ * The unicode ranges keep the site's Latin text in Tenacity/Arial while
+ * translated Chinese and Japanese text pick up the matching pixel glyphs.
  */
 @font-face {
   font-family: "Fusion Pixel 12px SC";
@@ -41,7 +41,8 @@
     U+F900-FAFF,
     U+FE10-FE1F,
     U+FE30-FE4F,
-    U+FF00-FFEF,
+    U+FF00-FF64,
+    U+FFA0-FFEF,
     U+20000-2FA1F;
 }
 
@@ -65,12 +66,39 @@
     U+F900-FAFF,
     U+FE10-FE1F,
     U+FE30-FE4F,
+    U+FF00-FF64,
+    U+FFA0-FFEF,
+    U+20000-2FA1F;
+}
+
+@font-face {
+  font-family: "Fusion Pixel 12px JA";
+  src: url("/fonts/fusion-pixel-12px-proportional-ja.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+2E80-2EFF,
+    U+2F00-2FDF,
+    U+2FF0-2FFF,
+    U+3000-30FF,
+    U+3190-319F,
+    U+31C0-31EF,
+    U+31F0-31FF,
+    U+3200-33FF,
+    U+3400-4DBF,
+    U+4E00-9FFF,
+    U+F900-FAFF,
+    U+FE10-FE1F,
+    U+FE30-FE4F,
     U+FF00-FFEF,
+    U+1AFF0-1AFFF,
+    U+1B000-1B16F,
     U+20000-2FA1F;
 }
 
 :root {
-  --font-pixel-cjk: "Fusion Pixel 12px SC";
+  --font-pixel-cjk: "Fusion Pixel 12px SC", "Fusion Pixel 12px JA";
   --font-site: "Tenacity", var(--font-pixel-cjk), Arial, sans-serif;
   --font-sans: var(--font-pixel-cjk), Arial, Helvetica, sans-serif;
   --gjs-t-color-primary: #cf549e;
@@ -88,7 +116,11 @@
 :lang(zh-Hant),
 :lang(zh-TW),
 :lang(zh-HK) {
-  --font-pixel-cjk: "Fusion Pixel 12px TC";
+  --font-pixel-cjk: "Fusion Pixel 12px TC", "Fusion Pixel 12px JA";
+}
+
+:lang(ja) {
+  --font-pixel-cjk: "Fusion Pixel 12px JA";
 }
 
 html {
