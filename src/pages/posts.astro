@@ -32,19 +32,54 @@ const renderInlineMarkdown = (value: string) => {
   return html;
 };
 
-const renderPostBody = (markdown: string) =>
-  markdown
-    .split("\n")
-    .map((line) => {
-      if (line.startsWith("### ")) return `<h5>${renderInlineMarkdown(line.slice(4))}</h5>`;
-      if (line.startsWith("## ")) return `<h4>${renderInlineMarkdown(line.slice(3))}</h4>`;
-      if (line.startsWith("# ")) return `<h3>${renderInlineMarkdown(line.slice(2))}</h3>`;
-      if (line.startsWith("> ")) return `<blockquote>${renderInlineMarkdown(line.slice(2))}</blockquote>`;
-      if (line.startsWith("- ")) return `<p>&bull; ${renderInlineMarkdown(line.slice(2))}</p>`;
-      if (line.trim() === "") return "";
-      return `<p>${renderInlineMarkdown(line)}</p>`;
-    })
-    .join("");
+const splitTableRow = (line: string) => {
+  const trimmed = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  return trimmed.split(/(?<!\\)\|/).map((cell) => cell.trim().replace(/\\\|/g, "|"));
+};
+
+const getTableAlignments = (line: string) => {
+  const cells = splitTableRow(line);
+  if (!cells.length || cells.some((cell) => !/^:?-{3,}:?$/.test(cell))) return null;
+  return cells.map((cell) => cell.startsWith(":") && cell.endsWith(":") ? "center" : cell.endsWith(":") ? "right" : "left");
+};
+
+const renderPostBody = (markdown: string) => {
+  const lines = markdown.split("\n");
+  const html: string[] = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const alignments = index + 1 < lines.length && line.includes("|") ? getTableAlignments(lines[index + 1]) : null;
+
+    if (alignments) {
+      const headers = splitTableRow(line);
+      const columnCount = headers.length;
+      const bodyRows: string[][] = [];
+      index += 2;
+      while (index < lines.length && lines[index].trim() && lines[index].includes("|")) {
+        bodyRows.push(splitTableRow(lines[index]));
+        index += 1;
+      }
+      index -= 1;
+
+      const renderCell = (cell: string, cellIndex: number, tag: "th" | "td") =>
+        `<${tag} class="md-table-align-${alignments[cellIndex] ?? "left"}">${renderInlineMarkdown(cell ?? "")}</${tag}>`;
+      const headerHtml = headers.map((cell, cellIndex) => renderCell(cell, cellIndex, "th")).join("");
+      const rowsHtml = bodyRows.map((row) => `<tr>${Array.from({ length: columnCount }, (_, cellIndex) => renderCell(row[cellIndex] ?? "", cellIndex, "td")).join("")}</tr>`).join("");
+      html.push(`<div class="md-table-scroll" tabindex="0"><table><thead><tr>${headerHtml}</tr></thead>${rowsHtml ? `<tbody>${rowsHtml}</tbody>` : ""}</table></div>`);
+      continue;
+    }
+
+    if (line.startsWith("### ")) html.push(`<h5>${renderInlineMarkdown(line.slice(4))}</h5>`);
+    else if (line.startsWith("## ")) html.push(`<h4>${renderInlineMarkdown(line.slice(3))}</h4>`);
+    else if (line.startsWith("# ")) html.push(`<h3>${renderInlineMarkdown(line.slice(2))}</h3>`);
+    else if (line.startsWith("> ")) html.push(`<blockquote>${renderInlineMarkdown(line.slice(2))}</blockquote>`);
+    else if (line.startsWith("- ")) html.push(`<p>&bull; ${renderInlineMarkdown(line.slice(2))}</p>`);
+    else if (line.trim() !== "") html.push(`<p>${renderInlineMarkdown(line)}</p>`);
+  }
+
+  return html.join("");
+};
 
 const stripFanartCreditLines = (markdown: string) =>
   markdown

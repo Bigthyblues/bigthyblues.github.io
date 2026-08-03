@@ -1515,6 +1515,74 @@ body {
   border-left: 4px solid var(--line);
 }
 
+.md-table-scroll {
+  --table-border: color-mix(in srgb, var(--page-accent, #2f66e8) 38%, var(--line));
+  width: fit-content;
+  max-width: 100%;
+  margin: 4px 0;
+  overflow-x: auto;
+  border: 2px solid var(--table-border);
+  background: var(--page-inner, #f7faff);
+  -webkit-overflow-scrolling: touch;
+}
+
+.md-table-scroll table {
+  width: max-content;
+  min-width: min(100%, 320px);
+  border-collapse: collapse;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.86em;
+  line-height: 1.3;
+}
+
+.md-table-scroll th,
+.md-table-scroll td {
+  min-width: 6rem;
+  max-width: 28rem;
+  padding: 0.48em 0.72em;
+  border-right: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--table-border);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.md-table-scroll th {
+  background: color-mix(in srgb, var(--page-bg, #9fbaff) 44%, white);
+  color: color-mix(in srgb, var(--page-accent, #2f66e8) 72%, var(--ink));
+  font-weight: 600;
+}
+
+.md-table-scroll tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--page-soft, #dceaff) 38%, white);
+}
+
+.md-table-scroll tbody tr:hover td {
+  background: color-mix(in srgb, var(--page-bg, #9fbaff) 20%, white);
+}
+
+.md-table-scroll tr:last-child td {
+  border-bottom: 0;
+}
+
+.md-table-scroll th:last-child,
+.md-table-scroll td:last-child {
+  border-right: 0;
+}
+
+.md-table-scroll:focus-visible {
+  outline: 2px solid var(--page-accent, #2f66e8);
+  outline-offset: 3px;
+}
+
+.md-table-align-center {
+  text-align: center;
+}
+
+.md-table-align-right {
+  text-align: right;
+}
+
 .md-color-blues { color: #315ebb; }
 .md-color-fizz { color: #e1494a; }
 .md-color-glup { color: #98e75f; }
