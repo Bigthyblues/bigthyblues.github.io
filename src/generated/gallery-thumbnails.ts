@@ -4,6 +4,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
   "/img/thumbs/gallery/Kyle ref.png.webp",
+  "/img/thumbs/gallery/Mishjr.png.webp",
   "/img/thumbs/gallery/Mistake!.png.webp",
   "/img/thumbs/gallery/Punk ref.png.webp",
   "/img/thumbs/gallery/Riff ref.png.webp",
