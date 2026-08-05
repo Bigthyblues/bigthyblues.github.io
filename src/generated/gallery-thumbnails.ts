@@ -10,6 +10,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Summercooler.png.webp",
   "/img/thumbs/gallery/Wisky ref.png.webp",
   "/img/thumbs/gallery/Zippy ref.png.webp",
+  "/img/thumbs/gallery/bandanawoofs.png.webp",
   "/img/thumbs/gallery/fanart/120757934_D0WBr8JknJQNAzW.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928165100.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928171926.png.webp",
