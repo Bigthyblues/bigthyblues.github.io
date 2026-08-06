@@ -4,7 +4,7 @@ author: "blues"
 character: ["Glup", "Mish Jr."]
 type: "image"
 date: 2026-08-06T23:43:00+08:00
-image: "/img/gallery/fountain.png"
+image: "/img/gallery/fountainencounter.png"
 excerpt: "A cute drawing about Glup and Mish Jr. are together beside the Voxel Fountain"
 draft: false
 ---
