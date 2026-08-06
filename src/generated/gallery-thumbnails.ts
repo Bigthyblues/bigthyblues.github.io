@@ -1,6 +1,7 @@
 export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Bluesbanner.png.webp",
   "/img/thumbs/gallery/Cooling down.mp4.webp",
+  "/img/thumbs/gallery/Dex.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
   "/img/thumbs/gallery/Kyle ref.png.webp",
@@ -202,6 +203,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/rST4BPJF3XIF1658MPTfpCPR7jF8aWXJN5WLjic6yDRniHYWzQOOq46wGFrX.jpg.webp",
   "/img/thumbs/gallery/fanart/undefined - Imgur.png.webp",
   "/img/thumbs/gallery/fanart/xaMzTWKluYLBSAoJZXbLdAvTPA6HLuh1WInAHbnIQpniVHdlKbVp1tmg5iEq.png.webp",
+  "/img/thumbs/gallery/fountain.png.webp",
   "/img/thumbs/gallery/free hug.png.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.jpg.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.png.webp",
