@@ -49,6 +49,26 @@ const renderPostBody = (markdown: string) => {
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
+    const fence = line.match(/^\s*(`{3,}|~{3,})\s*([^\s`~]+)?\s*$/);
+
+    if (fence) {
+      const marker = fence[1][0];
+      const minimumFenceLength = fence[1].length;
+      const language = fence[2]?.trim() ?? "";
+      const codeLines: string[] = [];
+      const closingFence = new RegExp(`^\\s*${marker}{${minimumFenceLength},}\\s*$`);
+
+      index += 1;
+      while (index < lines.length && !closingFence.test(lines[index])) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+
+      const languageAttribute = language ? ` data-language="${escapeHtml(language)}"` : "";
+      html.push(`<div class="md-code-block"${languageAttribute}><pre tabindex="0"><code>${escapeHtml(codeLines.join("\n"))}</code></pre></div>`);
+      continue;
+    }
+
     const alignments = index + 1 < lines.length && line.includes("|") ? getTableAlignments(lines[index + 1]) : null;
 
     if (alignments) {
@@ -122,7 +142,7 @@ const renderFanartCreditItem = (label: string, value?: string, status?: string) 
   }
 
   const description = describeFanartSource(value, status);
-  return `<p><span class="fanart-link-label">${label}</span>: <span class="fanart-link-note">${escapeHtml(description)}</span></p>`;
+  return `<p>${escapeHtml(label)}: ${escapeHtml(description)}</p>`;
 };
 
 const renderFanartCreditLinks = (post: {

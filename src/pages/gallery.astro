@@ -605,7 +605,7 @@ const types = ["image", "video", "fanart"];
         return;
       }
 
-      link.textContent = `${label}: ${describeFanartSource(value, status)}`;
+      link.textContent = describeFanartSource(value, status);
       link.removeAttribute("href");
       link.removeAttribute("target");
       link.removeAttribute("rel");
