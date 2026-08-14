@@ -63,6 +63,8 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Wisky ref.png.webp",
   "/img/thumbs/gallery/Zippy ref.png.webp",
   "/img/thumbs/gallery/bandanawoofs.png.webp",
+  "/img/thumbs/gallery/bluesradio.png.webp",
+  "/img/thumbs/gallery/dexdoodle.PNG.webp",
   "/img/thumbs/gallery/fanart/120757934_D0WBr8JknJQNAzW.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928165100.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928171926.png.webp",
@@ -115,6 +117,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/HK0IS0zbUAA9dvj.jpg.webp",
   "/img/thumbs/gallery/fanart/HNX_VmaWQAATr5f.jpg.webp",
   "/img/thumbs/gallery/fanart/HPDj4g3WIAAVZ9-.jpg.webp",
+  "/img/thumbs/gallery/fanart/HPKlhk6a0AAfaT5.jpg.webp",
   "/img/thumbs/gallery/fanart/I7T3vKhe17j1hXQ9rKSXrJTtdxYr4VfrcAUJN4nPgp458LqhKzEhJQEq6IX1.png.webp",
   "/img/thumbs/gallery/fanart/JMvIn1v4oDUIvw9HYyPxxHuHSGb9fi89JkmQh94ex9wTJ5R9Suac53jSNrnk.png.webp",
   "/img/thumbs/gallery/fanart/LA1Vpo7AuMebDVXDZpYkVYKBQCqcHTzO3abJDjVcBph3LthwmhGN5R2nkGe8.jpeg.webp",
@@ -983,5 +986,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/review-2026-05-18-0309-here-s-the-badger-who-just-moved-to-voxel-world-704803.png.webp",
   "/img/thumbs/gallery/imported/review-2026-05-22-1220-feeling-tried-doing-my-paper-research-recently-852644-video.mp4.webp",
   "/img/thumbs/gallery/imported/review-2026-06-13-0256-trying-to-draw-my-ocs-in-2channel-s-aa-cats-art-style-417440.png.webp",
-  "/img/thumbs/gallery/site poster.png.webp"
+  "/img/thumbs/gallery/site poster.png.webp",
+  "/img/thumbs/gallery/vacation.png.webp",
+  "/img/thumbs/gallery/webicon.gif.webp"
 ]);
