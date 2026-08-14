@@ -20,17 +20,15 @@ I hope you enjoy my doodles, and you're always welcome to say hello!
 | **Universe** | Voxel World |
 | **Role** | Hobbyist artist |
 | **Creates** | Doodles, comics, simple animations, and original characters |
-| **Art style** | Blocky, colorful cartoons with clean, sketchy lines |
+| **Art style** | Blocky, colorful doodles with clean, sketchy lines |
 | **Languages** | Chinese / English |
 | **Current project** | Building Voxel World |
 | **Birthday** | March 31 |
 | **Gender** | Male |
-| **Favorite games** | osu!, beatmania IIDX, pop'n music, Project SEKAI, and Minecraft |
+| **Favorite games** | OSU!, beatmania IIDX, pop'n music, Project SEKAI, and Minecraft |
 | **Software** | Clip Studio Paint EX |
-
-**Likes:** electronic music, doodle art, rhythm games, making new friends, socializing, DIY projects, and cooking.
-
-**Dislikes:** bullying, drama, technical issues, unfairness, betrayal, and unfriendly behavior.
+| **Likes** | electronic music, doodle art, rhythm games, making new friends, socializing, DIY projects, and cooking. |
+| **Dislikes** | bullying, drama, technical issues, unfairness, betrayal, and unfriendly behavior. |
 
 ## How the blocky style began
 
@@ -87,3 +85,12 @@ And you can visit their pages, learn more about them, and explore their stories.
 **Thanks for visiting my little blocky world.**
 
 **Woof!** Have a great time here! 🐶💙
+
+## Share my site
+If you have your own site too and going to recommend it to your friends, **these codes below would be helpful for you:**
+
+```
+<a href="https://www.bigthyblues.xyz/"><img src="https://www.bigthyblues.xyz/img/social/Sitelogo.gif" alt="Bigthyblues website"></a>
+```
+
+Since it's still updating sometimes, if you **find somewhere buggy or have great ideas**, you are free to contact and give me some suggestions to make the site better! 🐶💙

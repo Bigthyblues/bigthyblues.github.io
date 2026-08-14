@@ -10,19 +10,7 @@ type Section = {
 
 const assetSrc = (asset: string | { src: string }) => typeof asset === "string" ? asset : asset.src;
 
-const cleanText = (value: string) =>
-  value
-    .replaceAll("馃惗", "dog")
-    .replaceAll("馃挋", "blue heart")
-    .replaceAll("馃寵", "moon")
-    .replaceAll("鈥攅", "—e")
-    .replaceAll("鈥攖", "—t")
-    .replaceAll("鈥檚", "'s")
-    .replaceAll("鈥檓", "'m")
-    .replaceAll("鈥檝", "'v")
-    .replaceAll("鈥檙", "'r")
-    .replaceAll("鈥檛", "'t")
-    .replaceAll("鈥?", "'");
+const cleanText = (value: string) => value;
 
 const escapeHtml = (value: string) =>
   cleanText(value)
@@ -57,8 +45,21 @@ const titleId = (prefix: string, value: string) =>
   `${prefix}-${plainTitle(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section"}`;
 
 const renderBlock = (block: string) => {
-  const lines = block.trim().split("\n").filter(Boolean);
+  const rawLines = block.trim().split("\n");
+  const lines = rawLines.filter(Boolean);
   if (!lines.length) return "";
+
+  const fence = rawLines[0].match(/^\s*(`{3,}|~{3,})\s*([^\s`~]+)?\s*$/);
+  if (fence) {
+    const marker = fence[1][0];
+    const minimumFenceLength = fence[1].length;
+    const language = fence[2]?.trim() ?? "";
+    const closingFence = new RegExp(`^\\s*${marker}{${minimumFenceLength},}\\s*$`);
+    const closingIndex = rawLines.findIndex((line, index) => index > 0 && closingFence.test(line));
+    const codeLines = rawLines.slice(1, closingIndex === -1 ? undefined : closingIndex);
+    const languageAttribute = language ? ` data-language="${escapeHtml(language)}"` : "";
+    return `<div class="md-code-block"${languageAttribute}><pre tabindex="0"><code>${escapeHtml(codeLines.join("\n"))}</code></pre></div>`;
+  }
 
   if (lines.every((line) => line.trim().startsWith("- "))) {
     return `<ul>${lines.map((line) => `<li>${renderInline(line.trim().slice(2))}</li>`).join("")}</ul>`;
@@ -73,6 +74,8 @@ const renderBlock = (block: string) => {
 
   return `<p>${renderInline(lines.join(" "))}</p>`;
 };
+
+const isCodeBlock = (block: string) => /^\s*(`{3,}|~{3,})/.test(block);
 
 const markdownBody = aboutRaw.replace(/^---[\s\S]*?---\s*/, "").trim();
 const markdownLines = markdownBody.split("\n");
@@ -225,7 +228,18 @@ const remainingSections = sections.slice(2);
           <h2 id={titleId("about", section.title)} set:html={renderInline(section.title)} />
         </header>
         <div class="about-copy">
-          {section.blocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+          {section.blocks.map((block) => (
+            section.title === "Share my site" && isCodeBlock(block) ? (
+              <div class="about-site-code">
+                <a class="about-site-button" href="https://www.bigthyblues.xyz/" aria-label="Bigthyblues website">
+                  <img src="/img/social/Sitelogo.gif" alt="Bigthyblues website" />
+                </a>
+                <Fragment set:html={renderBlock(block)} />
+              </div>
+            ) : (
+              <Fragment set:html={renderBlock(block)} />
+            )
+          ))}
         </div>
       </section>
     ))}

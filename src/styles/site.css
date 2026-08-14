@@ -3652,6 +3652,32 @@ body:has(.about-shell) {
   text-align: center;
 }
 
+.about-site-code {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.about-site-button {
+  display: block;
+  width: 88px;
+  margin: 0;
+  line-height: 0;
+}
+
+.about-site-button img {
+  display: block;
+  width: 88px;
+  height: 31px;
+  image-rendering: pixelated;
+}
+
+.about-site-code .md-code-block {
+  margin: 0;
+}
+
 @media (max-width: 900px) {
   .about-shell {
     width: min(760px, calc(100vw - 24px));
