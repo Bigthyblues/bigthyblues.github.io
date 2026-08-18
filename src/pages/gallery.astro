@@ -1,7 +1,7 @@
 ﻿---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { galleryThumbnails } from "../generated/gallery-thumbnails";
+import { galleryThumbnails, galleryThumbnailVersion } from "../generated/gallery-thumbnails";
 
 const normalizeCharacters = (character: string | string[]) =>
   (Array.isArray(character) ? character : character.split(/[,????/|]+/))
@@ -21,7 +21,7 @@ const thumbnailForGalleryAsset = (value?: string) => {
   if (!value?.startsWith("/img/gallery/")) return value;
 
   const thumbnail = `${value.replace("/img/gallery/", "/img/thumbs/gallery/")}.webp`;
-  return galleryThumbnails.has(thumbnail) ? thumbnail : value;
+  return galleryThumbnails.has(thumbnail) ? `${thumbnail}?v=${galleryThumbnailVersion}` : value;
 };
 
 type GalleryMediaItem = {
