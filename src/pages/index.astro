@@ -22,19 +22,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <nav class="home-nav-buttons" aria-label="Site navigation">
       <a href="/about.html" class="home-nav-button home-nav-about">
-        <img src="/img/home-buttons/about-me.png" alt="About me" />
+        <img src="/img/home-buttons/about-me.png" data-hover-apng="/img/home-buttons/apng/about.png" alt="About me" />
       </a>
       <a href="/posts.html" class="home-nav-button home-nav-posts">
-        <img src="/img/home-buttons/posts.png" alt="Posts" />
+        <img src="/img/home-buttons/posts.png" data-hover-apng="/img/home-buttons/apng/posts.png" alt="Posts" />
       </a>
       <a href="/characters.html" class="home-nav-button home-nav-characters">
-        <img src="/img/home-buttons/characters.png" alt="Characters" />
+        <img src="/img/home-buttons/characters.png" data-hover-apng="/img/home-buttons/apng/characters.png" alt="Characters" />
       </a>
       <a href="/gallery.html" class="home-nav-button home-nav-gallery">
-        <img src="/img/home-buttons/gallery.png" alt="Gallery" />
+        <img src="/img/home-buttons/gallery.png" data-hover-apng="/img/home-buttons/apng/gallery.png" alt="Gallery" />
       </a>
       <a href="/world.html" class="home-nav-button home-nav-world">
-        <img src="/img/home-buttons/world.png" alt="World" />
+        <img src="/img/home-buttons/world.png" data-hover-apng="/img/home-buttons/apng/world.png" alt="World" />
       </a>
     </nav>
 
@@ -77,6 +77,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     document.querySelector("[data-home-fizz]")?.addEventListener("click", () => {
       alert("Meow!🐱");
+    });
+
+    document.querySelectorAll<HTMLImageElement>("[data-hover-apng]").forEach((image) => {
+      const staticSource = image.getAttribute("src");
+      const animatedSource = image.dataset.hoverApng;
+      const button = image.closest(".home-nav-button");
+      if (!staticSource || !animatedSource || !button) return;
+
+      let playCount = 0;
+      button.addEventListener("pointerenter", (event) => {
+        if (!(event instanceof PointerEvent) || event.pointerType !== "mouse") return;
+        playCount += 1;
+        image.src = `${animatedSource}?play=${playCount}`;
+      });
+      button.addEventListener("pointerleave", () => {
+        image.src = staticSource;
+      });
+      button.addEventListener("pointerdown", (event) => {
+        if (event instanceof PointerEvent && event.pointerType !== "mouse") {
+          image.src = staticSource;
+        }
+      });
+      button.addEventListener("contextmenu", (event) => {
+        if (window.matchMedia("(hover: none), (pointer: coarse)").matches) {
+          event.preventDefault();
+        }
+        image.src = staticSource;
+      });
+      button.addEventListener("dragstart", (event) => event.preventDefault());
     });
   </script>
 </BaseLayout>

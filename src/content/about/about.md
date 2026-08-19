@@ -17,7 +17,7 @@ I hope you enjoy my doodles, and you're always welcome to say hello!
 | --- | --- |
 | **Name** | Blues |
 | **Species** | Blocky dog |
-| **Universe** | Voxel World |
+| **Dimension** | Voxel World |
 | **Role** | Hobbyist artist |
 | **Creates** | Doodles, comics, simple animations, and original characters |
 | **Art style** | Blocky, colorful doodles with clean, sketchy lines |
@@ -78,13 +78,14 @@ I hope to build out the whole of Voxel World and turn it into a real series call
 
 ## Meet my friends
 
-**I am planning to add this in the future. **There are some of my friends' profile link below.
+**There are some of my friends' profile link below:**
 
-And you can visit their pages, learn more about them, and explore their stories. Every character has their own little adventure waiting to be discovered.
+<a href="https://bluni.neocities.org/"><img src="https://bluni.neocities.org/WebsiteButton.gif"></a>
+<a href="https://toydomdraws.pages.dev" target="_blank"><img src="https://toydomdraws.pages.dev/drive/sitebtn.png" alt="TGD's site"></a>
 
-**Thanks for visiting my little blocky world.**
+And you can visit their pages, learn more about them, and explore their stories. **Every character has their own little adventure waiting to be discovered!**
 
-**Woof!** Have a great time here! 🐶💙
+More site links to be added in the future!
 
 ## Share my site
 If you have your own site too and going to recommend it to your friends, **these codes below would be helpful for you:**
@@ -93,4 +94,8 @@ If you have your own site too and going to recommend it to your friends, **these
 <a href="https://www.bigthyblues.xyz/"><img src="https://www.bigthyblues.xyz/img/social/Sitelogo.gif" alt="Bigthyblues website"></a>
 ```
 
-Since it's still updating sometimes, if you **find somewhere buggy or have great ideas**, you are free to contact and give me some suggestions to make the site better! 🐶💙
+Since it's still updating sometimes, if you **find somewhere buggy or have great ideas**, you are free to contact and give me some suggestions to make the site better! 
+
+Anyway, **thanks for visiting my little blocky world.**
+
+**Woof!** Have a great time here! 🐶💙

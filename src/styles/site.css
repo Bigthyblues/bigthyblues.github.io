@@ -6,8 +6,7 @@
   font-family: "Tenacity";
   src:
     url("/fonts/Tenacity.woff2") format("woff2"),
-    url("/fonts/Tenacity.woff") format("woff"),
-    url("/fonts/Tenacity.ttf") format("truetype");
+    url("/fonts/Tenacity.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -3652,6 +3651,26 @@ body:has(.about-shell) {
   text-align: center;
 }
 
+.about-friend-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.about-friend-button {
+  display: block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.about-friend-button img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 .about-site-code {
   display: grid;
   grid-template-columns: 88px minmax(0, 1fr);
@@ -4200,6 +4219,10 @@ body.has-character-modal {
   width: 100%;
   line-height: 0;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
   transform-origin: center center;
   transition: transform 0.18s ease;
 }
@@ -4217,6 +4240,8 @@ body.has-character-modal {
   height: auto;
   image-rendering: pixelated;
   pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .home-nav-about,

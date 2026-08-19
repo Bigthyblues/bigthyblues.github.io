@@ -19,6 +19,23 @@ const escapeHtml = (value: string) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+const getHtmlAttribute = (tag: string, name: string) => {
+  const match = tag.match(new RegExp(`\\b${name}\\s*=\\s*(["'])(.*?)\\1`, "i"));
+  return match?.[2]?.trim() ?? "";
+};
+
+const renderSiteButton = (line: string) => {
+  const match = line.trim().match(/^<a\b([^>]*)>\s*<img\b([^>]*)\/?\s*>\s*<\/a>$/i);
+  if (!match) return "";
+
+  const href = getHtmlAttribute(match[1], "href");
+  const src = getHtmlAttribute(match[2], "src");
+  const alt = getHtmlAttribute(match[2], "alt") || "Friend's website";
+  if (!/^https?:\/\//i.test(href) || !/^(?:https?:\/\/|\/)/i.test(src)) return "";
+
+  return `<a class="about-friend-button" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" /></a>`;
+};
+
 const renderInline = (value: string) => {
   let html = escapeHtml(value);
   html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
@@ -48,6 +65,11 @@ const renderBlock = (block: string) => {
   const rawLines = block.trim().split("\n");
   const lines = rawLines.filter(Boolean);
   if (!lines.length) return "";
+
+  const siteButtons = lines.map(renderSiteButton);
+  if (siteButtons.every(Boolean)) {
+    return `<div class="about-friend-buttons">${siteButtons.join("")}</div>`;
+  }
 
   const fence = rawLines[0].match(/^\s*(`{3,}|~{3,})\s*([^\s`~]+)?\s*$/);
   if (fence) {
@@ -134,7 +156,7 @@ const quickNoteRows = quickNotes.map((line) => {
 });
 
 const profileItems = [...profileRows, ...quickNoteRows];
-const compactLabels = new Set(["Name", "Species", "Universe", "Role", "Languages", "Birthday", "Gender", "Software"]);
+const compactLabels = new Set(["Name", "Species", "Dimension", "Role", "Languages", "Birthday", "Gender", "Software"]);
 const compactProfileItems = profileItems.filter((row) => compactLabels.has(row.label));
 const wideProfileRows = profileItems.filter((row) => !compactLabels.has(row.label));
 const compactProfileRows: { left: { label: string; value: string }; right?: { label: string; value: string } }[] = [];
