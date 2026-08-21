@@ -3824,7 +3824,7 @@ body:has(.about-shell) {
 
 .character-tile {
   --character-shadow-color: color-mix(in srgb, var(--character-color) 72%, var(--line) 28%);
-  --character-shadow: color-mix(in srgb, var(--character-shadow-color) 50%, transparent);
+  --character-shadow: color-mix(in srgb, var(--character-shadow-color) 37%, transparent);
   appearance: none;
   display: grid;
   gap: 10px;
@@ -3881,6 +3881,12 @@ body:has(.about-shell) {
 .character-modal {
   --modal-head: color-mix(in srgb, var(--character-color, var(--page-accent)) 32%, white);
   --modal-body: color-mix(in srgb, var(--character-color, var(--page-accent)) 10%, white);
+  --character-shadow-color: color-mix(
+    in srgb,
+    var(--character-color, var(--page-accent)) 72%,
+    var(--line) 28%
+  );
+  --character-shadow: color-mix(in srgb, var(--character-shadow-color) 30%, transparent);
   position: fixed;
   inset: 0;
   z-index: 60;
@@ -3904,7 +3910,7 @@ body.has-character-modal {
   overflow: auto;
   border: 3px solid var(--line);
   background: var(--page-paper);
-  box-shadow: 10px 10px 0 rgba(63, 82, 152, 0.4);
+  box-shadow: 10px 10px 0 var(--character-shadow);
 }
 
 .character-modal-head {
