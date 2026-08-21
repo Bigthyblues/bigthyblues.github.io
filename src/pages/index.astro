@@ -5,7 +5,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout
   title="Welcome to Blues' blocky site!"
   description="Bigthyblues' blocky home page for posts, gallery, characters, world notes, and social links."
-  bodyId="i8u5"
 >
   <main class="home-page">
     <section class="home-hero" aria-label="Bigthyblues home">
@@ -65,7 +64,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (!stageWidth || !stageHeight) return;
       const scale = Math.min(1, homeHero.clientWidth / stageWidth);
       homePage.style.setProperty("--stage-scale", String(scale));
-      homeHero.style.height = `${stageHeight * scale}px`;
+      homePage.style.setProperty("--stage-rendered-height", `${stageHeight * scale}px`);
     }
 
     updateHomeStage();

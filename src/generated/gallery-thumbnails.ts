@@ -50,10 +50,12 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/AF26/wSzpGtAxJsHJMeMDOqR7eh9ykksxWWcAYiY63ZeWs1ZmHk2y3UTPJ5FSlMl6.png.webp",
   "/img/thumbs/gallery/AF26/xkyztUIMYTv98S9C6ca83lT6K1mDf5Rahkb83VFIyaLHD6pYzdXgvJBZ06kT.png.webp",
   "/img/thumbs/gallery/Bluesbanner.png.webp",
+  "/img/thumbs/gallery/Bluestransform.png.webp",
   "/img/thumbs/gallery/Cooling down.mp4.webp",
   "/img/thumbs/gallery/Dex.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
+  "/img/thumbs/gallery/Kyle ref alt.png.webp",
   "/img/thumbs/gallery/Kyle ref.png.webp",
   "/img/thumbs/gallery/Mishjr.png.webp",
   "/img/thumbs/gallery/Mistake!.png.webp",
@@ -981,8 +983,9 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/review-2026-05-18-0309-here-s-the-badger-who-just-moved-to-voxel-world-704803.png.webp",
   "/img/thumbs/gallery/imported/review-2026-05-22-1220-feeling-tried-doing-my-paper-research-recently-852644-video.mp4.webp",
   "/img/thumbs/gallery/imported/review-2026-06-13-0256-trying-to-draw-my-ocs-in-2channel-s-aa-cats-art-style-417440.png.webp",
+  "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp"
 ]);
-export const galleryThumbnailVersion = "msyw9mpa.60r";
+export const galleryThumbnailVersion = "mt31s5j2.uik";

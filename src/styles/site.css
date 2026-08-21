@@ -167,7 +167,7 @@ body {
   border-color: #e0e0e0;
 }
 
-#i8u5 {
+body:has(.home-page) {
   background-color: rgba(84, 116, 255, 0.61);
   overflow-x: hidden;
 }
@@ -242,27 +242,6 @@ body {
 }
 .copyright-line {
   line-height: 1.2;
-}
-
-.home-socials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.home-socials a {
-  display: inline-grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-}
-
-.home-socials img {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
 }
 
 #iooii {
@@ -428,8 +407,7 @@ body {
 #iizkh,
 #iocah,
 #ihdpn,
-#i3zej,
-.home-socials a {
+#i3zej {
   cursor: pointer;
   transition:
     transform 0.2s ease,
@@ -439,8 +417,7 @@ body {
 #i0msd:hover,
 #ipsh8:hover,
 #is0yf:hover,
-#iizkh:hover,
-.home-socials a:hover {
+#iizkh:hover {
   transform: scale(1.08);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0);
 }
@@ -917,13 +894,6 @@ body {
   background: var(--paper);
 }
 
-@media (min-width: 769px) {
-  #i8u5 {
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-}
-
 @media (max-width: 992px) {
   #i0msd {
     left: -376px;
@@ -1225,15 +1195,6 @@ body {
     top: 219px;
     width: 139px;
     height: 63px;
-  }
-
-  .home-socials {
-    gap: 14px;
-  }
-
-  .home-socials a {
-    width: 60px;
-    height: 60px;
   }
 
   .posts-sidebar {
@@ -3862,6 +3823,8 @@ body:has(.about-shell) {
 }
 
 .character-tile {
+  --character-shadow-color: color-mix(in srgb, var(--character-color) 72%, var(--line) 28%);
+  --character-shadow: color-mix(in srgb, var(--character-shadow-color) 50%, transparent);
   appearance: none;
   display: grid;
   gap: 10px;
@@ -3880,7 +3843,7 @@ body:has(.about-shell) {
   aspect-ratio: 1;
   border: 3px solid var(--line);
   background: rgba(255, 255, 255, 0.72);
-  box-shadow: 8px 8px 0 rgba(63, 82, 152, 0.32);
+  box-shadow: 8px 8px 0 var(--character-shadow);
   overflow: hidden;
 }
 
@@ -4130,14 +4093,14 @@ body.has-character-modal {
   --stage-viewport-width: 96vw;
   --stage-scale: 1;
   --buttons-width: min(1140px, 96vw);
-  --buttons-columns: repeat(6, minmax(0, 178px));
+  --buttons-columns: repeat(6, minmax(0, 1fr));
   --buttons-gap: clamp(12px, 2vw, 22px);
   --buttons-margin-top: clamp(-70px, -4vw, -38px);
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto auto auto;
   justify-items: center;
-  align-content: center;
+  align-content: safe center;
   gap: clamp(4px, 0.8vw, 10px);
   padding: clamp(18px, 3vw, 38px) 16px 24px;
   overflow-x: hidden;
@@ -4146,7 +4109,7 @@ body.has-character-modal {
 .home-hero {
   position: relative;
   width: min(var(--stage-width), var(--stage-viewport-width));
-  height: var(--stage-height);
+  height: var(--stage-rendered-height, var(--stage-height));
   display: block;
   overflow: visible;
 }
@@ -4274,84 +4237,113 @@ body.has-character-modal {
 }
 
 .home-footer .copyright-line {
+  width: 100%;
   color: rgba(245, 245, 255, 1);
   font-size: clamp(1rem, 2vw, 1.35rem);
   line-height: 1.2;
   text-align: center;
 }
 
-/* Small desktop / landscape tablet: 992px - 1200px. */
-@media (max-width: 1200px) {
+.home-socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.home-socials a {
+  display: inline-grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.home-socials img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.home-socials a:hover,
+.home-socials a:focus-visible {
+  transform: scale(1.08);
+  outline: 0;
+}
+
+/*
+ * Compact notebook: 992px - 1440px, plus short 1441px - 1600px viewports.
+ *
+ * Keep this beside the other home-page breakpoints so its overrides remain
+ * visible in cascade order. The width cap prevents short desktop monitors
+ * from accidentally receiving the notebook layout.
+ */
+@media (min-width: 992px) and (max-width: 1440px),
+  (min-width: 1441px) and (max-width: 1600px) and (max-height: 900px) {
   .home-page {
     --stage-width: 980px;
     --stage-height: 400px;
     --banner-left: 160px;
-    --banner-top: -15px;
+    --banner-top: -55px;
     --banner-width: 700px;
-    --blues-left: -40px;
-    --blues-top: 38px;
+    --blues-left: -50px;
+    --blues-top: 17px;
     --blues-width: 390px;
     --fizz-left: 680px;
-    --fizz-top: -58px;
+    --fizz-top: -73px;
     --fizz-width: 320px;
-    --buttons-width: min(980px, 94vw);
-    --buttons-columns: repeat(6, minmax(0, 152px));
-    --buttons-margin-top: clamp(-46px, -3vw, -22px);
-    gap: 12px;
+    --buttons-width: min(860px, 90vw);
+    --buttons-columns: repeat(6, minmax(0, 1fr));
+    --buttons-gap: 12px;
+    --buttons-margin-top: -34px;
+    align-content: safe center;
+    gap: 6px;
+    padding: 14px 12px 18px;
+  }
+
+  .home-footer {
+    gap: 7px;
+    padding-top: 0;
+  }
+
+  .home-footer .copyright-line {
+    font-size: 1rem;
+  }
+
+  .home-socials {
+    gap: 14px;
+  }
+
+  .home-socials a {
+    width: 48px;
+    height: 48px;
   }
 }
 
-/* Tablet: 768px - 991px. */
-@media (max-width: 991px) {
+/* Tablets share a stable two-column navigation across both art directions. */
+@media (min-width: 768px) and (max-width: 991px) {
   .home-page {
-    --stage-width: 760px;
-    --stage-height: 360px;
-    --banner-left: 0;
-    --banner-top: -34px;
-    --banner-width: 760px;
-    --blues-left: -100px;
-    --blues-top: 34px;
-    --blues-width: 310px;
-    --fizz-left: 560px;
-    --fizz-top: -20px;
-    --fizz-width: 260px;
-    --buttons-width: min(820px, 96vw);
-    --buttons-columns: repeat(6, minmax(0, 128px));
-    --buttons-margin-top: 0;
-  }
-}
-
-/* iPad Air portrait art-direction tweak. */
-@media (min-width: 768px) and (max-width: 900px) {
-  .home-page {
-    --stage-width: 650px;
-    --stage-height: 260px;
-    --banner-left: 32px;
-    --banner-top: -45px;
-    --banner-width: 585px;
-    --blues-left: 265px;
-    --blues-top: -35px;
-    --blues-width: 228px;
-    --fizz-left: 430px;
-    --fizz-top: -33px;
-    --fizz-width: 195px;
-    --stage-viewport-width: 92vw;
-    --buttons-width: min(430px, 45vw);
-    --buttons-columns: 1fr;
+    --buttons-width: min(700px, 88vw);
+    --buttons-columns: repeat(2, minmax(0, 1fr));
     --buttons-gap: 10px;
     --buttons-margin-top: 0;
-    align-content: start;
-    gap: 14px;
-    padding-top: 44px;
   }
 
   .home-nav-about,
   .home-nav-posts,
   .home-nav-characters,
-  .home-nav-gallery,
-  .home-nav-world {
+  .home-nav-gallery {
     grid-column: auto;
     width: 100%;
+  }
+
+  .home-nav-world {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--buttons-gap)) / 2);
   }
 
   .home-footer {
@@ -4365,8 +4357,81 @@ body.has-character-modal {
   }
 }
 
-/* Landscape phones / large phones: 481px - 767px. */
+/* Wide tablets and very small desktop windows: 901px - 991px. */
+@media (min-width: 901px) and (max-width: 991px) {
+  .home-page {
+    --stage-width: 760px;
+    --stage-height: 360px;
+    --banner-left: 0;
+    --banner-top: -34px;
+    --banner-width: 760px;
+    --blues-left: -100px;
+    --blues-top: 34px;
+    --blues-width: 310px;
+    --fizz-left: 560px;
+    --fizz-top: -20px;
+    --fizz-width: 260px;
+  }
+}
+
+/* Portrait tablets: 768px - 900px. */
+@media (min-width: 768px) and (max-width: 900px) {
+  .home-page {
+    --stage-width: 650px;
+    --stage-height: 240px;
+    --banner-left: 32px;
+    --banner-top: -65px;
+    --banner-width: 585px;
+    --blues-left: 260px;
+    --blues-top: -60px;
+    --blues-width: 228px;
+    --fizz-left: 430px;
+    --fizz-top: -43px;
+    --fizz-width: 195px;
+    --stage-viewport-width: 92vw;
+    --buttons-width: min(430px, 72vw);
+    --buttons-columns: 1fr;
+    align-content: start;
+    gap: 14px;
+    padding-top: 44px;
+  }
+
+  .home-nav-world {
+    grid-column: auto;
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+/* All phones share a single-column navigation and touch-sized social links. */
 @media (max-width: 767px) {
+  .home-page {
+    --buttons-columns: 1fr;
+    --buttons-margin-top: 0;
+    align-content: start;
+  }
+
+  .home-nav-about,
+  .home-nav-posts,
+  .home-nav-characters,
+  .home-nav-gallery,
+  .home-nav-world {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .home-nav-world {
+    justify-self: stretch;
+  }
+
+  .home-socials a {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* Landscape phones / large phones: 481px - 767px. */
+@media (min-width: 481px) and (max-width: 767px) {
   .home-page {
     --stage-width: 650px;
     --stage-height: 320px;
@@ -4381,30 +4446,8 @@ body.has-character-modal {
     --fizz-width: 202px;
     --stage-viewport-width: 94vw;
     --buttons-width: min(390px, 56vw);
-    --buttons-columns: 1fr;
     --buttons-gap: 9px;
-    --buttons-margin-top: 0;
-    align-content: start;
     padding-top: 12px;
-  }
-
-  .home-nav-about,
-  .home-nav-posts,
-  .home-nav-characters,
-  .home-nav-gallery,
-  .home-nav-world {
-    grid-column: auto;
-  }
-
-  .home-nav-world {
-    grid-column: auto;
-    justify-self: stretch;
-    width: 100%;
-  }
-
-  .home-socials a {
-    width: 58px;
-    height: 58px;
   }
 }
 
@@ -4412,25 +4455,30 @@ body.has-character-modal {
 @media (max-width: 480px) {
   .home-page {
     --stage-width: 480px;
-    --stage-height: 300px;
+    --stage-height: 260px;
     --banner-left: -24px;
-    --banner-top: 10px;
+    --banner-top: -20px;
     --banner-width: 528px;
     --blues-left: 198px;
-    --blues-top: 40px;
+    --blues-top: 10px;
     --blues-width: 178px;
-    --fizz-left: 332px;
-    --fizz-top: 45px;
+    --fizz-left: 325px;
+    --fizz-top: 15px;
     --fizz-width: 158px;
     --buttons-width: min(300px, 72vw);
-    --buttons-columns: 1fr;
     --buttons-gap: 8px;
-    padding-top: 0px;
+    padding-top: 0;
   }
 
-  .home-nav-world {
-    grid-column: auto;
-    width: 100%;
+  .home-socials {
+    flex-wrap: nowrap;
+    gap: clamp(4px, 2vw, 8px);
+  }
+
+  .home-socials a {
+    width: min(54px, 18%);
+    height: auto;
+    aspect-ratio: 1;
   }
 }
 
@@ -4829,12 +4877,11 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
  * Compact desktop layout
  *
  * Small notebooks are usually wide enough to miss the tablet breakpoints.
- * Trigger this layout from either a notebook-sized width or limited height so
- * high-DPI/system-scaled displays also keep the compact layout after returning
- * to /index.html through a Home link.
+ * The second branch covers short, system-scaled notebook viewports without
+ * allowing height alone to turn this layout on for large desktop monitors.
  */
 @media (min-width: 901px) and (max-width: 1440px),
-  (min-width: 901px) and (max-height: 900px) {
+  (min-width: 1441px) and (max-width: 1600px) and (max-height: 900px) {
   .posts-shell,
   .gallery-shell {
     grid-template-columns: 180px minmax(0, 720px) 190px;
@@ -4979,7 +5026,7 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   }
 
   .characters-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 18px 16px;
     padding: 16px;
   }
@@ -5016,44 +5063,5 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   .not-found-copy h1,
   .not-found-copy p {
     font-size: 2rem;
-  }
-
-  .home-page {
-    --stage-width: 980px;
-    --stage-height: 400px;
-    --banner-left: 160px;
-    --banner-top: -15px;
-    --banner-width: 700px;
-    --blues-left: -40px;
-    --blues-top: 38px;
-    --blues-width: 390px;
-    --fizz-left: 680px;
-    --fizz-top: -58px;
-    --fizz-width: 320px;
-    --buttons-width: min(860px, 90vw);
-    --buttons-columns: repeat(6, minmax(0, 132px));
-    --buttons-gap: 12px;
-    --buttons-margin-top: -34px;
-    align-content: safe center;
-    gap: 6px;
-    padding: 14px 12px 18px;
-  }
-
-  .home-footer {
-    gap: 7px;
-    padding-top: 0;
-  }
-
-  .home-footer .copyright-line {
-    font-size: 1rem;
-  }
-
-  .home-socials {
-    gap: 14px;
-  }
-
-  .home-socials a {
-    width: 48px;
-    height: 48px;
   }
 }
