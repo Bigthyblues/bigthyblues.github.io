@@ -1,4 +1,8 @@
 export const galleryThumbnails = new Set<string>([
+  "/img/thumbs/gallery/2023/买卫生纸.png.webp",
+  "/img/thumbs/gallery/2023/没法去沙滩.png.webp",
+  "/img/thumbs/gallery/2023/火堆.png.webp",
+  "/img/thumbs/gallery/2023/配饰问题.png.webp",
   "/img/thumbs/gallery/AF26/4CPchEPJWVIxwaQMVtXjHd6ui3xLW823heK6ukGNNxmLyRzP671WPQqxPrhg.jpg.webp",
   "/img/thumbs/gallery/AF26/4M2KTfoN4uvXUyRIrte5tuVGJfSXytNZgScA852G8XjY8JaoUnKnDZAqskZX.png.webp",
   "/img/thumbs/gallery/AF26/4UxSG2vYvhn2Z4Rn7Sh79inpxEGyAFgLUhBMb3On7ZPkdKCK23A0I8pLIUR3.jpg.webp",
@@ -988,4 +992,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/vacation.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp"
 ]);
-export const galleryThumbnailVersion = "mt31s5j2.uik";
+export const galleryThumbnailVersion = "mt40vzcj.vpa";

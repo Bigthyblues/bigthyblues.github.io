@@ -80,7 +80,9 @@ I hope to build out the whole of Voxel World and turn it into a real series call
 
 **There are some of my friends' profile link below:**
 
+<a href="https://vibeformnet.com/"><img src="https://vibeformnet.com/vibeformnet-button.png"></a>
 <a href="https://bluni.neocities.org/"><img src="https://bluni.neocities.org/WebsiteButton.gif"></a>
+<a href="https://elinery2005.neocities.org/"><img src="https://elinery2005.neocities.org/en2k5%20button%20(newer).gif"></a>
 <a href="https://toydomdraws.pages.dev" target="_blank"><img src="https://toydomdraws.pages.dev/drive/sitebtn.png" alt="TGD's site"></a>
 
 And you can visit their pages, learn more about them, and explore their stories. **Every character has their own little adventure waiting to be discovered!**
