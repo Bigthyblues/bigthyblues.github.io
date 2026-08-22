@@ -3,8 +3,8 @@ title: "Wisky"
 group: "cartoon"
 color: "#ffab46"
 quote: "Coffee, quiet walks, and good company."
-icon: "../icon/cartoon/Wisky.png"
-ref: "../ref sheet/cartoon/Wisky.png"
+icon: "/img/characters/icons/cartoon/Wisky.png"
+ref: "/img/characters/refs/cartoon/Wisky.png"
 sourcePdf: "../introductions pdf/cartoon/Wisky on Toyhouse.pdf"
 ---
 # Wisky

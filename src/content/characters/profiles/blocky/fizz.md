@@ -3,8 +3,8 @@ title: "Fizz"
 group: "blocky"
 color: "#e1494a"
 quote: "I am ready to fly!"
-icon: "../icon/blocky/Fizz.png"
-ref: "../ref sheet/blocky/Fizz.png"
+icon: "/img/characters/icons/blocky/Fizz.png"
+ref: "/img/characters/refs/blocky/Fizz.png"
 sourcePdf: "../introductions pdf/blocky/Fizz on Toyhouse.pdf"
 ---
 # Fizz

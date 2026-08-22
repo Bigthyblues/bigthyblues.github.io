@@ -3,8 +3,8 @@ title: "Mopple"
 group: "cartoon"
 color: "#fb4039"
 quote: "It's a sweet and magical time!"
-icon: "../icon/cartoon/Mopple.png"
-ref: "../ref sheet/cartoon/Mopple.png"
+icon: "/img/characters/icons/cartoon/Mopple.png"
+ref: "/img/characters/refs/cartoon/Mopple.png"
 sourcePdf: "../introductions pdf/cartoon/Mopple on Toyhouse.pdf"
 ---
 # Mopple

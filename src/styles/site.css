@@ -4178,6 +4178,7 @@ body.has-character-modal {
   grid-template-columns: var(--buttons-columns);
   gap: var(--buttons-gap);
   justify-content: center;
+  min-width: 0;
   width: var(--buttons-width);
   margin-top: var(--buttons-margin-top);
 }
@@ -4185,6 +4186,7 @@ body.has-character-modal {
 .home-nav-button {
   position: relative;
   display: grid;
+  min-width: 0;
   width: 100%;
   line-height: 0;
   cursor: pointer;
@@ -4278,6 +4280,28 @@ body.has-character-modal {
 .home-socials a:focus-visible {
   transform: scale(1.08);
   outline: 0;
+}
+
+/*
+ * Portrait layouts use one flex alignment axis. This keeps the hero, button
+ * stack, copyright, and social links on the same visual center line without
+ * allowing the oversized, scaled stage artwork to affect grid track sizing.
+ */
+@media (max-width: 900px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .home-hero,
+  .home-nav-buttons,
+  .home-footer {
+    flex: 0 0 auto;
+    align-self: center;
+    margin-inline: auto;
+  }
 }
 
 /*
@@ -4485,6 +4509,10 @@ body.has-character-modal {
     width: min(54px, 18%);
     height: auto;
     aspect-ratio: 1;
+  }
+
+  .home-footer .copyright-line span {
+    display: block;
   }
 }
 

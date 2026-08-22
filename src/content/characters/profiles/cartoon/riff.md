@@ -3,8 +3,8 @@ title: "Riff"
 group: "cartoon"
 color: "#af51ba"
 quote: "Let's fill the world with rock music!"
-icon: "../icon/cartoon/Riff.png"
-ref: "../ref sheet/cartoon/Riff.png"
+icon: "/img/characters/icons/cartoon/Riff.png"
+ref: "/img/characters/refs/cartoon/Riff.png"
 sourcePdf: "../introductions pdf/cartoon/Riff on Toyhouse.pdf"
 ---
 # Riff

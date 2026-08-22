@@ -3,8 +3,8 @@ title: "Punk"
 group: "blocky"
 color: "#ffe835"
 quote: "Three eyes and one very long tail, ready to play!"
-icon: "../icon/blocky/Punk.png"
-ref: "../ref sheet/blocky/Punk.png"
+icon: "/img/characters/icons/blocky/Punk.png"
+ref: "/img/characters/refs/blocky/Punk.png"
 sourcePdf: "../introductions pdf/blocky/Punk on Toyhouse.pdf"
 ---
 # Punk

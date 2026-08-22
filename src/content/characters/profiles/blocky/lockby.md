@@ -3,8 +3,8 @@ title: "Lockby"
 group: "blocky"
 color: "#cecece"
 quote: "Big candy, big fun!"
-icon: "../icon/blocky/Lockby.png"
-ref: "../ref sheet/blocky/Lockby.png"
+icon: "/img/characters/icons/blocky/Lockby.png"
+ref: "/img/characters/refs/blocky/Lockby.png"
 sourcePdf: "../introductions pdf/blocky/Lockby on Toyhouse.pdf"
 ---
 # Lockby

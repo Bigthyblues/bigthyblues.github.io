@@ -3,8 +3,8 @@ title: "Fazer"
 group: "blocky"
 color: "#418efc"
 quote: "Ready for the awesome adventures with me?"
-icon: "../icon/blocky/Fazer.png"
-ref: "../ref sheet/blocky/Fazer.png"
+icon: "/img/characters/icons/blocky/Fazer.png"
+ref: "/img/characters/refs/blocky/Fazer.png"
 sourcePdf: "../introductions pdf/blocky/Fazer on Toyhouse.pdf"
 ---
 # Fazer

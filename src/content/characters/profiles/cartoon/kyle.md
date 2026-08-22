@@ -3,8 +3,8 @@ title: "Kyle"
 group: "cartoon"
 color: "#50e2ff"
 quote: "Take my hand and let's fly!"
-icon: "../icon/cartoon/Kyle.png"
-ref: "../ref sheet/cartoon/Kyle.png"
+icon: "/img/characters/icons/cartoon/Kyle.png"
+ref: "/img/characters/refs/cartoon/Kyle.png"
 sourcePdf: "../introductions pdf/cartoon/Kyle on Toyhouse.pdf"
 ---
 # Kyle

@@ -3,8 +3,8 @@ title: "Verde"
 group: "cartoon"
 color: "#baff69"
 quote: "You really should visit Voxel World!"
-icon: "../icon/cartoon/Verde.png"
-ref: "../ref sheet/cartoon/Verde.png"
+icon: "/img/characters/icons/cartoon/Verde.png"
+ref: "/img/characters/refs/cartoon/Verde.png"
 sourcePdf: "../introductions pdf/cartoon/Verde on Toyhouse.pdf"
 ---
 # Verde

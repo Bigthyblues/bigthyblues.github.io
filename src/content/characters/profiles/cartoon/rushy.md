@@ -3,8 +3,8 @@ title: "Rushy"
 group: "cartoon"
 color: "#ff9b4b"
 quote: "Are you interested in my square glasses?"
-icon: "../icon/cartoon/Rushy.png"
-ref: "../ref sheet/cartoon/Rushy.png"
+icon: "/img/characters/icons/cartoon/Rushy.png"
+ref: "/img/characters/refs/cartoon/Rushy.png"
 sourcePdf: "../introductions pdf/cartoon/Rushy on Toyhouse.pdf"
 ---
 # Rushy

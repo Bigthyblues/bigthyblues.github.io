@@ -1,14 +1,14 @@
 ---
-title: "Kyle ref but old design remake"
+title: "Kyle's classic design remake"
 author: "blues"
 character: "Kyle"
 type: "image"
 date: 2026-08-21T16:47:00+08:00
 image: "/img/gallery/Kyle ref alt.png"
-excerpt: "Kyle ref but it's old design remake in new ref"
+excerpt: "Kyle returns to his classic appearance with a newly remade reference sheet."
 draft: false
 ---
 
-So, I just changed Kyle's appearance back to the old version, because it looks more better than previous one.
-Not changed a lot, still a silly fan-art fox wolf who loves flying a lot!
+I changed Kyle's appearance back to his classic design because it feels much more natural to me than the previous revision.
+Not much else has changed, he is still the same silly fox-wolf who loves flying!
 🐺🩵

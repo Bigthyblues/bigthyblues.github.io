@@ -78,33 +78,41 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       alert("Meow!🐱");
     });
 
-    document.querySelectorAll<HTMLImageElement>("[data-hover-apng]").forEach((image) => {
-      const staticSource = image.getAttribute("src");
-      const animatedSource = image.dataset.hoverApng;
-      const button = image.closest(".home-nav-button");
-      if (!staticSource || !animatedSource || !button) return;
+document.querySelectorAll<HTMLImageElement>("[data-hover-apng]").forEach((image) => {
+  const staticSource = image.getAttribute("src");
+  const animatedSource = image.dataset.hoverApng;
+  const button = image.closest(".home-nav-button");
 
-      let playCount = 0;
-      button.addEventListener("pointerenter", (event) => {
-        if (!(event instanceof PointerEvent) || event.pointerType !== "mouse") return;
-        playCount += 1;
-        image.src = `${animatedSource}?play=${playCount}`;
-      });
-      button.addEventListener("pointerleave", () => {
-        image.src = staticSource;
-      });
-      button.addEventListener("pointerdown", (event) => {
-        if (event instanceof PointerEvent && event.pointerType !== "mouse") {
-          image.src = staticSource;
-        }
-      });
-      button.addEventListener("contextmenu", (event) => {
-        if (window.matchMedia("(hover: none), (pointer: coarse)").matches) {
-          event.preventDefault();
-        }
-        image.src = staticSource;
-      });
-      button.addEventListener("dragstart", (event) => event.preventDefault());
-    });
+  if (!staticSource || !animatedSource || !button) return;
+
+  const preloadImage = new Image();
+  preloadImage.src = animatedSource;
+  preloadImage.decode?.().catch(() => {});
+
+  button.addEventListener("pointerenter", (event) => {
+    if (!(event instanceof PointerEvent) || event.pointerType !== "mouse") return;
+
+    image.src = animatedSource;
+  });
+
+  button.addEventListener("pointerleave", () => {
+    image.src = staticSource;
+  });
+
+  button.addEventListener("pointerdown", (event) => {
+    if (event instanceof PointerEvent && event.pointerType !== "mouse") {
+      image.src = staticSource;
+    }
+  });
+
+  button.addEventListener("contextmenu", (event) => {
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) {
+      event.preventDefault();
+    }
+    image.src = staticSource;
+  });
+
+  button.addEventListener("dragstart", (event) => event.preventDefault());
+});
   </script>
 </BaseLayout>

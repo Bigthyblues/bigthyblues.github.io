@@ -3,8 +3,8 @@ title: "Minty"
 group: "blocky"
 color: "#657480"
 quote: "No ingredients, no cooking!"
-icon: "../icon/blocky/Minty.png"
-ref: "../ref sheet/blocky/Minty.png"
+icon: "/img/characters/icons/blocky/Minty.png"
+ref: "/img/characters/refs/blocky/Minty.png"
 sourcePdf: "../introductions pdf/blocky/Minty on Toyhouse.pdf"
 ---
 # Minty

@@ -3,8 +3,8 @@ title: "Zesty"
 group: "cartoon"
 color: "#bdde30"
 quote: "Wanna see me surfing?"
-icon: "../icon/cartoon/Zesty.png"
-ref: "../ref sheet/cartoon/Zesty.png"
+icon: "/img/characters/icons/cartoon/Zesty.png"
+ref: "/img/characters/refs/cartoon/Zesty.png"
 sourcePdf: "../introductions pdf/cartoon/Zesty on Toyhouse.pdf"
 ---
 # Zesty

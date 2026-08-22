@@ -1,13 +1,7 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import charactersOverviewRaw from "../content/characters/overview.md?raw";
-import blockyGroupIcon from "../content/characters/icon/Blocky icon.png";
-import cartoonGroupIcon from "../content/characters/icon/Cartoon icon.png";
 
-const assetSrc = (asset: string | { src: string }) => typeof asset === "string" ? asset : asset.src;
-
-const iconModules = import.meta.glob("../content/characters/icon/**/*.png", { eager: true, import: "default" });
-const refModules = import.meta.glob("../content/characters/ref sheet/**/*.png", { eager: true, import: "default" });
 const profileModules = import.meta.glob("../content/characters/profiles/**/*.md", { eager: true, query: "?raw", import: "default" });
 const introductionCodeModules = import.meta.glob("../content/characters/Introductions code/*", { eager: true, query: "?raw", import: "default" });
 
@@ -25,7 +19,7 @@ type CharacterProfile = {
 const groupText: Record<CharacterGroup, { title: string; intro: string[]; order: string[]; icon: string; paper: string; inner: string; accent: string }> = {
   blocky: {
     title: "Blockimals",
-    icon: assetSrc(blockyGroupIcon),
+    icon: "/img/characters/group-icons/blocky.png",
     paper: "rgba(190, 232, 255, 0.92)",
     inner: "rgba(235, 250, 255, 0.96)",
     accent: "#1889c7",
@@ -38,7 +32,7 @@ const groupText: Record<CharacterGroup, { title: string; intro: string[]; order:
   },
   cartoon: {
     title: "Cartoons",
-    icon: assetSrc(cartoonGroupIcon),
+    icon: "/img/characters/group-icons/cartoon.png",
     paper: "rgba(255, 218, 176, 0.92)",
     inner: "rgba(255, 244, 230, 0.96)",
     accent: "#d66b12",
@@ -200,17 +194,21 @@ const profiles = Object.values(profileModules).map((raw) => {
   const { data, body } = parseFrontmatter(String(raw));
   const name = data.title || "Unknown";
   const group = (data.group || "blocky") as CharacterGroup;
-  const icon = findModule(iconModules, `icon/${group}/${name}.png`);
-  const ref = findModule(refModules, `ref sheet/${group}/${name}.png`);
+  const icon = data.icon?.trim();
+  const ref = data.ref?.trim();
   const introductionCode = findModule(introductionCodeModules, `Introductions code/${name}`);
+
+  if (!icon || !ref) {
+    throw new Error(`Character profile "${name}" must define public icon and ref paths.`);
+  }
 
   return {
     name,
     group,
     quote: data.quote || "",
     color: data.color || "#2464d8",
-    icon: assetSrc(icon as string | { src: string }),
-    ref: assetSrc(ref as string | { src: string }),
+    icon,
+    ref,
     profileHtml: introductionCode ? cleanImportedHtml(String(introductionCode).trim()) : renderMarkdown(profileBody(body))
   } satisfies CharacterProfile;
 });
@@ -297,7 +295,7 @@ const dataForModal = profiles.map((profile) => ({
         <button class="character-modal-close" type="button" data-character-close aria-label="Close character details">X</button>
       </header>
       <figure class="character-modal-ref">
-        <img data-character-ref alt="" loading="lazy" decoding="async" />
+        <img data-character-ref alt="" loading="eager" fetchpriority="high" decoding="async" />
       </figure>
       <section class="character-modal-summary">
         <p data-character-quote></p>
@@ -337,23 +335,18 @@ const dataForModal = profiles.map((profile) => ({
       const token = ++refLoadToken;
       refImage.classList.add("is-loading");
       refImage.alt = "";
-      refImage.removeAttribute("src");
-
-      const nextImage = new Image();
-      nextImage.decoding = "async";
-      nextImage.onload = () => {
+      refImage.fetchPriority = "high";
+      refImage.onload = () => {
         if (token !== refLoadToken) return;
-        refImage.src = character.ref;
         refImage.alt = `${character.name} reference sheet`;
         refImage.classList.remove("is-loading");
       };
-      nextImage.onerror = () => {
+      refImage.onerror = () => {
         if (token !== refLoadToken) return;
-        refImage.src = character.ref;
         refImage.alt = `${character.name} reference sheet`;
         refImage.classList.remove("is-loading");
       };
-      nextImage.src = character.ref;
+      refImage.src = character.ref;
     }
 
     function openCharacter(name: string | undefined) {

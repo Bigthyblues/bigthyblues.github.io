@@ -3,8 +3,8 @@ title: "Rowdy"
 group: "blocky"
 color: "#ff8f43"
 quote: "Hey! Who took away my glasses?!"
-icon: "../icon/blocky/Rowdy.png"
-ref: "../ref sheet/blocky/Rowdy.png"
+icon: "/img/characters/icons/blocky/Rowdy.png"
+ref: "/img/characters/refs/blocky/Rowdy.png"
 sourcePdf: "../introductions pdf/blocky/Rowdy on Toyhouse.pdf"
 ---
 # Rowdy

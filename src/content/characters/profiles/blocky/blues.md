@@ -3,8 +3,8 @@ title: "Blues"
 group: "blocky"
 color: "#315ebb"
 quote: "Hmmm, I love this song!"
-icon: "../icon/blocky/Blues.png"
-ref: "../ref sheet/blocky/Blues.png"
+icon: "/img/characters/icons/blocky/Blues.png"
+ref: "/img/characters/refs/blocky/Blues.png"
 sourcePdf: "../introductions pdf/blocky/Blues on Toyhouse.pdf"
 ---
 # Blues

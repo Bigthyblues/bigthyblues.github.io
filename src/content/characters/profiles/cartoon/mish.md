@@ -3,8 +3,8 @@ title: "Mish"
 group: "cartoon"
 color: "#b89dff"
 quote: "This is the paper eyes I drew for you!"
-icon: "../icon/cartoon/Mish.png"
-ref: "../ref sheet/cartoon/Mish.png"
+icon: "/img/characters/icons/cartoon/Mish.png"
+ref: "/img/characters/refs/cartoon/Mish.png"
 sourcePdf: "../introductions pdf/cartoon/Mish on Toyhouse.pdf"
 ---
 # Mish

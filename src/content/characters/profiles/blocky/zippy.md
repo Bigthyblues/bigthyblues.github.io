@@ -3,8 +3,8 @@ title: "Zippy"
 group: "blocky"
 color: "#7de543"
 quote: "Ready to skate, and definitely ready to win!"
-icon: "../icon/blocky/Zippy.png"
-ref: "../ref sheet/blocky/Zippy.png"
+icon: "/img/characters/icons/blocky/Zippy.png"
+ref: "/img/characters/refs/blocky/Zippy.png"
 sourcePdf: "../introductions pdf/blocky/Zippy on Toyhouse.pdf"
 ---
 # Zippy

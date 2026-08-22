@@ -3,8 +3,8 @@ title: "Glup"
 group: "blocky"
 color: "#98e75f"
 quote: "Tiny slime, big city adventure!"
-icon: "../icon/blocky/Glup.png"
-ref: "../ref sheet/blocky/Glup.png"
+icon: "/img/characters/icons/blocky/Glup.png"
+ref: "/img/characters/refs/blocky/Glup.png"
 sourcePdf: "../introductions pdf/blocky/Glup on Toyhouse.pdf"
 ---
 # Glup

@@ -3,8 +3,8 @@ title: "Carl"
 group: "blocky"
 color: "#c667ff"
 quote: "Hmm... a self-heating coffee mug sounds useful!"
-icon: "../icon/blocky/Carl.png"
-ref: "../ref sheet/blocky/Carl.png"
+icon: "/img/characters/icons/blocky/Carl.png"
+ref: "/img/characters/refs/blocky/Carl.png"
 sourcePdf: "../introductions pdf/blocky/Carl on Toyhouse.pdf"
 ---
 # Carl
