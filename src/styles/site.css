@@ -1751,8 +1751,15 @@ body:has(.home-page) {
 }
 
 .post-body img {
-  max-width: 100%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(72%, 520px);
+  max-height: 420px;
+  margin: 4px auto;
   border: 2px solid var(--line);
+  object-fit: contain;
+  cursor: zoom-in;
 }
 
 .post-body a {
@@ -1809,10 +1816,6 @@ body:has(.home-page) {
   cursor: zoom-in;
 }
 
-.post-body img {
-  cursor: zoom-in;
-}
-
 .image-lightbox[hidden] {
   display: none;
 }
@@ -1860,6 +1863,11 @@ body:has(.home-page) {
 @media (max-width: 480px) {
   .post-media img {
     max-height: 360px;
+  }
+
+  .post-body img {
+    max-width: min(88%, 360px);
+    max-height: 320px;
   }
 
   .image-lightbox {

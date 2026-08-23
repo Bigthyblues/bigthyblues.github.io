@@ -1,8 +1,14 @@
 export const galleryThumbnails = new Set<string>([
-  "/img/thumbs/gallery/2023/买卫生纸.png.webp",
-  "/img/thumbs/gallery/2023/没法去沙滩.png.webp",
-  "/img/thumbs/gallery/2023/火堆.png.webp",
-  "/img/thumbs/gallery/2023/配饰问题.png.webp",
+  "/img/thumbs/gallery/2023/Christmasdecoration1.png.webp",
+  "/img/thumbs/gallery/2023/Christmasdecoration2.png.webp",
+  "/img/thumbs/gallery/2023/Christmasdecoration3.png.webp",
+  "/img/thumbs/gallery/2023/Christmasdecoration4.png.webp",
+  "/img/thumbs/gallery/2023/buy toilet paper.png.webp",
+  "/img/thumbs/gallery/2023/camping fire1.png.webp",
+  "/img/thumbs/gallery/2023/camping fire2.png.webp",
+  "/img/thumbs/gallery/2023/cannot go beach.png.webp",
+  "/img/thumbs/gallery/2023/headphones problems.png.webp",
+  "/img/thumbs/gallery/2023/hello2024.png.webp",
   "/img/thumbs/gallery/AF26/4CPchEPJWVIxwaQMVtXjHd6ui3xLW823heK6ukGNNxmLyRzP671WPQqxPrhg.jpg.webp",
   "/img/thumbs/gallery/AF26/4M2KTfoN4uvXUyRIrte5tuVGJfSXytNZgScA852G8XjY8JaoUnKnDZAqskZX.png.webp",
   "/img/thumbs/gallery/AF26/4UxSG2vYvhn2Z4Rn7Sh79inpxEGyAFgLUhBMb3On7ZPkdKCK23A0I8pLIUR3.jpg.webp",
@@ -67,6 +73,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Riff ref.png.webp",
   "/img/thumbs/gallery/Summercooler.png.webp",
   "/img/thumbs/gallery/Wisky ref.png.webp",
+  "/img/thumbs/gallery/Zippy generation.png.webp",
   "/img/thumbs/gallery/Zippy ref.png.webp",
   "/img/thumbs/gallery/bandanawoofs.png.webp",
   "/img/thumbs/gallery/bluesradio.png.webp",
@@ -921,6 +928,9 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/2026-06-26-0053-besides-i-also-added-lockby-and-carl-they-born-to-be-buddy-toget-702341.png.webp",
   "/img/thumbs/gallery/imported/2026-06-26-0053-okay-so-i-ve-made-4-ref-sheets-recently-not-only-to-bring-back-c-155289.jpg.webp",
   "/img/thumbs/gallery/imported/2026-06-26-0053-okay-so-i-ve-made-4-ref-sheets-recently-not-only-to-bring-back-c-155289.png.webp",
+  "/img/thumbs/gallery/imported/birthday2024.png.webp",
+  "/img/thumbs/gallery/imported/fastfood.png.webp",
+  "/img/thumbs/gallery/imported/how to create a blocky guy.png.webp",
   "/img/thumbs/gallery/imported/review-2023-08-08-0058-i-redrawed-rabbit-from-someone-s-draft-of-stupid-horse-fan-anima-669632.jpg.webp",
   "/img/thumbs/gallery/imported/review-2023-08-08-0058-i-redrawed-rabbit-from-someone-s-draft-of-stupid-horse-fan-anima-669632.png.webp",
   "/img/thumbs/gallery/imported/review-2023-10-06-0149-never-play-on-your-phone-when-you-are-drawing-something-288510.jpg.webp",
@@ -987,10 +997,12 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/review-2026-05-18-0309-here-s-the-badger-who-just-moved-to-voxel-world-704803.png.webp",
   "/img/thumbs/gallery/imported/review-2026-05-22-1220-feeling-tried-doing-my-paper-research-recently-852644-video.mp4.webp",
   "/img/thumbs/gallery/imported/review-2026-06-13-0256-trying-to-draw-my-ocs-in-2channel-s-aa-cats-art-style-417440.png.webp",
+  "/img/thumbs/gallery/imported/runningfor.png.webp",
   "/img/thumbs/gallery/nowatercat.png.webp",
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
-  "/img/thumbs/gallery/webicon.gif.webp"
+  "/img/thumbs/gallery/webicon.gif.webp",
+  "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mt4fs6a5.ifi";
+export const galleryThumbnailVersion = "mt65ordp.e1m";

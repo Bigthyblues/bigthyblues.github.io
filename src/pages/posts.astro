@@ -415,6 +415,8 @@ const types = ["image", "video", "text", "fanart"];
   </div>
 
   <script>
+    import { attachSearchEasterEgg } from "../scripts/search-easter-egg";
+
     const root = document.querySelector("[data-posts-page]");
     const search = root?.querySelector("[data-search]");
     const searchClear = root?.querySelector("[data-search-clear]");
@@ -742,6 +744,8 @@ const types = ["image", "video", "text", "fanart"];
       updatePosts();
       saveFilterState();
     });
+
+    attachSearchEasterEgg(search, searchClear);
 
     loadMoreButton?.addEventListener("click", () => {
       revealMorePosts();
