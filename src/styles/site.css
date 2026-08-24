@@ -1763,7 +1763,7 @@ body:has(.home-page) {
 }
 
 .post-body a {
-  color: #a71975;
+  color: var(--page-accent, #2f66e8);
 }
 
 .post-fanart-links {
@@ -2479,7 +2479,7 @@ body:has(.gallery-shell) {
   line-height: 1.1;
   text-align: left;
   text-decoration: underline;
-  cursor: default;
+  cursor: pointer;
 }
 
 .media-lightbox {
@@ -4625,7 +4625,8 @@ body:has(.posts-shell) .posts-sidebar-left .type-filter-section {
 body:has(.about-shell) .about-copy a,
 body:has(.about-shell) .about-note-grid a,
 body:has(.characters-shell) .character-modal-profile a,
-body:has(.gallery-shell) .gallery-title-link {
+body:has(.gallery-shell) .gallery-title-link,
+body:has(.gallery-shell) .fanart-info-panel a:not([aria-disabled]) {
   color: color-mix(in srgb, var(--page-accent) 74%, var(--line));
 }
 
