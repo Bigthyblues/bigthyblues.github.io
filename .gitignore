@@ -22,5 +22,7 @@ local-only/
 原件/
 
 dev.bat
+refresh-thumbnails.bat
+review-posts.bat
 
 MEDIA_REPLACEMENT_LIST.md
