@@ -63,6 +63,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Bluestransform.png.webp",
   "/img/thumbs/gallery/Cooling down.mp4.webp",
   "/img/thumbs/gallery/Dex.png.webp",
+  "/img/thumbs/gallery/Fizz meowing.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
   "/img/thumbs/gallery/Kyle ref alt.png.webp",
@@ -149,6 +150,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreia6iermsknaoyme6zbv7ljyoukzgdu4isvijk3glowcjpucfzdbcu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreialxrq2ven3gl6ndn7d4nhq2lis4z6cg253xwlhq56s7b4us4agv4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicvjbspgoa7ixcnotsqepett6vubfx3zh2obcqgwyndpaysgs4vwq.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreid5gxp4xh2k3c5kp6yafmc35qv6me5ouf72nyqk5v6fkhvgdns3vi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidojxws2cn4slbvylvvu3dz7bx7fidnkcas3qpr5pzw4jur4gfqvi.jpg.webp",
@@ -1019,4 +1021,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mt6spxtt.khk";
+export const galleryThumbnailVersion = "mtac9eve.mw9";
