@@ -177,6 +177,16 @@ const normalizeCharacters = (character: string | string[]) =>
 const normalizeImages = (image?: string, images?: string[]) =>
   [...new Set([...(image ? [image] : []), ...(images ?? [])].map((item) => item.trim()).filter(Boolean))];
 
+const fizzMeowingOriginal = "/img/gallery/Fizz meowing.png";
+const fizzMeowingThumbnailPrefix = "/img/thumbs/gallery/Fizz meowing asset/";
+const fizzMeowingImageSources = [
+  fizzMeowingOriginal,
+  ...[...galleryThumbnails]
+    .filter((thumbnail) => thumbnail.startsWith(fizzMeowingThumbnailPrefix))
+    .map((thumbnail) => thumbnail.replace("/img/thumbs/gallery/", "/img/gallery/").replace(/\.webp$/, ""))
+    .sort()
+];
+
 const toKey = (value: string) => value.trim().toLowerCase();
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const formatMonthName = (month: string) => monthNames[Number(month) - 1] ?? month;
@@ -217,6 +227,9 @@ const posts = (await getCollection("posts", (entry) => Boolean(entry.data?.date)
       type: postType,
       image: imageList[0],
       images: imageList.map((src) => ({ src, thumb: thumbnailForGalleryAsset(src) ?? src })),
+      randomImages: imageList[0] === fizzMeowingOriginal
+        ? fizzMeowingImageSources.map((src) => ({ src, thumb: thumbnailForGalleryAsset(src) ?? src }))
+        : undefined,
       video: post.data.video,
       isVideoEmbed: isEmbeddableVideo(post.data.video),
       excerpt: post.data.excerpt,
@@ -373,7 +386,16 @@ const types = ["image", "video", "text", "fanart"];
           )}
           {!post.video && post.images.map((image) => (
             <figure class="post-media">
-              <img data-media-src={image.thumb} data-full-src={image.src} alt="" loading="lazy" decoding="async" data-image-component="manual" data-lightbox-image />
+              <img
+                data-media-src={image.thumb}
+                data-full-src={image.src}
+                data-random-media={image.src === post.image && post.randomImages ? JSON.stringify(post.randomImages) : undefined}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                data-image-component="manual"
+                data-lightbox-image
+              />
             </figure>
           ))}
           <div class="post-copy">
@@ -569,6 +591,48 @@ const types = ["image", "video", "text", "fanart"];
             if (media.readyState >= HTMLMediaElement.HAVE_METADATA) configurePlayback();
           }
           if (shouldSetSrc) media.load();
+        }
+      });
+    }
+
+    function randomizeEasterEggMedia() {
+      root?.querySelectorAll("[data-random-media]").forEach((media) => {
+        if (!(media instanceof HTMLImageElement)) return;
+
+        try {
+          const choices = JSON.parse(media.dataset.randomMedia ?? "[]");
+          if (!Array.isArray(choices) || choices.length === 0) return;
+
+          const historyKey = "bigthyblues:fizz-meowing:recent-images";
+          const choiceSources = new Set(choices.map((choice) => choice?.src).filter((src) => typeof src === "string"));
+          let recentSources: string[] = [];
+
+          try {
+            const storedHistory = JSON.parse(window.sessionStorage.getItem(historyKey) ?? "[]");
+            if (Array.isArray(storedHistory)) {
+              recentSources = storedHistory
+                .filter((src): src is string => typeof src === "string" && choiceSources.has(src))
+                .slice(0, 3);
+            }
+          } catch {
+            // Start a fresh history if session storage is unavailable or invalid.
+          }
+
+          const eligibleChoices = choices.filter((choice) => !recentSources.includes(choice?.src));
+          const pool = eligibleChoices.length > 0 ? eligibleChoices : choices;
+          const choice = pool[Math.floor(Math.random() * pool.length)];
+          if (!choice || typeof choice.src !== "string" || typeof choice.thumb !== "string") return;
+          media.dataset.mediaSrc = choice.thumb;
+          media.dataset.fullSrc = choice.src;
+
+          try {
+            const nextHistory = [choice.src, ...recentSources.filter((src) => src !== choice.src)].slice(0, 3);
+            window.sessionStorage.setItem(historyKey, JSON.stringify(nextHistory));
+          } catch {
+            // The selected image can still be shown when session storage is unavailable.
+          }
+        } catch {
+          // Keep the original post image if the embedded choices cannot be read.
         }
       });
     }
@@ -771,6 +835,7 @@ const types = ["image", "video", "text", "fanart"];
       closeLightbox();
     });
 
+    randomizeEasterEggMedia();
     restoreFilterState();
     updatePosts();
   </script>

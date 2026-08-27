@@ -63,6 +63,13 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Bluestransform.png.webp",
   "/img/thumbs/gallery/Cooling down.mp4.webp",
   "/img/thumbs/gallery/Dex.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing Caffetap.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing MeowthBlep.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing Samuelmon.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing Scotch.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing aster.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing woof.png.webp",
+  "/img/thumbs/gallery/Fizz meowing asset/喵一下 中文.png.webp",
   "/img/thumbs/gallery/Fizz meowing.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
@@ -1017,8 +1024,9 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/nowatercat.png.webp",
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
+  "/img/thumbs/gallery/tieguys.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtac9eve.mw9";
+export const galleryThumbnailVersion = "mtb2ftqs.kz9";
