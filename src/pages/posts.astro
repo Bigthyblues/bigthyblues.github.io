@@ -573,6 +573,7 @@ const types = ["image", "video", "text", "fanart"];
       card.querySelectorAll("[data-media-src]").forEach((media) => {
         if (!(media instanceof HTMLImageElement || media instanceof HTMLVideoElement || media instanceof HTMLIFrameElement)) return;
 
+        if (media instanceof HTMLImageElement && media.dataset.randomMedia) randomizeEasterEggMedia(media);
         const src = media.dataset.mediaSrc;
         const shouldSetSrc = Boolean(src && media.getAttribute("src") !== src);
 
@@ -595,46 +596,55 @@ const types = ["image", "video", "text", "fanart"];
       });
     }
 
-    function randomizeEasterEggMedia() {
-      root?.querySelectorAll("[data-random-media]").forEach((media) => {
-        if (!(media instanceof HTMLImageElement)) return;
+    function randomizeEasterEggMedia(media: HTMLImageElement) {
+      if (media.dataset.randomMediaReady === "true") return;
+      media.dataset.randomMediaReady = "true";
+
+      try {
+        const choices = JSON.parse(media.dataset.randomMedia ?? "[]");
+        if (!Array.isArray(choices) || choices.length === 0) return;
+
+        const [originalChoice, ...easterEggChoices] = choices;
+        if (!originalChoice || typeof originalChoice.src !== "string" || typeof originalChoice.thumb !== "string") return;
+
+        const shouldUseEasterEgg = easterEggChoices.length > 0 && Math.random() < 0.35;
+        if (!shouldUseEasterEgg) {
+          media.dataset.mediaSrc = originalChoice.thumb;
+          media.dataset.fullSrc = originalChoice.src;
+          return;
+        }
+
+        const historyKey = "bigthyblues:fizz-meowing:recent-images";
+        const easterEggSources = new Set(easterEggChoices.map((choice) => choice?.src).filter((src) => typeof src === "string"));
+        let recentSources: string[] = [];
 
         try {
-          const choices = JSON.parse(media.dataset.randomMedia ?? "[]");
-          if (!Array.isArray(choices) || choices.length === 0) return;
-
-          const historyKey = "bigthyblues:fizz-meowing:recent-images";
-          const choiceSources = new Set(choices.map((choice) => choice?.src).filter((src) => typeof src === "string"));
-          let recentSources: string[] = [];
-
-          try {
-            const storedHistory = JSON.parse(window.sessionStorage.getItem(historyKey) ?? "[]");
-            if (Array.isArray(storedHistory)) {
-              recentSources = storedHistory
-                .filter((src): src is string => typeof src === "string" && choiceSources.has(src))
-                .slice(0, 3);
-            }
-          } catch {
-            // Start a fresh history if session storage is unavailable or invalid.
-          }
-
-          const eligibleChoices = choices.filter((choice) => !recentSources.includes(choice?.src));
-          const pool = eligibleChoices.length > 0 ? eligibleChoices : choices;
-          const choice = pool[Math.floor(Math.random() * pool.length)];
-          if (!choice || typeof choice.src !== "string" || typeof choice.thumb !== "string") return;
-          media.dataset.mediaSrc = choice.thumb;
-          media.dataset.fullSrc = choice.src;
-
-          try {
-            const nextHistory = [choice.src, ...recentSources.filter((src) => src !== choice.src)].slice(0, 3);
-            window.sessionStorage.setItem(historyKey, JSON.stringify(nextHistory));
-          } catch {
-            // The selected image can still be shown when session storage is unavailable.
+          const storedHistory = JSON.parse(window.sessionStorage.getItem(historyKey) ?? "[]");
+          if (Array.isArray(storedHistory)) {
+            recentSources = storedHistory
+              .filter((src): src is string => typeof src === "string" && easterEggSources.has(src))
+              .slice(0, 3);
           }
         } catch {
-          // Keep the original post image if the embedded choices cannot be read.
+          // Start a fresh history if session storage is unavailable or invalid.
         }
-      });
+
+        const eligibleChoices = easterEggChoices.filter((choice) => !recentSources.includes(choice?.src));
+        const pool = eligibleChoices.length > 0 ? eligibleChoices : easterEggChoices;
+        const choice = pool[Math.floor(Math.random() * pool.length)];
+        if (!choice || typeof choice.src !== "string" || typeof choice.thumb !== "string") return;
+        media.dataset.mediaSrc = choice.thumb;
+        media.dataset.fullSrc = choice.src;
+
+        try {
+          const nextHistory = [choice.src, ...recentSources.filter((src) => src !== choice.src)].slice(0, 3);
+          window.sessionStorage.setItem(historyKey, JSON.stringify(nextHistory));
+        } catch {
+          // The selected image can still be shown when session storage is unavailable.
+        }
+      } catch {
+        // Keep the original post image if the embedded choices cannot be read.
+      }
     }
 
     function matchesCard(card: HTMLElement, overrides: Partial<typeof filters> = {}) {
@@ -835,7 +845,6 @@ const types = ["image", "video", "text", "fanart"];
       closeLightbox();
     });
 
-    randomizeEasterEggMedia();
     restoreFilterState();
     updatePosts();
   </script>
