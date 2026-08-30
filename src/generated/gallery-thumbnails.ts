@@ -86,6 +86,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/bandanawoofs.png.webp",
   "/img/thumbs/gallery/bluesradio.png.webp",
   "/img/thumbs/gallery/dexdoodle.png.webp",
+  "/img/thumbs/gallery/doggietunes.png.webp",
   "/img/thumbs/gallery/fanart/120757934_D0WBr8JknJQNAzW.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928165100.png.webp",
   "/img/thumbs/gallery/fanart/130 sin título_20250928171926.png.webp",
@@ -1029,4 +1030,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtb2ftqs.kz9";
+export const galleryThumbnailVersion = "mtg1qesq.cc";
