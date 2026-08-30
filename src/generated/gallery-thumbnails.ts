@@ -72,6 +72,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Fizz meowing asset/喵一下 中文.png.webp",
   "/img/thumbs/gallery/Fizz meowing.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
+  "/img/thumbs/gallery/Glupandfriends.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
   "/img/thumbs/gallery/Kyle ref alt.png.webp",
   "/img/thumbs/gallery/Kyle ref.png.webp",
@@ -1030,4 +1031,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtg1qesq.cc";
+export const galleryThumbnailVersion = "mtg3zh20.vn";
