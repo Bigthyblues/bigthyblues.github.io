@@ -1026,9 +1026,10 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/nowatercat.png.webp",
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
+  "/img/thumbs/gallery/summerparty.png.webp",
   "/img/thumbs/gallery/tieguys.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtg3zh20.vn";
+export const galleryThumbnailVersion = "mtip3kma.xz8";

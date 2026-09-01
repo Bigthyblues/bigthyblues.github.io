@@ -6,7 +6,10 @@ interface Props {
 
 const {
   slug = "about-ask",
-  submitUrl = import.meta.env.PUBLIC_ZISCUS_SUBMIT_URL as string | undefined
+  // GitHub Pages builds do not receive the local .env file. This is a public
+  // endpoint (not a secret), so retain a production fallback for static builds.
+  submitUrl = (import.meta.env.PUBLIC_ZISCUS_SUBMIT_URL as string | undefined)
+    ?? "https://ziscus-ask.bigthyblues.workers.dev/submit"
 } = Astro.props;
 
 const configured = Boolean(submitUrl?.trim());
