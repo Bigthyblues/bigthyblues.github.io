@@ -1,0 +1,30 @@
+# Ziscus Ask Box worker — deploy from this folder:
+#   npx wrangler login
+#   npx wrangler d1 create ziscus-ask
+#   (paste database_id below)
+#   npx wrangler d1 execute ziscus-ask --remote --file=../node_modules/ziscus/dist/schema.sql
+#   set ADMIN_SECRET, then: npx wrangler deploy
+#   npx ziscus ai-mod enable
+
+name = "ziscus-ask"
+main = "worker.ts"
+compatibility_date = "2025-09-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ziscus-ask"
+database_id = "6f0c88aa-0f9f-424e-aab2-26bd56bb6be4"
+
+[vars]
+# Comma-separated hosts allowed to POST /submit (no protocol)
+ALLOWED_ORIGINS = "www.bigthyblues.xyz,bigthyblues.xyz,bigthyblues.github.io,localhost"
+# Hold questions for review until you approve them in the admin dashboard
+MODERATION = "on"
+RATE_LIMIT = "10"
+MAX_BODY_LENGTH = "2000"
+MIN_BODY_LENGTH = "2"
+MAX_AUTHOR_LENGTH = "60"
+
+# Workers AI moderation binding
+[ai]
+binding = "AI_MOD"

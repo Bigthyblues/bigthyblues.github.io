@@ -88,6 +88,16 @@ And you can visit their pages, learn more about them, and explore their stories.
 
 More site links to be added in the future!
 
+## Ask me something
+
+Want to know more about me or the Voxel World? **Feel free to leave your questions below!**
+
+I’ll pick some of them and do my best to answer them.
+
+[ask-box]
+
+Please keep your messages **kind and respectful.** Unfriendly or spammy submissions may be filtered out before they reach me.
+
 ## Share my site
 If you have your own site too and going to recommend it to your friends, **these codes below would be helpful for you:**
 

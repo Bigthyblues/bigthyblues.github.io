@@ -1,0 +1,5 @@
+{
+  "endpoint": "https://ziscus-ask.bigthyblues.workers.dev",
+  "ssg": "astro",
+  "theme": "light"
+}

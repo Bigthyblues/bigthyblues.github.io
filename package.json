@@ -16,12 +16,19 @@
     "predev": "node tools/generate-gallery-thumbnails.mjs",
     "prebuild": "node tools/generate-gallery-thumbnails.mjs",
     "prepreview": "node tools/generate-gallery-thumbnails.mjs",
-    "manage:posts": "node tools/post-manager.mjs"
+    "manage:posts": "node tools/post-manager.mjs",
+    "ziscus:deploy": "wrangler deploy --config ziscus/wrangler.toml",
+    "ziscus:dashboard": "ziscus dashboard",
+    "ziscus:ai-mod": "ziscus ai-mod enable --wrangler ziscus/wrangler.toml"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "astro": "^5.0.0",
     "typescript": "^5.5.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260831.1",
+    "wrangler": "^4.127.1",
+    "ziscus": "^0.7.0"
+  }
 }

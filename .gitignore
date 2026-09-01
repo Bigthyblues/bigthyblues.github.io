@@ -1,10 +1,17 @@
-﻿node_modules/
+node_modules/
 dist/
 .astro/
 .tmp/
 astro-preview.log
 src/pages/editor.astro
 src/pages/manager.astro
+
+# Ziscus / Cloudflare local secrets & cache
+.env
+.env.*
+!.env.example
+.wrangler/
+ziscus/.wrangler/
 
 # Local source exports and review-only material
 *.lnk
@@ -24,5 +31,8 @@ local-only/
 dev.bat
 refresh-thumbnails.bat
 review-posts.bat
-
+.env
 MEDIA_REPLACEMENT_LIST.md
+Untitled
+src/components/Ziscus.astro
+.github/workflows/rebuild-comments.yml

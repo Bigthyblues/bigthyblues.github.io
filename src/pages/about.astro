@@ -1,7 +1,10 @@
-﻿---
+---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AskBox from "../components/AskBox.astro";
 import aboutRaw from "../content/about/about.md?raw";
 import bluesAvatar from "../content/about/image/blues ava.png";
+
+const ASK_BOX_MARKER = "[ask-box]";
 
 type Section = {
   title: string;
@@ -238,7 +241,13 @@ const remainingSections = sections.slice(2);
             <h2 id={titleId("about", section.title)} set:html={renderInline(section.title)} />
           </header>
           <div class="about-copy">
-            {section.blocks.map((block) => <Fragment set:html={renderBlock(block)} />)}
+            {section.blocks.map((block) => (
+              block.trim() === ASK_BOX_MARKER ? (
+                <AskBox />
+              ) : (
+                <Fragment set:html={renderBlock(block)} />
+              )
+            ))}
           </div>
         </section>
       ))}
@@ -251,7 +260,9 @@ const remainingSections = sections.slice(2);
         </header>
         <div class="about-copy">
           {section.blocks.map((block) => (
-            section.title === "Share my site" && isCodeBlock(block) ? (
+            block.trim() === ASK_BOX_MARKER ? (
+              <AskBox />
+            ) : section.title === "Share my site" && isCodeBlock(block) ? (
               <div class="about-site-code">
                 <a class="about-site-button" href="https://www.bigthyblues.xyz/" aria-label="Bigthyblues website">
                   <img src="/img/social/Sitelogo.gif" alt="Bigthyblues website" />

@@ -1,0 +1,107 @@
+---
+interface Props {
+  slug?: string;
+  submitUrl?: string;
+}
+
+const {
+  slug = "about-ask",
+  submitUrl = import.meta.env.PUBLIC_ZISCUS_SUBMIT_URL as string | undefined
+} = Astro.props;
+
+const configured = Boolean(submitUrl?.trim());
+const action = configured ? submitUrl!.trim() : "#";
+---
+
+<div class="ask-box" id="ask-box" data-ask-box>
+  <p class="ask-box-thanks" role="status" data-ask-thanks hidden>
+    Got it! Your question has been send to Blues now!
+  </p>
+
+  <form
+    class="ask-box-form"
+    method="POST"
+    action={action}
+    target="ask-submit-target"
+    data-ask-form
+    data-configured={configured ? "true" : "false"}
+  >
+    <input type="hidden" name="slug" value={slug} />
+
+    <label class="ask-box-field ask-box-name">
+      <span class="visually-hidden">Name (optional)</span>
+      <input
+        type="text"
+        name="author"
+        maxlength="60"
+        autocomplete="nickname"
+        placeholder="Your name (optional)"
+        data-ask-author
+      />
+    </label>
+
+    <label class="ask-box-field ask-box-question">
+      <span class="visually-hidden">Your question</span>
+      <textarea
+        name="body"
+        rows="5"
+        maxlength="2000"
+        placeholder="What would you like to ask?"
+        data-ask-body
+      ></textarea>
+    </label>
+
+    <button class="ask-box-submit" type="submit" disabled={!configured}>
+      Send to Blues now!
+    </button>
+  </form>
+
+  <iframe name="ask-submit-target" title="Question submission" hidden></iframe>
+
+  {
+    !configured && (
+      <p class="ask-box-setup-note">
+        The ask box is almost ready — Blues is still plugging in the mailbox. Please check back soon!
+        {
+          import.meta.env.DEV && (
+            <>
+              {" "}
+              <span class="ask-box-dev-hint">
+                (dev) set <code>PUBLIC_ZISCUS_SUBMIT_URL</code> in <code>.env</code>
+              </span>
+            </>
+          )
+        }
+      </p>
+    )
+  }
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-ask-form]");
+  const authorInput = document.querySelector<HTMLInputElement>("[data-ask-author]");
+  const questionInput = document.querySelector<HTMLTextAreaElement>("[data-ask-body]");
+  const thanks = document.querySelector<HTMLElement>("[data-ask-thanks]");
+
+  form?.addEventListener("submit", (event) => {
+    if (form.dataset.configured !== "true") {
+      event.preventDefault();
+      return;
+    }
+
+    if (!questionInput?.value.trim()) {
+      event.preventDefault();
+      window.alert("Hmmm... Maybe you forget to write something in the box.");
+      questionInput?.focus();
+      return;
+    }
+
+    // Ziscus requires an author value; empty optional names become Anonymous.
+    if (authorInput && !authorInput.value.trim()) {
+      authorInput.value = "Anonymous";
+    }
+
+    form.hidden = true;
+    if (thanks) thanks.hidden = false;
+  });
+</script>
