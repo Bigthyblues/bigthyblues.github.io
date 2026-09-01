@@ -291,7 +291,7 @@ const types = ["image", "video", "fanart"];
                 ) : (
                   <h3>{post.displayTitle ?? post.title}</h3>
                 )}
-                  <time datetime={post.dateISO}>{post.dateLabel}</time>
+                  <time datetime={post.dateISO} data-local-time>{post.dateLabel}</time>
                 </div>
               </article>
             ))}

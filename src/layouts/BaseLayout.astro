@@ -30,6 +30,18 @@ const {
   </head>
   <body id={bodyId}>
     <slot />
+    <script is:inline>
+      (() => {
+        const padTime = (value) => String(value).padStart(2, "0");
+
+        document.querySelectorAll("time[data-local-time]").forEach((element) => {
+          const date = new Date(element.dateTime);
+          if (Number.isNaN(date.valueOf())) return;
+
+          element.textContent = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}, ${padTime(date.getHours())}:${padTime(date.getMinutes())}`;
+        });
+      })();
+    </script>
   </body>
 </html>
 

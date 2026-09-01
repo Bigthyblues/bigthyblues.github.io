@@ -159,17 +159,21 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreia6iermsknaoyme6zbv7ljyoukzgdu4isvijk3glowcjpucfzdbcu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreialxrq2ven3gl6ndn7d4nhq2lis4z6cg253xwlhq56s7b4us4agv4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreic7oivealvamekxat3toyvhevjlh2e72dqkzw3z5u54ntnltlrp4mr.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicvjbspgoa7ixcnotsqepett6vubfx3zh2obcqgwyndpaysgs4vwq.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreid5gxp4xh2k3c5kp6yafmc35qv6me5ouf72nyqk5v6fkhvgdns3vi.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreidbbict73vafmspfq2vix56vt77tgcxeyaezherapodbchhm2caem.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidojxws2cn4slbvylvvu3dz7bx7fidnkcas3qpr5pzw4jur4gfqvi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreiduai6hsmoweldonl4kweemvezkxzvsx5f5fg5eapspywegqi7dca.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreie6jvyxcsge5rwileeq5aq5uwjrnek6j3oscehvwl7ejovwe2jjr4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreieofgo5g5plkang5jggfmfx25u4na53ttjl7pfyc2mbduswrpjzwmb.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreifs3atghlnououmcke3qtjly3gq2xi2ga66u32xu7xpgddkbo4nxa.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreighmwv5wnz33kqn37mi7o3puc3hyoosw6n5p5shjvlmejv264ry4q.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreigmgobrh76r5mjlax7orcn6c6ijthmbo4q3ba2rtghycbfoek55qa.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreigywpx6e2zrzh5c63vfdzivczzjhp65i6x5wkuzaefcvup4lr4u6e.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreih35xeyaqrg6p4s6mlomd5wjynrqozcr5lzitqajhgdn66y3pnqt4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreihdwecgtwcbomj6ncuz6w7hrrpxy3bi32aien4rktjrgg5245ij2qb.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreihx2k7man4n427fcew767pg7ynarurrvfe55jcbj4c6qbkykccfpy.jpg.webp",
   "/img/thumbs/gallery/fanart/blue_fizzfurrycommission.png.webp",
   "/img/thumbs/gallery/fanart/blue_fizzogcommission.png.webp",
@@ -1032,4 +1036,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtip3kma.xz8";
+export const galleryThumbnailVersion = "mtisaxyu.18";

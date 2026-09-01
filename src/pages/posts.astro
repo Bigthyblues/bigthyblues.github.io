@@ -372,7 +372,7 @@ const types = ["image", "video", "text", "fanart"];
         >
           <header class="post-card-header">
             <h1>{post.title}</h1>
-            <time datetime={post.dateISO}>{post.dateLabel}</time>
+            <time datetime={post.dateISO} data-local-time>{post.dateLabel}</time>
             <p class="post-character-line">{post.characterLabel}</p>
           </header>
           {post.video && (
