@@ -141,6 +141,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/HNX_VmaWQAATr5f.jpg.webp",
   "/img/thumbs/gallery/fanart/HPDj4g3WIAAVZ9-.jpg.webp",
   "/img/thumbs/gallery/fanart/HPKlhk6a0AAfaT5.jpg.webp",
+  "/img/thumbs/gallery/fanart/HROS5IzXYAIxC8G.jpg.webp",
   "/img/thumbs/gallery/fanart/I7T3vKhe17j1hXQ9rKSXrJTtdxYr4VfrcAUJN4nPgp458LqhKzEhJQEq6IX1.png.webp",
   "/img/thumbs/gallery/fanart/JMvIn1v4oDUIvw9HYyPxxHuHSGb9fi89JkmQh94ex9wTJ5R9Suac53jSNrnk.png.webp",
   "/img/thumbs/gallery/fanart/LA1Vpo7AuMebDVXDZpYkVYKBQCqcHTzO3abJDjVcBph3LthwmhGN5R2nkGe8.jpeg.webp",
@@ -158,16 +159,19 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/as48HcQQ86FhOwehE4MBN2SIEqmq6c8wtdCjI7LAhrnhSrXYe8vw1PITWTjc.png.webp",
   "/img/thumbs/gallery/fanart/bafkreia6iermsknaoyme6zbv7ljyoukzgdu4isvijk3glowcjpucfzdbcu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreialxrq2ven3gl6ndn7d4nhq2lis4z6cg253xwlhq56s7b4us4agv4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreiank2l5pu6gyqolcdh2j36uiiubzcszmkvnccqd4qpm63gsdj5c3a.png.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreiba4fll2s5j4v3vwvop22yrklyguszubfbwmmszceu6fluwpcidse.png.webp",
   "/img/thumbs/gallery/fanart/bafkreic7oivealvamekxat3toyvhevjlh2e72dqkzw3z5u54ntnltlrp4mr.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicvjbspgoa7ixcnotsqepett6vubfx3zh2obcqgwyndpaysgs4vwq.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreid5gxp4xh2k3c5kp6yafmc35qv6me5ouf72nyqk5v6fkhvgdns3vi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidbbict73vafmspfq2vix56vt77tgcxeyaezherapodbchhm2caem.jpg.webp",
-  "/img/thumbs/gallery/fanart/bafkreidojxws2cn4slbvylvvu3dz7bx7fidnkcas3qpr5pzw4jur4gfqvi.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreidojxws2cn4slbvylvvu3dz7bx7fidnkcas3qpr5pzw4jur4gfqvi.png.webp",
   "/img/thumbs/gallery/fanart/bafkreiduai6hsmoweldonl4kweemvezkxzvsx5f5fg5eapspywegqi7dca.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreie6jvyxcsge5rwileeq5aq5uwjrnek6j3oscehvwl7ejovwe2jjr4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreieofgo5g5plkang5jggfmfx25u4na53ttjl7pfyc2mbduswrpjzwmb.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreifhfpxgnyge6wgxgdtws5uhncl7paptu2t3ygdprck6zewf3a6kem.png.webp",
   "/img/thumbs/gallery/fanart/bafkreifs3atghlnououmcke3qtjly3gq2xi2ga66u32xu7xpgddkbo4nxa.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreighmwv5wnz33kqn37mi7o3puc3hyoosw6n5p5shjvlmejv264ry4q.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreigmgobrh76r5mjlax7orcn6c6ijthmbo4q3ba2rtghycbfoek55qa.jpg.webp",
@@ -1036,4 +1040,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtisaxyu.18";
+export const galleryThumbnailVersion = "mtls242s.eah";
