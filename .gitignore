@@ -36,3 +36,4 @@ MEDIA_REPLACEMENT_LIST.md
 Untitled
 src/components/Ziscus.astro
 .github/workflows/rebuild-comments.yml
+docs/
