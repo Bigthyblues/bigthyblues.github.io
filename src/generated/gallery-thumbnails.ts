@@ -60,6 +60,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/AF26/wSzpGtAxJsHJMeMDOqR7eh9ykksxWWcAYiY63ZeWs1ZmHk2y3UTPJ5FSlMl6.png.webp",
   "/img/thumbs/gallery/AF26/xkyztUIMYTv98S9C6ca83lT6K1mDf5Rahkb83VFIyaLHD6pYzdXgvJBZ06kT.png.webp",
   "/img/thumbs/gallery/Bluesbanner.png.webp",
+  "/img/thumbs/gallery/Bluesref4.png.webp",
   "/img/thumbs/gallery/Bluestransform.png.webp",
   "/img/thumbs/gallery/Cooling down.mp4.webp",
   "/img/thumbs/gallery/Dex.png.webp",
@@ -71,6 +72,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing woof.png.webp",
   "/img/thumbs/gallery/Fizz meowing asset/喵一下 中文.png.webp",
   "/img/thumbs/gallery/Fizz meowing.png.webp",
+  "/img/thumbs/gallery/Fizzref3.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Glupandfriends.png.webp",
   "/img/thumbs/gallery/Graduated.png.webp",
@@ -85,6 +87,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Zippy generation.png.webp",
   "/img/thumbs/gallery/Zippy ref.png.webp",
   "/img/thumbs/gallery/bandanawoofs.png.webp",
+  "/img/thumbs/gallery/blockyguide2.png.webp",
   "/img/thumbs/gallery/bluesradio.png.webp",
   "/img/thumbs/gallery/dexdoodle.png.webp",
   "/img/thumbs/gallery/doggietunes.png.webp",
@@ -150,6 +153,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/SPOILER_image.png.webp",
   "/img/thumbs/gallery/fanart/SQQXPFcZegTpsGncaKjMAek57XD9NFGvxZRGd8RRhpD54bMdcbXeIqkmWhgs.jpg.webp",
   "/img/thumbs/gallery/fanart/Sym-2026-06-22.png.webp",
+  "/img/thumbs/gallery/fanart/Untitled917_20260902002531.png.webp",
   "/img/thumbs/gallery/fanart/VVXWymzyeIL7OqV1UyryVc4jILR5ZjM3pVespJzU3VXXnCDXoNmWRw40hpho.png.webp",
   "/img/thumbs/gallery/fanart/WPQVBhmuePrw4hJZeWBOR7kGPql4Tzxb7cJB26Hzhf8VdGLL4IMJs9CkOHQy.png.webp",
   "/img/thumbs/gallery/fanart/ZhZwbKTxSCbEW4rUXhvDVbaOLTmEEKhMnbpvdx7aBnssDzmiJRe3Y50SP7cC.jpeg.webp",
@@ -1040,4 +1044,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtls242s.eah";
+export const galleryThumbnailVersion = "mtnp9lio.d1";
