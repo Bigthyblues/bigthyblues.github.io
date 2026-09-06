@@ -194,6 +194,10 @@ const types = ["image", "video", "fanart"];
           </div>
           <div class="fanart-toggle-section" aria-label="Include fanart filter">
             <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+          <div class="gallery-display-options">
+            <button class="fanart-toggle is-active" type="button" data-display-toggle="squareThumbnails" aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Square grid</span></button>
+            <button class="fanart-toggle is-active" type="button" data-display-toggle="showTitles" aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Show title</span></button>
+          </div>
           </div>
         </section>
         <section>
@@ -230,6 +234,10 @@ const types = ["image", "video", "fanart"];
         </div>
         <div class="fanart-toggle-section" aria-label="Include fanart filter">
           <button class="fanart-toggle is-active" type="button" data-fanart-toggle aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Include fanart</span></button>
+          <div class="gallery-display-options">
+            <button class="fanart-toggle is-active" type="button" data-display-toggle="squareThumbnails" aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Square grid</span></button>
+            <button class="fanart-toggle is-active" type="button" data-display-toggle="showTitles" aria-pressed="true"><span class="fanart-check" aria-hidden="true"></span><span>Show title</span></button>
+          </div>
         </div>
       </section>
     </aside>
@@ -366,7 +374,9 @@ const types = ["image", "video", "fanart"];
       year: "all",
       month: "all",
       query: "",
-      showFanart: true
+      showFanart: true,
+      squareThumbnails: true,
+      showTitles: true
     };
     const lightbox = document.querySelector("[data-media-lightbox]");
     const mediaStage = document.querySelector("[data-media-stage]");
@@ -379,6 +389,8 @@ const types = ["image", "video", "fanart"];
       value === "character" || value === "type" || value === "year" || value === "month";
     const filterGroups: FilterGroup[] = ["character", "type", "year", "month"];
     const filterStateKey = "bigthyblues:gallery:filter-state";
+    const preferencesKey = "bigthyblues:gallery:preferences";
+    const preferenceKeys = ["showFanart", "squareThumbnails", "showTitles"] as const;
     const filterStateTtl = 30 * 60 * 1000;
 
     function isValidFilterValue(group: FilterGroup, value: string) {
@@ -395,7 +407,35 @@ const types = ["image", "video", "fanart"];
       }
     }
 
+    function syncDisplayOptions() {
+      root?.classList.toggle("full-thumbnails", !filters.squareThumbnails);
+      root?.classList.toggle("hide-captions", !filters.showTitles);
+      root?.querySelectorAll<HTMLButtonElement>("[data-display-toggle]").forEach((button) => {
+        const active = button.dataset.displayToggle === "squareThumbnails" ? filters.squareThumbnails : filters.showTitles;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    }
+
+    function restorePreferences() {
+      try {
+        const preferences = JSON.parse(window.localStorage.getItem(preferencesKey) ?? "{}");
+        for (const key of preferenceKeys) {
+          if (typeof preferences?.[key] === "boolean") filters[key] = preferences[key];
+        }
+      } catch {
+        // Keep defaults if storage is unavailable or invalid.
+      }
+    }
+
     function saveFilterState() {
+      try {
+        window.localStorage.setItem(preferencesKey, JSON.stringify(
+          Object.fromEntries(preferenceKeys.map((key) => [key, filters[key]]))
+        ));
+      } catch {
+        // Keep controls usable when persistent storage is unavailable.
+      }
       try {
         window.sessionStorage.setItem(filterStateKey, JSON.stringify({ savedAt: Date.now(), filters }));
       } catch {
@@ -423,7 +463,6 @@ const types = ["image", "video", "fanart"];
         }
 
         if (typeof savedFilters.query === "string") filters.query = savedFilters.query;
-        if (typeof savedFilters.showFanart === "boolean") filters.showFanart = savedFilters.showFanart;
         if (search instanceof HTMLInputElement) search.value = filters.query;
         syncSearchClear();
         syncFilterButtons();
@@ -467,6 +506,11 @@ const types = ["image", "video", "fanart"];
         if (!(media instanceof HTMLImageElement || media instanceof HTMLVideoElement || media instanceof HTMLIFrameElement)) return;
         const src = media.dataset.mediaSrc;
         if (!src || media.getAttribute("src") === src) return;
+        if (media instanceof HTMLImageElement) {
+          media.addEventListener("load", () => {
+            media.style.setProperty("--thumbnail-ratio", String(media.naturalWidth / media.naturalHeight));
+          }, { once: true });
+        }
         media.setAttribute("src", src);
       });
     }
@@ -753,6 +797,15 @@ const types = ["image", "video", "fanart"];
         return;
       }
 
+      const displayToggle = target.closest<HTMLButtonElement>("[data-display-toggle]");
+      const displayKey = displayToggle?.dataset.displayToggle;
+      if (displayKey === "squareThumbnails" || displayKey === "showTitles") {
+        filters[displayKey] = !filters[displayKey];
+        syncDisplayOptions();
+        saveFilterState();
+        return;
+      }
+
       const fanartToggle = target.closest("[data-fanart-toggle]");
       if (fanartToggle instanceof HTMLButtonElement && filters.type !== "fanart") {
         filters.showFanart = !filters.showFanart;
@@ -835,6 +888,8 @@ const types = ["image", "video", "fanart"];
     });
 
     restoreFilterState();
+    restorePreferences();
+    syncDisplayOptions();
     updateGallery();
   </script>
 </BaseLayout>

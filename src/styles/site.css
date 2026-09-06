@@ -797,6 +797,10 @@ body:has(.home-page) {
   gap: 14px;
 }
 
+.editor-fields [hidden] {
+  display: none;
+}
+
 .editor-fields label,
 .editor-body-label {
   display: grid;
@@ -936,8 +940,12 @@ body:has(.home-page) {
 
 .editor-preview-panel {
   display: grid;
+  align-self: start;
+  align-content: start;
   gap: 18px;
   padding: 18px;
+  position: sticky;
+  top: 18px;
 }
 
 .editor-preview-panel h1 {
@@ -966,6 +974,39 @@ body:has(.home-page) {
   margin: 0 0 12px;
   font-family: var(--font-site);
   font-weight: 400;
+}
+
+.editor-preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid color-mix(in srgb, var(--line) 28%, transparent);
+  color: var(--muted);
+}
+
+.editor-preview-meta span {
+  padding: 2px 8px;
+  border: 2px solid var(--line);
+  background: var(--mint);
+  color: var(--ink);
+}
+
+.editor-preview-excerpt {
+  padding: 9px 11px;
+  background: var(--page-inner, #fff5fa);
+}
+
+.editor-preview-empty {
+  display: grid;
+  min-height: 150px;
+  place-items: center;
+  padding: 16px;
+  border: 2px dashed color-mix(in srgb, var(--line) 55%, transparent);
+  color: var(--muted);
+  text-align: center;
 }
 
 .editor-preview img {
@@ -1170,6 +1211,10 @@ body:has(.home-page) {
 
   .editor-mode-panel {
     grid-template-columns: 1fr;
+  }
+
+  .editor-preview-panel {
+    position: static;
   }
 }
 
@@ -1790,12 +1835,14 @@ body:has(.posts-shell) {
 }
 
 .gallery-thumb {
+  --thumbnail-border-width: 3px;
+  --thumbnail-shadow: 6px 6px 0 rgba(12, 39, 99, 0.205);
   position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   padding: 0;
-  border: 3px solid var(--line);
+  border: var(--thumbnail-border-width) solid var(--line);
   background: rgba(255, 248, 251, 0.92);
   color: var(--ink);
   cursor: zoom-in;
@@ -2057,7 +2104,7 @@ body:has(.gallery-shell) {
 
 /* Gallery cards and captions */
 .gallery-thumb {
-  box-shadow: 6px 6px 0 rgba(12, 39, 99, 0.205);
+  box-shadow: var(--thumbnail-shadow);
 }
 
 .gallery-caption {
@@ -2153,8 +2200,8 @@ body:has(.gallery-shell) {
   max-width: 100%;
 }
 
-.post-card,
-.gallery-item {
+/* Gallery cards must allow thumbnail shadows outside their bounds, even without captions. */
+.post-card {
   content-visibility: auto;
   contain-intrinsic-size: 700px;
 }
@@ -2277,8 +2324,7 @@ body:has(.gallery-shell) {
     max-height: none;
   }
 
-  .post-card,
-  .gallery-item {
+  .post-card {
     contain-intrinsic-size: auto;
   }
 }
@@ -2357,12 +2403,18 @@ body:has(.gallery-shell) {
   flex-direction: column;
 }
 
+/* Reserve the two display controls before scripts or fonts finish loading. */
+.gallery-shell .posts-sidebar-left {
+  --gallery-option-row-height: 30px;
+  --gallery-options-height: calc(2 * var(--gallery-option-row-height) + 12px);
+}
+
 .posts-sidebar-left .character-filter-section {
   min-height: 0;
 }
 
 .posts-sidebar-left .character-filter-section .filter-list {
-  max-height: clamp(430px, 52vh, 660px);
+  max-height: calc(clamp(430px, 52vh, 660px) - var(--gallery-options-height, 0px));
 }
 
 .posts-sidebar-left .type-filter-section {
@@ -4199,6 +4251,14 @@ body:has(.posts-shell) .month-grid button[disabled] {
   cursor: pointer;
 }
 
+.gallery-shell .fanart-toggle:not(.is-active) {
+  border-color: color-mix(in srgb, var(--page-accent) 45%, var(--page-paper));
+}
+
+.gallery-shell .fanart-toggle:not(.is-active):hover {
+  border-color: var(--page-accent);
+}
+
 .fanart-toggle > span:last-child {
   min-width: 0;
   overflow-wrap: anywhere;
@@ -4462,8 +4522,12 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
     font-size: 0.9rem;
   }
 
+  .gallery-shell .posts-sidebar-left {
+    --gallery-option-row-height: 26px;
+  }
+
   .posts-sidebar-left .character-filter-section .filter-list {
-    max-height: clamp(310px, 48vh, 430px);
+    max-height: calc(clamp(310px, 48vh, 430px) - var(--gallery-options-height, 0px));
   }
 
   .post-card {
@@ -4714,4 +4778,42 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   .ask-box-form textarea {
     min-height: 120px;
   }
+}
+
+/* All thumbnail ratios share the same border and shadow without transformed edges. */
+.gallery-display-options {
+  display: grid;
+  grid-auto-rows: var(--gallery-option-row-height, auto);
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.gallery-shell.full-thumbnails .gallery-thumb:has(img),
+.gallery-shell.full-thumbnails .gallery-thumb:has(video) {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  contain: none;
+}
+
+.gallery-shell.full-thumbnails .gallery-thumb img,
+.gallery-shell.full-thumbnails .gallery-thumb video {
+  inset: calc(-1 * var(--thumbnail-border-width));
+  margin: auto;
+  /* The unchanged outer border keeps badge anchors identical in both modes. */
+  --thumbnail-space: 100%;
+  width: min(var(--thumbnail-space), calc(var(--thumbnail-space) * var(--thumbnail-ratio, 1)));
+  height: min(var(--thumbnail-space), calc(var(--thumbnail-space) / var(--thumbnail-ratio, 1)));
+  max-width: var(--thumbnail-space);
+  max-height: var(--thumbnail-space);
+  box-sizing: content-box;
+  border: var(--thumbnail-border-width) solid var(--line);
+  box-shadow: var(--thumbnail-shadow);
+  background: #eefee5;
+  object-fit: contain;
+}
+
+.gallery-shell.hide-captions .gallery-caption {
+  display: none;
 }
