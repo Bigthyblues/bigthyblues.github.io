@@ -107,6 +107,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/6fgMchQ8xZlOTMmSZBwM21vkD2Sej7Dj3PJVZeZMkTjwhO8t2hWDP0CuKfb7.png.webp",
   "/img/thumbs/gallery/fanart/8rSkrLaccIvFklY1NHULpWK1Cz3I4op2OFRkNGRURaHDmJG5BpdK0gRMMscD.png.webp",
   "/img/thumbs/gallery/fanart/9Z2AdNCXuMIxjYDmpz2oIqyOb9q13q5MdQgrNbuO0jExqoDt06ZwIFIpy1z1.png.webp",
+  "/img/thumbs/gallery/fanart/Blocky Jamming.png.webp",
   "/img/thumbs/gallery/fanart/EleniPokamon/blues__happy_late_birthday_bigthyblues__by_elenipokamon_dlrvhsm.png.webp",
   "/img/thumbs/gallery/fanart/EleniPokamon/carl__gift_for_bigthyblues__by_elenipokamon_dlrwhx9.png.webp",
   "/img/thumbs/gallery/fanart/EleniPokamon/carl_drinks_his_mug__for_bightlyblues__by_elenipokamon_dm74z2j-375w-2x.jpg.webp",
@@ -169,9 +170,11 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreiba4fll2s5j4v3vwvop22yrklyguszubfbwmmszceu6fluwpcidse.png.webp",
   "/img/thumbs/gallery/fanart/bafkreic7oivealvamekxat3toyvhevjlh2e72dqkzw3z5u54ntnltlrp4mr.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreictkegmkw6yaooqzttofmdvksbm2676vzestlmjjmwilz3ulewp4u.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicvjbspgoa7ixcnotsqepett6vubfx3zh2obcqgwyndpaysgs4vwq.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreid5gxp4xh2k3c5kp6yafmc35qv6me5ouf72nyqk5v6fkhvgdns3vi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidbbict73vafmspfq2vix56vt77tgcxeyaezherapodbchhm2caem.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreidnvzaliws6cldlflrv4x4zh2f3midjjqkb2kkyqbytjpknib3pdm.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidojxws2cn4slbvylvvu3dz7bx7fidnkcas3qpr5pzw4jur4gfqvi.png.webp",
   "/img/thumbs/gallery/fanart/bafkreiduai6hsmoweldonl4kweemvezkxzvsx5f5fg5eapspywegqi7dca.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreie6jvyxcsge5rwileeq5aq5uwjrnek6j3oscehvwl7ejovwe2jjr4.jpg.webp",
@@ -187,6 +190,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/blue_fizzfurrycommission.png.webp",
   "/img/thumbs/gallery/fanart/blue_fizzogcommission.png.webp",
   "/img/thumbs/gallery/fanart/blues.jpg.webp",
+  "/img/thumbs/gallery/fanart/blues_and_skrunk!!.jpg.webp",
   "/img/thumbs/gallery/fanart/dmlk7cw-12443bb1-1ef2-403f-b4e8-6458152b6182.png.webp",
   "/img/thumbs/gallery/fanart/fanart-2024-04-12-gokygoofycat-100-characters-challenge.jpg.webp",
   "/img/thumbs/gallery/fanart/fanart-2024-04-30-gokygoofycat-fanart.jpg.webp",
@@ -1040,9 +1044,10 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
   "/img/thumbs/gallery/summerparty.png.webp",
+  "/img/thumbs/gallery/swapoutfit2.png.webp",
   "/img/thumbs/gallery/tieguys.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtpul0k5.heh";
+export const galleryThumbnailVersion = "mtswgvek.01l";
