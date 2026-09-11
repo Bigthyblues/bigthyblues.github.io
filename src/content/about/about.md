@@ -96,7 +96,7 @@ I’ll pick some of them and do my best to answer them.
 
 [ask-box]
 
-Please keep your messages **kind and respectful.** Unfriendly or spammy submissions may be filtered out before they reach me.
+Please keep your questions **kind and respectful.**
 
 ## Share my site
 If you have your own site too and going to recommend it to your friends, **these codes below would be helpful for you:**

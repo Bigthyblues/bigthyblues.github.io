@@ -9,6 +9,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/2023/cannot go beach.png.webp",
   "/img/thumbs/gallery/2023/headphones problems.png.webp",
   "/img/thumbs/gallery/2023/hello2024.png.webp",
+  "/img/thumbs/gallery/2Blues.png.webp",
   "/img/thumbs/gallery/AF26/4CPchEPJWVIxwaQMVtXjHd6ui3xLW823heK6ukGNNxmLyRzP671WPQqxPrhg.jpg.webp",
   "/img/thumbs/gallery/AF26/4M2KTfoN4uvXUyRIrte5tuVGJfSXytNZgScA852G8XjY8JaoUnKnDZAqskZX.png.webp",
   "/img/thumbs/gallery/AF26/4UxSG2vYvhn2Z4Rn7Sh79inpxEGyAFgLUhBMb3On7ZPkdKCK23A0I8pLIUR3.jpg.webp",
@@ -307,6 +308,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/rST4BPJF3XIF1658MPTfpCPR7jF8aWXJN5WLjic6yDRniHYWzQOOq46wGFrX.jpg.webp",
   "/img/thumbs/gallery/fanart/undefined - Imgur.png.webp",
   "/img/thumbs/gallery/fanart/xaMzTWKluYLBSAoJZXbLdAvTPA6HLuh1WInAHbnIQpniVHdlKbVp1tmg5iEq.png.webp",
+  "/img/thumbs/gallery/fishtailcat.png.webp",
   "/img/thumbs/gallery/fountainencounter.png.webp",
   "/img/thumbs/gallery/free hug.png.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.jpg.webp",
@@ -1043,6 +1045,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/nowatercat.png.webp",
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
+  "/img/thumbs/gallery/specialdoodle.png.webp",
   "/img/thumbs/gallery/summerparty.png.webp",
   "/img/thumbs/gallery/swapoutfit2.png.webp",
   "/img/thumbs/gallery/tieguys.png.webp",
@@ -1050,4 +1053,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mtswgvek.01l";
+export const galleryThumbnailVersion = "mtwgh5dp.xde";
