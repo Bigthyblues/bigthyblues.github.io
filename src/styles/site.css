@@ -940,12 +940,16 @@ body:has(.home-page) {
 
 .editor-preview-panel {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-self: start;
   align-content: start;
   gap: 18px;
   padding: 18px;
   position: sticky;
   top: 18px;
+  max-height: calc(100dvh - 36px);
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .editor-preview-panel h1 {
@@ -956,6 +960,7 @@ body:has(.home-page) {
 
 .editor-preview,
 .editor-output {
+  overflow-wrap: anywhere;
   min-height: 220px;
   margin: 0;
   padding: 14px;
