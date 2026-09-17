@@ -152,6 +152,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/HPDj4g3WIAAVZ9-.jpg.webp",
   "/img/thumbs/gallery/fanart/HPKlhk6a0AAfaT5.jpg.webp",
   "/img/thumbs/gallery/fanart/HROS5IzXYAIxC8G.jpg.webp",
+  "/img/thumbs/gallery/fanart/HSPc0pjXAAAdOkc.jpg.webp",
   "/img/thumbs/gallery/fanart/I7T3vKhe17j1hXQ9rKSXrJTtdxYr4VfrcAUJN4nPgp458LqhKzEhJQEq6IX1.png.webp",
   "/img/thumbs/gallery/fanart/JMvIn1v4oDUIvw9HYyPxxHuHSGb9fi89JkmQh94ex9wTJ5R9Suac53jSNrnk.png.webp",
   "/img/thumbs/gallery/fanart/LA1Vpo7AuMebDVXDZpYkVYKBQCqcHTzO3abJDjVcBph3LthwmhGN5R2nkGe8.jpeg.webp",
@@ -173,11 +174,14 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreiank2l5pu6gyqolcdh2j36uiiubzcszmkvnccqd4qpm63gsdj5c3a.png.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreiba4fll2s5j4v3vwvop22yrklyguszubfbwmmszceu6fluwpcidse.png.webp",
+  "/img/thumbs/gallery/fanart/bafkreic3rtlftxi4fs7crbrbsxrlufzuqfai33tew66fj2bd2kjvwve76m.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreic7oivealvamekxat3toyvhevjlh2e72dqkzw3z5u54ntnltlrp4mr.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicqddil3ql6c5zv7xgc5or74mfuiaubt66mtfdcorjeul7rdaizcq.png.webp",
   "/img/thumbs/gallery/fanart/bafkreictkegmkw6yaooqzttofmdvksbm2676vzestlmjjmwilz3ulewp4u.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreicu26u347nlfxvpytizjwu4gdnnn7kmjg45souyp5h7uir6xg4urq.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicvjbspgoa7ixcnotsqepett6vubfx3zh2obcqgwyndpaysgs4vwq.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreicvs662z6oqqel34oaxkvfzezonmsx4c63alijmcnqdg4ew6k2ocu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreid5gxp4xh2k3c5kp6yafmc35qv6me5ouf72nyqk5v6fkhvgdns3vi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidbbict73vafmspfq2vix56vt77tgcxeyaezherapodbchhm2caem.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreidenrbm52nc4lyxeatjqyvbmkgptoeghnrlhojn2j5qfsso7mw56m.jpg.webp",
@@ -202,6 +206,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/blues.jpg.webp",
   "/img/thumbs/gallery/fanart/blues__by_itkugaaa_dmt855h.png.webp",
   "/img/thumbs/gallery/fanart/blues_and_skrunk!!.jpg.webp",
+  "/img/thumbs/gallery/fanart/blues_the_dog_by_foxlover2002_dmu9qej.png.webp",
   "/img/thumbs/gallery/fanart/dd3bc8e6-3a56-46bc-a952-8473730a874c.png.webp",
   "/img/thumbs/gallery/fanart/dmlk7cw-12443bb1-1ef2-403f-b4e8-6458152b6182.png.webp",
   "/img/thumbs/gallery/fanart/dmlor3p-da446399-f84b-48d9-b2ef-80a6d728aa5d.png.webp",
@@ -1067,4 +1072,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mu25kqth.5p";
+export const galleryThumbnailVersion = "mu4cg8s1.8lr";
