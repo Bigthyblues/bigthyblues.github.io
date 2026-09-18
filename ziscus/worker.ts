@@ -3,7 +3,6 @@ import ziscusWorker from "ziscus/worker";
 interface Env {
   DB: D1Database;
   ADMIN_SECRET?: string;
-  OPENAI_MODERATION_API_KEY?: string;
   ALLOWED_ORIGINS: string;
   MODERATION: string;
   RATE_LIMIT?: string;
@@ -21,21 +20,6 @@ interface Env {
 const home = "https://www.bigthyblues.xyz/";
 const askSlug = "about-ask";
 
-const moderate = async (author: string, body: string, env: Env) => {
-  // OpenAI is optional: service/key failures fall back to Workers AI/Ziscus.
-  if (!env.OPENAI_MODERATION_API_KEY) return true;
-  try {
-    const response = await fetch("https://api.openai.com/v1/moderations", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${env.OPENAI_MODERATION_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "omni-moderation-latest", input: `Author: ${author || "Anonymous"}\nQuestion: ${body}` })
-    });
-    if (!response.ok) return true;
-    const json = await response.json<{ results?: Array<{ flagged?: boolean }> }>();
-    return !json.results?.[0]?.flagged;
-  } catch { return true; }
-};
-
 const privateQuestions = async (request: Request, env: Env) => {
   if (request.headers.get("Authorization") !== `Bearer ${env.ADMIN_SECRET}`) return new Response("Unauthorized", { status: 401 });
   const result = await env.DB.prepare("SELECT author, body, created_at FROM comments WHERE slug = ? AND status = 'approved' ORDER BY created_at DESC").bind(askSlug).all();
@@ -50,10 +34,6 @@ export default {
     const path = new URL(request.url).pathname;
     if (path === "/") return Response.redirect(home, 302);
     if (path === "/about-ask") return privateQuestions(request, env);
-    if (path === "/submit" && request.method === "POST") {
-      const form = await request.clone().formData();
-      if (form.get("slug")?.toString().trim() === askSlug && !await moderate(form.get("author")?.toString().trim() ?? "", form.get("body")?.toString().trim() ?? "", env)) return new Response("This question cannot be accepted.", { status: 403 });
-    }
     return ziscusWorker.fetch(request, env);
   }
 } satisfies ExportedHandler<Env>;
