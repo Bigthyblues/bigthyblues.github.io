@@ -28,7 +28,7 @@ const groupText: Record<CharacterGroup, { title: string; intro: string[]; order:
       "They usually have square or rectangular bodies, with designs inspired by simple blocky shapes. Despite their geometric appearance, they can still move, stretch, and react with the lively energy of classic cartoons.",
       "Through Voxel World's creation system, they may also update or redesign their appearance while keeping their identity. Meet the Blockimals who live, work, explore, and create new stories across Voxel World!"
     ],
-    order: ["Blues", "Fizz", "Lockby", "Carl", "Punk", "Zippy", "Minty", "Rowdy", "Fazer", "Glup"]
+    order: ["Blues", "Fizz", "Lockby", "Carl", "Punk", "Zippy", "Minty", "Rowdy", "Fazer", "Dex", "Glup"]
   },
   cartoon: {
     title: "Cartoons",
@@ -41,7 +41,7 @@ const groupText: Record<CharacterGroup, { title: string; intro: string[]; order:
       "Each of them brings a different art style, personality, culture, and way of life into the community.",
       "Although they are not as deeply connected to Voxel World's system as Blockimals, their creativity and enthusiasm make the world warmer, livelier, and full of unexpected moments. Meet the Cartoon residents who have chosen Voxel World as their new home!"
     ],
-    order: ["Mish", "Rushy", "Zesty", "Verde", "Wisky", "Kyle", "Mopple", "Riff"]
+    order: ["Mish", "Mish Jr.", "Rushy", "Zesty", "Verde", "Wisky", "Kyle", "Mopple", "Riff"]
   }
 };
 
@@ -196,7 +196,7 @@ const profiles = Object.values(profileModules).map((raw) => {
   const group = (data.group || "blocky") as CharacterGroup;
   const icon = data.icon?.trim();
   const ref = data.ref?.trim();
-  const introductionCode = findModule(introductionCodeModules, `Introductions code/${name}`);
+  const introductionCode = findModule(introductionCodeModules, `Introductions code/${name.replace(/\.$/, "")}`);
 
   if (!icon || !ref) {
     throw new Error(`Character profile "${name}" must define public icon and ref paths.`);

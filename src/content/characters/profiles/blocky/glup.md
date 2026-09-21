@@ -17,11 +17,11 @@ Here comes a tiny block... of slime!
 
 I’m Glup, nice to meet you! 💚 is a resident of Voxel World, with a small green blocky slime body, no arms or legs, and a pair of large black headphones. (My most important accessory!) He was accidentally created by Blues but soon became an official resident of Voxel World and began enjoying city life.
 
-Since Glup has no legs, he often rides a skateboard to move around faster. (I wish I am fast enough) Glup is cheerful, laid-back, and friendly, always looking for new adventures around the city.
+Since Glup has no legs, he often rides a skateboard to move around faster. (I wish I am fast enough) Glup is cheerful, laid-back, and friendly, always looking for new adventures around the city with Mish Jr.
 
 He enjoys eating snacks during his trips and listening to hip-hop music through his headphones.
 
-Although he is very small, Glup is clever and often uses creative tricks to solve problems caused by his height.
+Although he is very small, Glup is clever and often uses creative tricks to solve problems caused by his height. And when Mish Jr. is there, he would be a good helper for him!
 
 Glup becomes shy and upset when someone touches his headphones without permission.
 
