@@ -4053,6 +4053,11 @@ body.has-character-modal {
     aspect-ratio: 1;
   }
 
+  .site-copyright {
+    flex-direction: column;
+  }
+
+  .not-found-footer span,
   .home-footer .copyright-line span {
     display: block;
   }
