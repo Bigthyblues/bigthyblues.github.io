@@ -330,6 +330,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/undefined - Imgur.png.webp",
   "/img/thumbs/gallery/fanart/xaMzTWKluYLBSAoJZXbLdAvTPA6HLuh1WInAHbnIQpniVHdlKbVp1tmg5iEq.png.webp",
   "/img/thumbs/gallery/fishtailcat.png.webp",
+  "/img/thumbs/gallery/flyingcats.png.webp",
   "/img/thumbs/gallery/fountainencounter.png.webp",
   "/img/thumbs/gallery/free hug.png.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.jpg.webp",
@@ -1077,4 +1078,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mubkhyw7.ko7";
+export const galleryThumbnailVersion = "mueeo088.ve7";
