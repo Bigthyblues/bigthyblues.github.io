@@ -76,6 +76,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/Fizz meowing asset/Fizz meowing woof.png.webp",
   "/img/thumbs/gallery/Fizz meowing asset/喵一下 中文.png.webp",
   "/img/thumbs/gallery/Fizz meowing.png.webp",
+  "/img/thumbs/gallery/Fizzdoodle.png.webp",
   "/img/thumbs/gallery/Fizzref3.png.webp",
   "/img/thumbs/gallery/Freecat!.png.webp",
   "/img/thumbs/gallery/Glupandfriends.png.webp",
@@ -187,6 +188,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/a_fanart_of_blues_and_fizz_by_bluelovefox140_dm8abms-pre.jpg.webp",
   "/img/thumbs/gallery/fanart/as48HcQQ86FhOwehE4MBN2SIEqmq6c8wtdCjI7LAhrnhSrXYe8vw1PITWTjc.png.webp",
   "/img/thumbs/gallery/fanart/bafkreia6iermsknaoyme6zbv7ljyoukzgdu4isvijk3glowcjpucfzdbcu.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreiacynwwiva6gscwrjcfgcnmjol3eeokzvjjlhnh4tb6pbrehh4lw4.png.webp",
   "/img/thumbs/gallery/fanart/bafkreialxrq2ven3gl6ndn7d4nhq2lis4z6cg253xwlhq56s7b4us4agv4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreiank2l5pu6gyqolcdh2j36uiiubzcszmkvnccqd4qpm63gsdj5c3a.png.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
@@ -1082,6 +1084,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/imported/vaporwavesky.png.webp",
   "/img/thumbs/gallery/mandg.png.webp",
   "/img/thumbs/gallery/meltingblues.png.webp",
+  "/img/thumbs/gallery/nightsinging.png.webp",
   "/img/thumbs/gallery/nowatercat.png.webp",
   "/img/thumbs/gallery/packdoodles.png.webp",
   "/img/thumbs/gallery/site poster.png.webp",
@@ -1094,4 +1097,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "muha8wlk.x5h";
+export const galleryThumbnailVersion = "muljqjb2.jf9";
