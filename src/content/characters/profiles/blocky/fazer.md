@@ -13,7 +13,7 @@ sourcePdf: "../introductions pdf/blocky/Fazer on Toyhouse.pdf"
 
 ## Profile
 
-Hello, Toyhouse! It's Fazer here.
+Hello! It's Fazer here.
 
 Wow, that's an amazing place to show off myself.
 
