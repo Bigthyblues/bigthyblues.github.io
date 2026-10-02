@@ -1095,7 +1095,8 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/tieguys.png.webp",
   "/img/thumbs/gallery/tietypes.png.webp",
   "/img/thumbs/gallery/vacation.png.webp",
+  "/img/thumbs/gallery/verdestyles.png.webp",
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "muoco7k1.e3u";
+export const galleryThumbnailVersion = "mur5now1.e98";
