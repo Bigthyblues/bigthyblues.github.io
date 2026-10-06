@@ -37,3 +37,4 @@ Untitled
 src/components/Ziscus.astro
 .github/workflows/rebuild-comments.yml
 docs/
+temp/

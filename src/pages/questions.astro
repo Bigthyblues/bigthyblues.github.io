@@ -1,0 +1,94 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import AskBox from "../components/AskBox.astro";
+import "../styles/questions.css";
+
+const entries = (await getCollection("questions", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.number - a.data.number);
+const questions = await Promise.all(entries.map(async (entry) => ({
+  data: entry.data,
+  ...(await entry.render())
+})));
+---
+
+<BaseLayout
+  title="Questions | Blues' blocky site"
+  description="Ask Blues something and explore answers from his little blocky world."
+>
+  <main class="about-shell questions-shell">
+    <header class="posts-topbar about-topbar">
+      <a class="site-logo" href="/index.html" aria-label="Bigthyblues home">
+        <img src="/img/webicon.png" alt="" />
+      </a>
+      <h1 class="mobile-page-title">Questions</h1>
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="top-nav" aria-label="Main navigation" data-mobile-menu>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About me</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/posts.html">Posts</a>
+        <a href="/questions.html" aria-current="page">Questions</a>
+        <a href="/characters.html">Characters</a>
+        <a href="/world.html">World</a>
+      </nav>
+    </header>
+
+    <section class="about-card about-text-card" aria-labelledby="questions-title">
+      <header class="about-section-header">
+        <h2 id="questions-title">Ask me something</h2>
+      </header>
+      <div class="about-copy">
+        <p>Want to know more about me or the Voxel World? <strong>Feel free to leave your questions below!</strong></p>
+        <p>I’ll pick some of them and do my best to answer them.</p>
+        <AskBox />
+        <p>Please keep your questions <strong>kind and respectful.</strong></p>
+      </div>
+    </section>
+
+    <header class="about-card answers-heading">
+      <h2>Answered questions</h2>
+      <span data-count>{questions.length} answers</span>
+    </header>
+
+    {questions.map(({ data, Content }, index) => (
+      <article class="about-card post-card question-card" aria-labelledby={`question-${index}`}>
+        <header class="post-card-header">
+          <h2 id={`question-${index}`}>{data.title}</h2>
+          <time datetime={new Date(data.date).toISOString()}>
+            {new Date(data.date).toISOString().slice(0, 10).replaceAll("-", ".")}
+          </time>
+          <p class="post-character-line">{data.author || "Anonymous"}</p>
+        </header>
+        <div class="post-copy">
+          <div class="post-body"><Content /></div>
+          {[...new Set([data.image, ...(data.images || [])].filter(Boolean))].map((image: any) => (
+            <figure class="answer-image">
+              <a href={image} target="_blank" rel="noopener noreferrer">
+                <img src={image} alt={`Illustration for: ${data.title}`} loading="lazy" />
+              </a>
+            </figure>
+          ))}
+        </div>
+      </article>
+    ))}
+
+    {!questions.length && <p class="about-card empty-answers">No answers yet. Check back soon!</p>}
+    <footer class="site-copyright about-copyright">
+      <span>&copy; 2026 Bigthyblues. </span><span>All rights reserved</span>
+    </footer>
+  </main>
+
+  <script>
+    const menu = document.querySelector("[data-mobile-menu]");
+    const toggle = document.querySelector("[data-mobile-menu-toggle]");
+
+    toggle?.addEventListener("click", () => {
+      const isOpen = menu?.classList.toggle("is-open") ?? false;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+  </script>
+</BaseLayout>

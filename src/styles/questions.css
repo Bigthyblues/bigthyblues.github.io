@@ -1,0 +1,77 @@
+﻿/* Questions palette: background, cards, image frames, accents and navigation. */
+body:has(.about-shell.questions-shell:not(.world-shell):not(.characters-shell)) {
+  --page-bg: #ffe49b;
+  --page-paper: rgba(255, 252, 240, 0.95);
+  --page-inner: rgba(255, 254, 247, 0.78);
+  --page-soft: rgba(255, 238, 184, 0.72);
+  --page-accent: #f8d425;
+  --questions-nav: #51423c;
+  --questions-shell: #ffe97a;
+  --questions-nav-active: #f8d425;
+  --questions-count: #666;
+  background: var(--page-bg);
+}
+
+body:has(.questions-shell) .top-nav a {
+  color: var(--questions-nav);
+}
+
+body:has(.questions-shell) .top-nav a[aria-current="page"],
+body:has(.questions-shell) .top-nav a:hover {
+  color: var(--questions-nav-active);
+}
+
+.questions-shell .about-card.answers-heading {
+  background: var(--questions-shell);
+}
+
+.questions-shell .answers-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.questions-shell .answers-heading h2 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.questions-shell .answers-heading span {
+  font-size: 0.9rem;
+  color: var(--questions-count);
+}
+
+.questions-shell .post-card-header h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.questions-shell .answer-image {
+  margin: 18px 0 0;
+  border: 3px solid var(--line);
+  background: var(--page-inner);
+  text-align: center;
+}
+
+.questions-shell .answer-image img {
+  display: block;
+  width: 100%;
+  max-height: 650px;
+  object-fit: contain;
+}
+
+.questions-shell .empty-answers {
+  padding: 18px;
+}
+
+@media (max-width: 700px) {
+  .questions-shell .answers-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+}

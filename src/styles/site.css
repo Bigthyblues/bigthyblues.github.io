@@ -130,6 +130,11 @@ body:has(.home-page) {
   overflow-x: hidden;
 }
 
+body:has(.not-found-shell) {
+  background-color: #e5b5ff;
+  overflow-x: hidden;
+}
+
 .copyright-line {
   line-height: 1.2;
 }
@@ -3246,7 +3251,8 @@ body:has(.about-shell) {
     grid-template-columns: 1fr;
   }
 }
-.world-shell {
+.world-shell,
+.questions-shell {
   width: min(1060px, calc(100vw - 36px));
 }
 
@@ -3307,7 +3313,8 @@ body:has(.about-shell) {
 }
 
 @media (max-width: 900px) {
-  .world-shell {
+  .world-shell,
+  .questions-shell {
     width: min(760px, calc(100vw - 24px));
   }
 
@@ -4460,88 +4467,103 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
 }
 
 /*
- * Compact desktop layout
- *
- * Small notebooks are usually wide enough to miss the tablet breakpoints.
- * The second branch covers short, system-scaled notebook viewports without
- * allowing height alone to turn this layout on for large desktop monitors.
+ * Compact layout for all desktop viewports; mobile/tablet rules end at 900px.
  */
-@media (min-width: 901px) and (max-width: 1440px),
-  (min-width: 1441px) and (max-width: 1600px) and (max-height: 900px) {
+@media (min-width: 901px) {
   .posts-shell,
   .gallery-shell {
-    grid-template-columns: 180px minmax(0, 720px) 190px;
-    gap: 12px;
-    width: min(100%, 1140px);
-    padding: 12px;
+    grid-template-columns: clamp(180px, 14vw, 220px) minmax(0, 760px) clamp(190px, 14vw, 230px);
+    gap: clamp(12px, 1vw, 16px);
+    width: min(100%, 1280px);
+    padding: clamp(12px, 1vw, 16px);
+  }
+
+  .posts-sidebar-right,
+  .posts-feed {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .posts-topbar {
-    min-height: 54px;
+    grid-template-columns: auto minmax(0, 1fr) clamp(180px, 18vw, 240px);
+    min-height: 64px;
     gap: 8px;
     padding: 6px 10px;
   }
 
+  .about-topbar {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
   .site-logo img {
-    width: 42px;
-    height: 42px;
+    width: clamp(42px, 3vw, 50px);
+    height: clamp(42px, 3vw, 50px);
   }
 
   .top-nav {
-    font-size: 1.08rem;
+    font-size: clamp(1rem, 1.2vw, 1.3rem);
+    flex-wrap: nowrap;
   }
 
   .top-nav a {
-    padding-inline: 6px;
+    padding-inline: clamp(4px, 0.4vw, 6px);
   }
 
   .search-box {
-    width: min(100%, 240px);
-    height: 42px;
-    min-height: 42px;
+    grid-column: auto;
+    width: 100%;
+    height: clamp(42px, 3vw, 50px);
+    min-height: clamp(42px, 3vw, 50px);
   }
 
   .search-box .search-icon {
-    flex-basis: 42px;
-    width: 42px;
+    flex-basis: clamp(42px, 3vw, 50px);
+    width: clamp(42px, 3vw, 50px);
   }
 
   .search-box input {
     padding-inline: 8px;
-    font-size: 1.08rem;
+    font-size: clamp(1.08rem, 1.35vw, 1.3rem);
   }
 
   .posts-sidebar {
-    padding: 9px;
+    top: 12px;
+    padding: 12px;
   }
 
   .posts-sidebar h2 {
-    margin-bottom: 6px;
-    font-size: 1.12rem;
+    margin-bottom: 8px;
+    font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   }
 
   .posts-sidebar section + section {
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
   }
 
-  .filter-list button,
-  .month-grid button,
-  .fanart-toggle {
-    min-height: 26px;
-    font-size: 0.9rem;
+  .posts-sidebar .filter-list button,
+  .posts-sidebar .month-grid button {
+    min-height: 30px;
+    font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+  }
+
+  .posts-sidebar .fanart-toggle {
+    min-height: 30px;
+    font-size: clamp(0.98rem, 1.28vw, 1.08rem);
+    gap: 6px;
+    padding-inline: 8px;
   }
 
   .gallery-shell .posts-sidebar-left {
-    --gallery-option-row-height: 26px;
+    --gallery-option-row-height: 30px;
   }
 
   .posts-sidebar-left .character-filter-section .filter-list {
-    max-height: calc(clamp(310px, 48vh, 430px) - var(--gallery-options-height, 0px));
+    max-height: calc(clamp(430px, 32vw, 516px) - var(--gallery-options-height, 0px));
   }
 
   .post-card {
-    padding: 13px;
+    padding: clamp(13px, 1vw, 16px);
   }
 
   .post-card-header {
@@ -4549,13 +4571,13 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   }
 
   .post-card-header h1 {
-    font-size: 1.65rem;
+    font-size: clamp(1.65rem, 2vw, 2rem);
   }
 
   .post-card-header time,
   .post-copy p,
   .empty-posts {
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
   }
 
   .gallery-grid {
@@ -4568,13 +4590,14 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
 
   .about-shell,
   .characters-shell {
-    width: min(1060px, calc(100vw - 24px));
+    width: min(1180px, calc(100vw - 24px));
     gap: 12px;
     padding-top: 12px;
   }
 
-  .world-shell {
-    width: min(980px, calc(100vw - 24px));
+  .world-shell,
+  .questions-shell {
+    width: min(1060px, calc(100vw - 24px));
   }
 
   .about-section-header {
@@ -4584,12 +4607,12 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   .about-intro h1,
   .world-hero .about-section-header h1,
   .characters-intro-card .about-section-header h1 {
-    font-size: 2.4rem;
+    font-size: clamp(2.4rem, 3vw, 2.9rem);
   }
 
   .about-section-header h2,
   .characters-group-title .about-section-header h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.8rem, 2.2vw, 2.15rem);
   }
 
   .about-intro p,
@@ -4600,7 +4623,7 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   .character-modal-profile p,
   .character-modal-profile li,
   .character-modal-profile blockquote {
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
   }
 
   .about-hero,
@@ -4622,11 +4645,11 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   }
 
   .character-tile-name {
-    font-size: 1.7rem;
+    font-size: clamp(1.7rem, 2.1vw, 2rem);
   }
 
   .character-modal-panel {
-    width: min(860px, calc(100vw - 28px));
+    width: min(1030px, calc(100vw - 28px));
     max-height: calc(100dvh - 28px);
   }
 
@@ -4644,8 +4667,8 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
   }
 
   .not-found-shell {
-    --not-found-stage-width: 720px;
-    --not-found-back-width: 180px;
+    --not-found-stage-width: 860px;
+    --not-found-back-width: 216px;
     gap: 10px;
     padding: 12px;
   }

@@ -36,6 +36,18 @@ const loosePageContent = defineCollection({
 
 export const collections = {
   posts,
+  questions: defineCollection({
+    type: "content",
+    schema: z.object({
+      title: z.string(),
+      author: z.string().default("Anonymous"),
+      date: z.date(),
+      number: z.number().int().positive(),
+      image: z.string().optional(),
+      images: z.array(z.string()).optional(),
+      draft: z.boolean().default(false)
+    }).passthrough()
+  }),
   test,
   about: loosePageContent,
   characters: loosePageContent,
