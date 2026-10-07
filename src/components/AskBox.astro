@@ -25,7 +25,6 @@ const action = configured ? submitUrl!.trim() : "#";
     class="ask-box-form"
     method="POST"
     action={action}
-    target="ask-submit-target"
     data-ask-form
     data-configured={configured ? "true" : "false"}
   >
@@ -48,6 +47,7 @@ const action = configured ? submitUrl!.trim() : "#";
       <textarea
         name="body"
         rows="5"
+        minlength="2"
         maxlength="2000"
         placeholder="What would you like to ask?"
         data-ask-body
@@ -59,7 +59,7 @@ const action = configured ? submitUrl!.trim() : "#";
     </button>
   </form>
 
-  <iframe name="ask-submit-target" title="Question submission" hidden></iframe>
+  <p class="ask-box-setup-note" role="alert" data-ask-error hidden></p>
 
   {
     !configured && (
@@ -81,30 +81,52 @@ const action = configured ? submitUrl!.trim() : "#";
 </div>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>("[data-ask-form]");
-  const authorInput = document.querySelector<HTMLInputElement>("[data-ask-author]");
-  const questionInput = document.querySelector<HTMLTextAreaElement>("[data-ask-body]");
-  const thanks = document.querySelector<HTMLElement>("[data-ask-thanks]");
+  document.querySelectorAll<HTMLElement>("[data-ask-box]").forEach((box) => {
+    const form = box.querySelector<HTMLFormElement>("[data-ask-form]");
+    const authorInput = box.querySelector<HTMLInputElement>("[data-ask-author]");
+    const questionInput = box.querySelector<HTMLTextAreaElement>("[data-ask-body]");
+    const thanks = box.querySelector<HTMLElement>("[data-ask-thanks]");
+    const error = box.querySelector<HTMLElement>("[data-ask-error]");
+    const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-  form?.addEventListener("submit", (event) => {
-    if (form.dataset.configured !== "true") {
+    form?.addEventListener("submit", async (event) => {
       event.preventDefault();
-      return;
-    }
+      if (form.dataset.configured !== "true") {
+        return;
+      }
 
-    if (!questionInput?.value.trim()) {
-      event.preventDefault();
-      window.alert("Hmmm... Maybe you forget to write something in the box.");
-      questionInput?.focus();
-      return;
-    }
+      if (!questionInput?.value.trim()) {
+        window.alert("Hmmm... Maybe you forget to write something in the box.");
+        questionInput?.focus();
+        return;
+      }
 
-    // Ziscus requires an author value; empty optional names become Anonymous.
-    if (authorInput && !authorInput.value.trim()) {
-      authorInput.value = "Anonymous";
-    }
+      // Ziscus requires an author value; empty optional names become Anonymous.
+      if (authorInput && !authorInput.value.trim()) {
+        authorInput.value = "Anonymous";
+      }
 
-    form.hidden = true;
-    if (thanks) thanks.hidden = false;
+      if (button?.disabled) return;
+      if (button) button.disabled = true;
+      if (error) error.hidden = true;
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form)
+        });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true) throw new Error(result.error || "Your question could not be sent. Please try again.");
+        form.hidden = true;
+        if (thanks) thanks.hidden = false;
+      } catch {
+        if (error) {
+          error.textContent = "Oh no... Something went wrong while sending the question... Maybe you can try again later.";
+          error.hidden = false;
+        }
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
   });
 </script>

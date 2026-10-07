@@ -9,7 +9,7 @@ type Section = {
 
 const frontmatterMatch = worldRaw.match(/^---\s*([\s\S]*?)\s*---\s*/);
 const frontmatter = frontmatterMatch?.[1] ?? "";
-const markdownBody = worldRaw.replace(/^---[\s\S]*?---\s*/, "").trim();
+const markdownBody = worldRaw.replace(/\r\n?/g, "\n").replace(/^---[\s\S]*?---\s*/, "").trim();
 
 const meta = Object.fromEntries(
   frontmatter

@@ -66,9 +66,7 @@ const questions = await Promise.all(entries.map(async (entry) => ({
           <div class="post-body"><Content /></div>
           {[...new Set([data.image, ...(data.images || [])].filter(Boolean))].map((image: any) => (
             <figure class="answer-image">
-              <a href={image} target="_blank" rel="noopener noreferrer">
-                <img src={image} alt={`Illustration for: ${data.title}`} loading="lazy" />
-              </a>
+              <img src={image} alt={`Illustration for: ${data.title}`} loading="lazy" />
             </figure>
           ))}
         </div>

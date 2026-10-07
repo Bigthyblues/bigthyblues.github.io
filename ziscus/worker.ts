@@ -34,6 +34,23 @@ export default {
     const path = new URL(request.url).pathname;
     if (path === "/") return Response.redirect(home, 302);
     if (path === "/about-ask") return privateQuestions(request, env);
+    if (path === "/submit" && request.method === "POST" && request.headers.get("Accept")?.includes("application/json")) {
+      const origin = request.headers.get("Origin") || "";
+      const headers = new Headers({ "Content-Type": "application/json", "Cache-Control": "no-store", "Vary": "Origin" });
+      const allowedHosts = env.ALLOWED_ORIGINS.split(",").map((host) => host.trim().toLowerCase()).filter(Boolean);
+      try {
+        const host = new URL(origin).hostname.toLowerCase();
+        if (allowedHosts.some((allowed) => host === allowed || host.endsWith("." + allowed))) headers.set("Access-Control-Allow-Origin", origin);
+      } catch {}
+      const slug = (await request.clone().formData()).get("slug")?.toString().trim();
+      if (slug && await env.DB.prepare("SELECT 1 FROM meta WHERE key = ?").bind(`slug_paused:${slug}`).first()) {
+        return new Response(JSON.stringify({ ok: false, error: "Questions are temporarily paused. Please try again later." }), { status: 503, headers });
+      }
+      const response = await ziscusWorker.fetch(request, env);
+      const ok = response.status === 303;
+      const error = ok ? undefined : response.status >= 500 ? "The mailbox is unavailable. Please try again later." : await response.text();
+      return new Response(JSON.stringify({ ok, error }), { status: ok ? 200 : response.status, headers });
+    }
     return ziscusWorker.fetch(request, env);
   }
 } satisfies ExportedHandler<Env>;

@@ -17,7 +17,7 @@ database_id = "6f0c88aa-0f9f-424e-aab2-26bd56bb6be4"
 
 [vars]
 # Comma-separated hosts allowed to POST /submit (no protocol)
-ALLOWED_ORIGINS = "www.bigthyblues.xyz,bigthyblues.xyz,bigthyblues.github.io,localhost"
+ALLOWED_ORIGINS = "www.bigthyblues.xyz,bigthyblues.xyz,bigthyblues.github.io,localhost,127.0.0.1"
 # Hold questions for review until you approve them in the admin dashboard
 MODERATION = "on"
 RATE_LIMIT = "10"
