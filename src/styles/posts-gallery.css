@@ -1795,7 +1795,8 @@ body:has(.gallery-shell) .mobile-filter-panel .fanart-toggle {
     --gallery-option-row-height: 30px;
   }
   .posts-sidebar-left {
-    height: min(720px, calc(100dvh - 64px));
+    /* Keep the list stable when tablet browser controls expand or collapse. */
+    height: min(720px, calc(100svh - 64px));
   }
   .posts-sidebar-left .character-filter-section {
     display: flex;

@@ -937,3 +937,23 @@ body:has(.characters-shell) .character-modal-close {
     padding: 12px;
   }
 }
+
+/* Center narrower content on notebooks; retain large-PC and mobile layouts. */
+@media (min-width: 901px) and (max-width: 1440px),
+  (min-width: 1441px) and (max-width: 1600px) and (max-height: 900px) {
+  .about-shell:not(.world-shell):not(.characters-shell):not(.questions-shell) {
+    width: min(980px, calc(100vw - 48px));
+  }
+
+  .characters-shell {
+    width: min(1000px, calc(100vw - 48px));
+  }
+
+  .world-shell {
+    width: min(900px, calc(100vw - 48px));
+  }
+
+  .character-modal-panel {
+    width: min(820px, calc(100vw - 48px));
+  }
+}
