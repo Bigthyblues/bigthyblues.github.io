@@ -97,6 +97,8 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/autumnpark.png.webp",
   "/img/thumbs/gallery/bandanawoofs.png.webp",
   "/img/thumbs/gallery/blockyguide2.png.webp",
+  "/img/thumbs/gallery/blockyshow.png.webp",
+  "/img/thumbs/gallery/blockyshow2.png.webp",
   "/img/thumbs/gallery/bluesradio.png.webp",
   "/img/thumbs/gallery/dexdoodle.png.webp",
   "/img/thumbs/gallery/doggietunes.png.webp",
@@ -171,6 +173,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/HPKlhk6a0AAfaT5.jpg.webp",
   "/img/thumbs/gallery/fanart/HROS5IzXYAIxC8G.jpg.webp",
   "/img/thumbs/gallery/fanart/HSPc0pjXAAAdOkc.jpg.webp",
+  "/img/thumbs/gallery/fanart/HTesjB_b0AAaiF_.png.webp",
   "/img/thumbs/gallery/fanart/I7T3vKhe17j1hXQ9rKSXrJTtdxYr4VfrcAUJN4nPgp458LqhKzEhJQEq6IX1.png.webp",
   "/img/thumbs/gallery/fanart/JMvIn1v4oDUIvw9HYyPxxHuHSGb9fi89JkmQh94ex9wTJ5R9Suac53jSNrnk.png.webp",
   "/img/thumbs/gallery/fanart/LA1Vpo7AuMebDVXDZpYkVYKBQCqcHTzO3abJDjVcBph3LthwmhGN5R2nkGe8.jpeg.webp",
@@ -191,6 +194,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreiacynwwiva6gscwrjcfgcnmjol3eeokzvjjlhnh4tb6pbrehh4lw4.png.webp",
   "/img/thumbs/gallery/fanart/bafkreialxrq2ven3gl6ndn7d4nhq2lis4z6cg253xwlhq56s7b4us4agv4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreiank2l5pu6gyqolcdh2j36uiiubzcszmkvnccqd4qpm63gsdj5c3a.png.webp",
+  "/img/thumbs/gallery/fanart/bafkreiay65ltmcpuqtmhn2nnp7omwkqz5jgqxvi2xghd6rmfaaidmo7uia.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreib36wyqcuh5sdcvchfocdjzwzwxpo5akshgmptsdrputxg3ujg2e4.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreiba4fll2s5j4v3vwvop22yrklyguszubfbwmmszceu6fluwpcidse.png.webp",
   "/img/thumbs/gallery/fanart/bafkreiberp2ovxxpjdbejjbkrm52b5k6pv74nzrovh3bv2hw4tvqkrbeti.png.webp",
@@ -220,7 +224,9 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreigywpx6e2zrzh5c63vfdzivczzjhp65i6x5wkuzaefcvup4lr4u6e.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreigzuybeolkekxirzubyljgct3t6etherjr6xwlkg3mc3iuvwdsfku.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreih35xeyaqrg6p4s6mlomd5wjynrqozcr5lzitqajhgdn66y3pnqt4.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreihdm6qyjmns2tpfkamxognnotnbdg4v2enksmm5nnwclaofka7wlu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreihdwecgtwcbomj6ncuz6w7hrrpxy3bi32aien4rktjrgg5245ij2qb.jpg.webp",
+  "/img/thumbs/gallery/fanart/bafkreihiw6bw5cnnkipaxpaemkgocfhnz4vp33wxsx2uqrkr6nmsmr7bze.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreihx2k7man4n427fcew767pg7ynarurrvfe55jcbj4c6qbkykccfpy.jpg.webp",
   "/img/thumbs/gallery/fanart/blue_fizzfurrycommission.png.webp",
   "/img/thumbs/gallery/fanart/blue_fizzogcommission.png.webp",
@@ -232,6 +238,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/dd3bc8e6-3a56-46bc-a952-8473730a874c.png.webp",
   "/img/thumbs/gallery/fanart/dmlk7cw-12443bb1-1ef2-403f-b4e8-6458152b6182.png.webp",
   "/img/thumbs/gallery/fanart/dmlor3p-da446399-f84b-48d9-b2ef-80a6d728aa5d.png.webp",
+  "/img/thumbs/gallery/fanart/dmyxnzq-3d6ce73a-ee40-4d38-818c-d9ae5ae3bd34.png.webp",
   "/img/thumbs/gallery/fanart/fanart-2024-04-12-gokygoofycat-100-characters-challenge.jpg.webp",
   "/img/thumbs/gallery/fanart/fanart-2024-04-30-gokygoofycat-fanart.jpg.webp",
   "/img/thumbs/gallery/fanart/fanart-2024-08-01-superwolko2004-fanart.jpg.webp",
@@ -351,6 +358,8 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/flyingcats.png.webp",
   "/img/thumbs/gallery/fountainencounter.png.webp",
   "/img/thumbs/gallery/free hug.png.webp",
+  "/img/thumbs/gallery/hangfox.png.webp",
+  "/img/thumbs/gallery/hugging.png.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.jpg.webp",
   "/img/thumbs/gallery/imported/2023-11-05-0146-don-t-worry-buddy-i-will-come-and-erase-the-hole-403182.png.webp",
   "/img/thumbs/gallery/imported/2023-11-12-0306-he-is-really-a-marathon-master-939076.jpg.webp",
@@ -1099,4 +1108,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mur5now1.e98";
+export const galleryThumbnailVersion = "muyem37v.h8h";
