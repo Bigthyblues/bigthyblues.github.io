@@ -953,6 +953,10 @@ body:has(.characters-shell) .character-modal-close {
     width: min(900px, calc(100vw - 48px));
   }
 
+  .questions-shell {
+    width: min(860px, calc(100vw - 64px));
+  }
+
   .character-modal-panel {
     width: min(820px, calc(100vw - 48px));
   }

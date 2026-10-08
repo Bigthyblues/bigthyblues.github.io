@@ -1108,4 +1108,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "muyem37v.h8h";
+export const galleryThumbnailVersion = "muyxscwe.crf";
