@@ -5,7 +5,7 @@ body:has(.about-shell.questions-shell:not(.world-shell):not(.characters-shell)) 
   --page-inner: rgba(255, 254, 247, 0.78);
   --page-soft: rgba(255, 238, 184, 0.72);
   --page-accent: #f8d425;
-  --questions-nav: #51423c;
+  --questions-nav: var(--ink);
   --questions-shell: #ffe97a;
   --questions-nav-active: #f8d425;
   --questions-count: #666;
