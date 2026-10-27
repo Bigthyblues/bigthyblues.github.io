@@ -6,7 +6,7 @@ body:has(.about-shell.questions-shell:not(.world-shell):not(.characters-shell)) 
   --page-soft: rgba(255, 238, 184, 0.72);
   --page-accent: #f8d425;
   --questions-nav: var(--ink);
-  --questions-shell: #ffe97a;
+  --questions-shell: #ffeb8a;
   --questions-nav-active: #f8d425;
   --questions-count: #666;
   background: var(--page-bg);
@@ -21,8 +21,8 @@ body:has(.questions-shell) .top-nav a:hover {
   color: var(--questions-nav-active);
 }
 
-.questions-shell .about-card.answers-heading {
-  background: var(--questions-shell);
+.questions-shell .answers-intro .about-copy {
+  background: color-mix(in srgb, var(--questions-shell) 65%, white);
 }
 
 .questions-shell .answers-heading {
@@ -30,13 +30,7 @@ body:has(.questions-shell) .top-nav a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-}
-
-.questions-shell .answers-heading h2 {
-  margin: 0;
-  font-weight: 400;
-  font-size: 2rem;
+  background: var(--questions-shell);
 }
 
 .questions-shell .answers-heading span {

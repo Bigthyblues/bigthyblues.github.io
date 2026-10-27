@@ -2,14 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import AskBox from "../components/AskBox.astro";
+import { renderPostBody } from "../lib/post-markdown";
 import "../styles/questions.css";
 
 const entries = (await getCollection("questions", ({ data }) => !data.draft))
   .sort((a, b) => b.data.number - a.data.number);
-const questions = await Promise.all(entries.map(async (entry) => ({
+const questions = entries.map((entry) => ({
   data: entry.data,
-  ...(await entry.render())
-})));
+  bodyHtml: renderPostBody(entry.body)
+}));
 ---
 
 <BaseLayout
@@ -48,12 +49,19 @@ const questions = await Promise.all(entries.map(async (entry) => ({
       </div>
     </section>
 
-    <header class="about-card answers-heading">
-      <h2>Answered questions</h2>
-      <span data-count>{questions.length} answers</span>
-    </header>
+    <section class="about-card about-text-card answers-intro" aria-labelledby="answers-title">
+      <header class="about-section-header answers-heading">
+        <h2 id="answers-title">Answered questions</h2>
+        <span data-count>{questions.length} answers</span>
+      </header>
+      <div class="about-copy">
+        <p>Your questions will be sent to Blues! I'll answer some of them when I am free. <strong>You can go back later and check my latest answers below!</strong></p>
+        <p>Before asking, remember to check whether someone has already asked me <strong>the same question </strong> before!</p>
+        <p><strong>You can also ask my blocky/cartoon friends too!</strong> Just mention them in your questions!</p>
+      </div>
+    </section>
 
-    {questions.map(({ data, Content }, index) => (
+    {questions.map(({ data, bodyHtml }, index) => (
       <article class="about-card post-card question-card" aria-labelledby={`question-${index}`}>
         <header class="post-card-header">
           <h2 id={`question-${index}`}>{data.title}</h2>
@@ -63,7 +71,7 @@ const questions = await Promise.all(entries.map(async (entry) => ({
           <p class="post-character-line">{data.author || "Anonymous"}</p>
         </header>
         <div class="post-copy">
-          <div class="post-body"><Content /></div>
+          <div class="post-body" set:html={bodyHtml} />
           {[...new Set([data.image, ...(data.images || [])].filter(Boolean))].map((image: any) => (
             <figure class="answer-image">
               <img src={image} alt={`Illustration for: ${data.title}`} loading="lazy" />
