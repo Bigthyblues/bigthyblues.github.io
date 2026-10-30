@@ -9,7 +9,7 @@ excerpt: "NEEEEEEEEEERD"
 fanartSourceUrl: "https://bsky.app/profile/theottomek.bsky.social/post/3luxdmjifks2v"
 fanartArtist: "@Ottomek"
 fanartArtistUrl: "https://bsky.app/profile/theottomek.bsky.social"
-draft: false
+draft: true
 ---
 
 Fanart by @Ottomek.

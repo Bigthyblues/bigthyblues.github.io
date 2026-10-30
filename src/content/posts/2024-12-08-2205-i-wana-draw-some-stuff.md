@@ -9,7 +9,7 @@ excerpt: "Fanart by @frazytheboi."
 fanartSourceUrl: "https://bsky.app/profile/frazytheboi.bsky.social/post/3lcsey5paz22j"
 fanartArtist: "@frazytheboi"
 fanartArtistUrl: "https://bsky.app/profile/frazytheboi.bsky.social"
-draft: false
+draft: true
 ---
 
 Fanart by @frazytheboi.

@@ -9,7 +9,7 @@ excerpt: "Art Fight 2026 + Now here's something fun!"
 fanartSourceUrl: "https://bsky.app/profile/symmetricalifinity.bsky.social/post/3mrblgq7fzk2n"
 fanartArtist: "@symmetricalifinity"
 fanartArtistUrl: "https://bsky.app/profile/symmetricalifinity.bsky.social"
-draft: false
+draft: true
 ---
 
 Fanart by @symmetricalifinity.

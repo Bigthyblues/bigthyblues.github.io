@@ -9,7 +9,7 @@ excerpt: "Fanart by @infernalsparkle."
 fanartSourceUrl: "https://bsky.app/profile/infernalsparkle.bsky.social/post/3ljb3aj46ec2i"
 fanartArtist: "@infernalsparkle"
 fanartArtistUrl: "https://bsky.app/profile/infernalsparkle.bsky.social"
-draft: false
+draft: true
 ---
 
 Fanart by @infernalsparkle.
