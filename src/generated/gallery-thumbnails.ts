@@ -205,7 +205,7 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/fanart/bafkreic3rtlftxi4fs7crbrbsxrlufzuqfai33tew66fj2bd2kjvwve76m.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreic7oivealvamekxat3toyvhevjlh2e72dqkzw3z5u54ntnltlrp4mr.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicbslmgbsdfhoag7lmvryksuotwae6zxi7let36jxa6mw5j5kscxy.jpg.webp",
-  "/img/thumbs/gallery/fanart/bafkreiccnjkolzuq3d3d6gnzmgebpfi4iwom7qlxs5j2hesky4j6yy5tsu.png.webp",
+  "/img/thumbs/gallery/fanart/bafkreiccnjkolzuq3d3d6gnzmgebpfi4iwom7qlxs5j2hesky4j6yy5tsu.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicohntnpah2cr4xtg2npfnjkibjbyjgqopeantfpm5vjznwn3bmzi.jpg.webp",
   "/img/thumbs/gallery/fanart/bafkreicqddil3ql6c5zv7xgc5or74mfuiaubt66mtfdcorjeul7rdaizcq.png.webp",
   "/img/thumbs/gallery/fanart/bafkreictkegmkw6yaooqzttofmdvksbm2676vzestlmjjmwilz3ulewp4u.jpg.webp",
@@ -1130,4 +1130,4 @@ export const galleryThumbnails = new Set<string>([
   "/img/thumbs/gallery/webicon.gif.webp",
   "/img/thumbs/gallery/zippy old.jpg.webp"
 ]);
-export const galleryThumbnailVersion = "mwwiam5a.xqd";
+export const galleryThumbnailVersion = "mwx2po7r";
